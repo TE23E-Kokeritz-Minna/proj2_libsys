@@ -32,4 +32,8 @@ public class Literature {
         this.isAvailable = isAvailable;
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + id + " Title: " +title + " Available? " + isAvailable;  
+    }
 }

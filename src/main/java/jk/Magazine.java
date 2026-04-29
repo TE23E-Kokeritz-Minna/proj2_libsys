@@ -41,4 +41,9 @@ public class Magazine extends Literature {
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
     }
+    @Override
+    public String toString() {
+        
+        return super.toString() + " IssueNr: " + issueNumber + " Category: " + category + " Year: " + publishedYear; 
+    }
 }
