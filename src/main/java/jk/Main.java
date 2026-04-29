@@ -50,7 +50,7 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     IO.println("ERROR: not valid option");
                 } catch (Exception e) {
-                    IO.println("ERROR" + e.getMessage());
+                    IO.println("ERROR: " + e.getMessage());
                 }
      
             }
@@ -60,11 +60,7 @@ public class Main {
                     Type bookListType = new TypeToken<ArrayList<Book>>(){}.getType();
                     String body = getAll(baseURL + "books");
                     allBooks = gson.fromJson(body,bookListType);
-              /*       for (Book book : allBooks) {
-                                        // WHY DONT getTitle() WORK???????????????
-                        IO.println("> " + book.title + " by: " + book.getAuthor());
-                    }
- */
+          
                     break;
                 case 2:
                     IO.println("GET ALL MAGAZINES");
@@ -74,6 +70,33 @@ public class Main {
                     break;
                 case 3:
                     IO.println("WRITE OUT LIT");
+                    String ans = "";
+                    while (true) {
+                        try {
+                            ans = IO.readln("Magazines or Books (M/B): ").toUpperCase().trim();
+                            if(!ans.equals("M") && !ans.equals("B")) throw new IllegalArgumentException();
+                            break;        
+                        }catch(IllegalArgumentException e){
+                            IO.println("ERROR: not valid choice");
+                        }
+                         catch (Exception e) {
+                            IO.println("ERROR: "+ e.getMessage());
+                        }
+                    }
+                    switch (ans) {
+                        case "M":
+                            for (Magazine magazine : allMagazines) {
+                                IO.println("> " + magazine.title + " (" + magazine.getPublishedYear() + ":" + magazine.getIssueNumber() + ")");
+                            }
+                            break;
+                        case "B":
+                            for (Book book : allBooks) {
+                                IO.println("> " + book.title + " by: " + book.getAuthor());
+                            }
+                        default:
+                            break;
+                    }
+
                     break;
                 case 4:
                     IO.println("ADD BOOK");
