@@ -10,12 +10,12 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import kong.unirest.Unirest;
 import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+
 
 public class Main {
     public static void main() {
@@ -25,6 +25,7 @@ public class Main {
 
         boolean on = true;
 
+        //two dynamic arrays
         ArrayList<Book> allBooks = new ArrayList<>();
         ArrayList<Magazine> allMagazines = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class Main {
             IO.println("""
                     ----------------------------
                         1. Get all books
-                        2. Get all Magazine
+                        2. Get all Magazines
                         3. Write out Literature
                         4. Add Book
                         5. Add magazine
@@ -62,7 +63,6 @@ public class Main {
                     }.getType();
                     String body = getAll(baseURL + "books");
                     allBooks = gson.fromJson(body, bookListType);
-
                     break;
                 case 2:
                     IO.println("GET ALL MAGAZINES");
@@ -99,7 +99,6 @@ public class Main {
                             }
                             break;
                     }
-
                     break;
                 case 4:
                     IO.println("ADD BOOK");
@@ -131,6 +130,7 @@ public class Main {
                             IO.println("ERROR: " + e.getMessage());
                         }
                     }
+
                     // TODO GENRE only works with correct capitalization
                     while (true) {
                         try {
@@ -168,6 +168,7 @@ public class Main {
                     allBooks.add(newBook);
                     IO.println(newBook + " is added to the local list ");
                     break;
+                    
                 case 5:
                     IO.println("ADD MAGAZINE");
 
