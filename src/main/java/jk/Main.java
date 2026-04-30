@@ -5,6 +5,12 @@ Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
 
+// TODO
+// - Move main switch cases into seperate functions.
+// - Create function for user input with error handling.
+// - Double check formating.
+// - Comment the code to hell and back.
+
 import com.google.gson.*;
 
 import com.google.gson.reflect.TypeToken;
@@ -168,7 +174,7 @@ public class Main {
                     allBooks.add(newBook);
                     IO.println(newBook + " is added to the local list ");
                     break;
-                    
+
                 case 5:
                     IO.println("ADD MAGAZINE");
 
