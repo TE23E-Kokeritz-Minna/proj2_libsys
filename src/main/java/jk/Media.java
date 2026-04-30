@@ -1,12 +1,14 @@
 package jk;
 
-public class Literature {
+public class Media {
 
     protected String id;
     protected String title;
     protected boolean isAvailable;
 
-    public Literature(String id, String title, boolean isAvailable) {
+    
+
+    public Media(String id, String title, boolean isAvailable) {
         this.id = id;
         this.title = title;
         this.isAvailable = isAvailable;

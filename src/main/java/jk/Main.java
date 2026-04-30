@@ -52,19 +52,21 @@ public class Main {
                 } catch (Exception e) {
                     IO.println("ERROR: " + e.getMessage());
                 }
-     
+
             }
             switch (alt) {
                 case 1:
                     IO.println("GET ALL BOOKS");
-                    Type bookListType = new TypeToken<ArrayList<Book>>(){}.getType();
+                    Type bookListType = new TypeToken<ArrayList<Book>>() {
+                    }.getType();
                     String body = getAll(baseURL + "books");
-                    allBooks = gson.fromJson(body,bookListType);
-          
+                    allBooks = gson.fromJson(body, bookListType);
+
                     break;
                 case 2:
                     IO.println("GET ALL MAGAZINES");
-                    Type magsListType = new TypeToken<ArrayList<Magazine>>(){}.getType();
+                    Type magsListType = new TypeToken<ArrayList<Magazine>>() {
+                    }.getType();
                     body = getAll(baseURL + "magazines");
                     allMagazines = gson.fromJson(body, magsListType);
                     break;
@@ -74,32 +76,96 @@ public class Main {
                     while (true) {
                         try {
                             ans = IO.readln("Magazines or Books (M/B): ").toUpperCase().trim();
-                            if(!ans.equals("M") && !ans.equals("B")) throw new IllegalArgumentException();
-                            break;        
-                        }catch(IllegalArgumentException e){
+                            if (!ans.equals("M") && !ans.equals("B"))
+                                throw new IllegalArgumentException();
+                            break;
+                        } catch (IllegalArgumentException e) {
                             IO.println("ERROR: not valid choice");
-                        }
-                         catch (Exception e) {
-                            IO.println("ERROR: "+ e.getMessage());
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
                         }
                     }
                     switch (ans) {
                         case "M":
                             for (Magazine magazine : allMagazines) {
-                                IO.println("> " + magazine.title + " (" + magazine.getPublishedYear() + ":" + magazine.getIssueNumber() + ")");
+                                IO.println("> " + magazine.title + " (" + magazine.getPublishedYear() + ":"
+                                        + magazine.getIssueNumber() + ")");
                             }
                             break;
                         case "B":
                             for (Book book : allBooks) {
                                 IO.println("> " + book.title + " by: " + book.getAuthor());
                             }
-                        default:
                             break;
                     }
 
                     break;
                 case 4:
                     IO.println("ADD BOOK");
+                    String title = "";
+                    String author = "";
+                    String genre = "";
+                    int pages = -1;
+
+                    while (true) {
+                        try {
+                            title = IO.readln("Write the bookTitle: ");
+                            if (title == null || title.isBlank())
+                                throw new IllegalArgumentException("title is empty");
+                            else
+                                break;
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    while (true) {
+                        try {
+                            author = IO.readln("Write the author: ");
+                            if (author == null || author.isBlank())
+                                throw new IllegalArgumentException("author is empty");
+                            else
+                                break;
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+                    // TODO GENRE only works with correct capitalization
+                    while (true) {
+                        try {
+                            genre = IO.readln("Write the genre: ").trim();
+                            if (genre == null || genre.isBlank())
+                                throw new IllegalArgumentException("author is empty");
+
+                            else if (genre.equals("Crime") || genre.equals("Drama") || genre.equals("Mystery")
+                                    || genre.equals("Adventure") || genre.equals("Romance") || genre.equals("Fantasy")
+                                    || genre.equals("Thriller") || genre.equals("Science Fiction"))
+                                break;
+                            else
+                                throw new IllegalArgumentException("not valid genre");
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    while (true) {
+                        try {
+                            pages = Integer.parseInt(IO.readln("Write nr of Pages: ").trim());
+                            if (pages < 0)
+                                throw new IllegalArgumentException("not valid page number");
+                            else
+                                break;
+                        } catch (NumberFormatException e) {
+                            IO.println("ERROR: not an integer");
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    String id = String.valueOf(allBooks.size());
+                    Book newBook = new Book(id, title, author, genre, pages, true);
+                    allBooks.add(newBook);
+                    IO.println(newBook + " is added to the local list ");
                     break;
                 case 5:
                     IO.println("ADD MAGAZINE");
@@ -114,8 +180,8 @@ public class Main {
 
     }
 
-    private static String getAll(String URL){
-        HttpResponse<String> response; 
+    private static String getAll(String URL) {
+        HttpResponse<String> response;
         try {
             response = Unirest.get(URL).asString();
         } catch (UnirestException e) {
@@ -123,15 +189,13 @@ public class Main {
             return "ERROR: server";
         }
         int status = response.getStatus();
-        if(status != 200){
+        if (status != 200) {
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }
 
         String body = response.getBody();
         return body;
-    }  
-
-
+    }
 
 }

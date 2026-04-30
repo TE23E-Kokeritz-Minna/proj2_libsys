@@ -1,6 +1,6 @@
 package jk;
 
-public class Book extends Literature {
+public class Book extends Media {
 
     private String author;
     private String genre;
@@ -11,10 +11,8 @@ public class Book extends Literature {
         this.author = author;
         this.genre = genre;
         this.pages = pages;
-    
-        this.id = id;
-        this.title = title;
-        this.isAvailable = isAvailable;
+
+        super(id, title, isAvailable);
     }
 
     public String getAuthor() {

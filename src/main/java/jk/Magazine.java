@@ -1,22 +1,20 @@
 package jk;
 
-public class Magazine extends Literature {
+public class Magazine extends Media {
 
     private int issueNumber;
     private String category;
     private int publishedYear;
-
     
-
+ 
     public Magazine(String id, String title, int issueNumber, String category, int publishedYear, boolean isAvailable) {
         this.issueNumber = issueNumber;
         this.category = category;
         this.publishedYear = publishedYear;
         
-        this.id = id;
-        this.title = title;
-        this.isAvailable = isAvailable;
-    }
+        super(id, title, isAvailable);
+    } 
+
 
     public int getIssueNumber() {
         return issueNumber;
@@ -41,6 +39,8 @@ public class Magazine extends Literature {
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
     }
+
+    
     @Override
     public String toString() {
         
