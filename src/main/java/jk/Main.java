@@ -10,6 +10,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import kong.unirest.Unirest;
@@ -169,9 +170,70 @@ public class Main {
                     break;
                 case 5:
                     IO.println("ADD MAGAZINE");
+
+                    title = "";
+                    int issueNumber = -1;
+                    String category = "";
+                    int publishedYear = -1;
+
+                    while (true) {
+                        try {
+                            title = IO.readln("Write the magTitle: ");
+                            if (title == null || title.isBlank())
+                                throw new IllegalArgumentException("title is empty");
+                            else
+                                break;
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    while (true) {
+                        try {
+                            issueNumber = Integer.parseInt(IO.readln("Write the issuNumber: ").trim());
+                            if (issueNumber < 0)
+                                throw new IllegalArgumentException("invalid issueNumber");
+                            else
+                                break;
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+                    while (true) {
+                        try {
+                            category = IO.readln("Write the category: ").trim();
+                            if (category == null || category.isBlank())
+                                throw new IllegalArgumentException("category is empty");
+                            else
+                                break;
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    while (true) {
+                        try {
+                            publishedYear = Integer.parseInt(IO.readln("Write nr of Pages: ").trim());
+                            //TODO: change to localyear 
+                            if (2026-publishedYear < 0)
+                                throw new IllegalArgumentException("not valid year");
+                            else
+                                break;
+                        } catch (NumberFormatException e) {
+                            IO.println("ERROR: not an integer");
+                        } catch (Exception e) {
+                            IO.println("ERROR: " + e.getMessage());
+                        }
+                    }
+
+                    id = String.valueOf(allMagazines.size());
+                    Magazine newMag = new Magazine(id, title, issueNumber, category, publishedYear, on);
+                    allMagazines.add(newMag);
+                    IO.println(newMag + " is added to the local list ");
+
                     break;
                 case 6:
-                    IO.println("CLOSE PROGRAMM");
+                    IO.println("CLOSE PROGRAM");
                     on = false;
                     break;
             }
