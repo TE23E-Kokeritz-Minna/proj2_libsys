@@ -1,19 +1,26 @@
 package jk;
+/* 
+author: Minna Kökeritz 
+Literature class parent to Magazine and Book 
+    contains constructor and getters and setter for title, id and isAvailable
+*/
 
-public class Media {
 
+public class Literature {
+
+    //Variables
     protected String id;
     protected String title;
     protected boolean isAvailable;
 
-    
-
-    public Media(String id, String title, boolean isAvailable) {
+    // Constructors
+    public Literature(String id, String title, boolean isAvailable) {
         this.id = id;
         this.title = title;
         this.isAvailable = isAvailable;
     }
 
+    //GETTERS and SETTERS 
     public String getId() {
         return id;
     }
@@ -34,6 +41,7 @@ public class Media {
         this.isAvailable = isAvailable;
     }
 
+    //TO STRING 
     @Override
     public String toString() {
         return "ID: " + id + " Title: " +title + " Available? " + isAvailable;  
