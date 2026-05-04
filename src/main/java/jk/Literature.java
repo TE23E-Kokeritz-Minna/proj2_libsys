@@ -5,7 +5,6 @@ Literature class parent to Magazine and Book
     contains constructor and getters and setter for title, id and isAvailable
 */
 
-
 public class Literature {
 
     //Variables

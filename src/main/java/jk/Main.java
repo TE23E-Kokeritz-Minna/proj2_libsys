@@ -4,7 +4,6 @@ Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
 
-
 import com.google.gson.*;
 
 import com.google.gson.reflect.TypeToken;
