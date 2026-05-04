@@ -28,6 +28,15 @@ public class Main {
         ArrayList<Book> allBooks = new ArrayList<>();
         ArrayList<Magazine> allMagazines = new ArrayList<>();
 
+    /*     String testALL = Klient.getAll("magazines");
+        String testONE = Klient.getOne("books", 3);
+
+        IO.println(testALL);
+        IO.readln();
+        IO.println(testONE);
+        IO.readln(); */
+
+
         // Menu start
         while (menuOn) {
             // int for Menu choice
@@ -70,7 +79,7 @@ public class Main {
                     Type bookListType = new TypeToken<ArrayList<Book>>() {
                     }.getType();
                     // Gather the json data from other method
-                    String body = getAll(baseURL + "books");
+                    String body = Klient.getAll(baseURL + "books");
                     // Save it to a list
                     allBooks = gson.fromJson(body, bookListType);
                     break;
@@ -82,7 +91,7 @@ public class Main {
                     Type magsListType = new TypeToken<ArrayList<Magazine>>() {
                     }.getType();
                     // Gather the json data from other method
-                    body = getAll(baseURL + "magazines");
+                    body = Klient.getAll(baseURL + "magazines");
                     // save it to a list
                     allMagazines = gson.fromJson(body, magsListType);
                     break;
@@ -274,26 +283,5 @@ public class Main {
     }
 
     // Method for Getting all json data from an URL
-    private static String getAll(String URL) {
-        
-        HttpResponse<String> response;
-        // Get the data 
-        try {
-            response = Unirest.get(URL).asString();
-        } catch (UnirestException e) {
-            IO.println("ERROR (server): " + e.getLocalizedMessage());
-            return "ERROR: server";
-        }
-        // Status 
-        int status = response.getStatus();
-        // send error message if status is not okay 
-        if (status != 200) {
-            IO.println("ERROR: " + status);
-            return "ERROR: status";
-        }
-
-        // return json data 
-        String body = response.getBody();
-        return body;
-    }
+    
 }
