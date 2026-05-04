@@ -32,8 +32,7 @@ public class Klient {
         }
 
         // return json data 
-        String body = response.getBody();
-        return body;
+        return response.getBody();
     }
 
     //getone 
@@ -58,11 +57,29 @@ public class Klient {
         }
 
         // return json data 
-        String body = response.getBody();
-        return body;
+        return response.getBody();
     }
     //post 
     
+    public static String post(String URL, String jsonBody){
+        
+        HttpResponse<String> response;
+
+        try {
+            response = Unirest.post(baseURL + URL).header("Content-Type", "application/json").body(jsonBody).asString();
+        } catch (UnirestException e) {
+           IO.println("ERROR (server): " + e.getLocalizedMessage());
+           return "ERROR: Server";
+        }
+        int status = response.getStatus();
+
+        if(status != 200 && status!= 201){
+            IO.println("ERROR: " + status);
+            return "ERROR: status";
+        }
+        
+        return response.getBody(); 
+    }
     //put 
 
     //delete
