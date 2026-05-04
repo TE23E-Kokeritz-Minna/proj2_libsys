@@ -11,10 +11,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import kong.unirest.Unirest;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
-
 public class Main {
     public static void main() {
 
@@ -79,7 +75,7 @@ public class Main {
                     Type bookListType = new TypeToken<ArrayList<Book>>() {
                     }.getType();
                     // Gather the json data from other method
-                    String body = Klient.getAll(baseURL + "books");
+                    String body = Client.getAll(baseURL + "books");
                     // Save it to a list
                     allBooks = gson.fromJson(body, bookListType);
                     break;
@@ -91,7 +87,7 @@ public class Main {
                     Type magsListType = new TypeToken<ArrayList<Magazine>>() {
                     }.getType();
                     // Gather the json data from other method
-                    body = Klient.getAll(baseURL + "magazines");
+                    body = Client.getAll(baseURL + "magazines");
                     // save it to a list
                     allMagazines = gson.fromJson(body, magsListType);
                     break;

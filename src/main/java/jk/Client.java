@@ -4,7 +4,7 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
 
-public class Klient {
+public class Client {
 
     // base url FINAL
     private static final String baseURL = "http://10.151.168.5:3123/";
@@ -85,7 +85,7 @@ public class Klient {
     public static String put(String URL, int ID, String jsonBody){
         HttpResponse<String> response; 
         try {
-            response = Unirest.put(baseURL + URL + "/" + ID).header("Content-Type", "application/json").body(jsonBody).asString()
+            response = Unirest.put(baseURL + URL + "/" + ID).header("Content-Type", "application/json").body(jsonBody).asString();
         } catch (UnirestException e) {
             IO.println("ERROR (server): " + e.getLocalizedMessage());
             return "ERROR: server";
