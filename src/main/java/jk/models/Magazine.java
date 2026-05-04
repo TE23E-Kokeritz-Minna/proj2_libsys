@@ -1,10 +1,9 @@
-package jk;
+package jk.models;
 /*
 author: Minna Kökeritz
 Magazine class child to Literature
     Contians constructur and getter and setters for issueNumber, category and publishedYear 
 */
-
 
 public class Magazine extends Literature {
 

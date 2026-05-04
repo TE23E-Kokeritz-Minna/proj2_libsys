@@ -1,4 +1,4 @@
-package jk;
+package jk.models;
 
 /* 
 author: Minna Kökeritz 

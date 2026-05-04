@@ -8,6 +8,9 @@ import com.google.gson.*;
 
 import com.google.gson.reflect.TypeToken;
 
+import jk.models.*;
+import jk.system.Client;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -113,14 +116,14 @@ public class Main {
                         case "M":
                             // Write out Magazine with title, year and issue nr
                             for (Magazine magazine : allMagazines) {
-                                IO.println("> " + magazine.title + " (" + magazine.getPublishedYear() + ":"
+                                IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":"
                                         + magazine.getIssueNumber() + ")");
                             }
                             break;
                         case "B":
                             // Write out Books with title author 
                             for (Book book : allBooks) {
-                                IO.println("> " + book.title + " by: " + book.getAuthor());
+                                IO.println("> " + book.getTitle() + " by: " + book.getAuthor());
                             }
                             break;
                     }

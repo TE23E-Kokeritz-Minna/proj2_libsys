@@ -1,4 +1,4 @@
-package jk;
+package jk.models;
 /* 
 author: Minna Kökeritz 
 Literature class parent to Magazine and Book 
