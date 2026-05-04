@@ -80,7 +80,26 @@ public class Klient {
         
         return response.getBody(); 
     }
-    //put 
 
+    //put 
+    public static String put(String URL, int ID, String jsonBody){
+        HttpResponse<String> response; 
+        try {
+            response = Unirest.put(baseURL + URL + "/" + ID).header("Content-Type", "application/json").body(jsonBody).asString()
+        } catch (UnirestException e) {
+            IO.println("ERROR (server): " + e.getLocalizedMessage());
+            return "ERROR: server";
+        }
+
+        int status = response.getStatus();
+
+        if(status != 200 && status != 204){
+            IO.println("ERROR: " + status);
+            return "ERROR: status";
+        }
+
+        return response.getBody();
+    }
+    
     //delete
 }
