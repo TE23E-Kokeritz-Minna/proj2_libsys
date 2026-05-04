@@ -50,7 +50,6 @@ public class Magazine extends Literature {
     //TO STRING
     @Override
     public String toString() {
-        
         return super.toString() + " IssueNr: " + issueNumber + " Category: " + category + " Year: " + publishedYear; 
     }
 }

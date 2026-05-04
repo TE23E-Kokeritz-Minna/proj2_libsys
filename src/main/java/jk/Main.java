@@ -3,7 +3,7 @@ package jk;
 Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
-ö
+
 
 import com.google.gson.*;
 
@@ -23,14 +23,14 @@ public class Main {
         String baseURL = "http://10.151.168.5:3123/";
         Gson gson = new Gson();
 
-        boolean on = true;
+        boolean menuOn = true;
 
         // dynamic local ArrayList for Book and Magazie
         ArrayList<Book> allBooks = new ArrayList<>();
         ArrayList<Magazine> allMagazines = new ArrayList<>();
 
         // Menu start
-        while (on) {
+        while (menuOn) {
             // int for Menu choice
             int alt = -1;
             IO.println("""
@@ -259,14 +259,14 @@ public class Main {
                     id = String.valueOf(allMagazines.size());
 
                     //Creat and add new magazine to list
-                    Magazine newMag = new Magazine(id, title, issueNumber, category, publishedYear, on);
+                    Magazine newMag = new Magazine(id, title, issueNumber, category, publishedYear, true);
                     allMagazines.add(newMag);
                     IO.println(newMag + " is added to the local list ");
                     break;
 
                 case 6:
                     IO.println("CLOSE PROGRAM");
-                    on = false;
+                    menuOn = false;
                     break;
             }
 
