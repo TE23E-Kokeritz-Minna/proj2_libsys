@@ -102,4 +102,21 @@ public class Klient {
     }
     
     //delete
+    public static String put(String URL, int ID){
+        int status; 
+
+        try {
+            status = Unirest.delete(baseURL + URL + "/" + ID).asEmpty().getStatus();
+        } catch (UnirestException e) {
+            IO.println("ERROR (server): " + e.getLocalizedMessage());
+            return "ERROR: server";
+        }
+
+        if(status != 200 && status != 204){
+            IO.println("ERROR: " + status);
+            return "ERROR: status";
+        }
+        return "OK";
+
+    }
 }
