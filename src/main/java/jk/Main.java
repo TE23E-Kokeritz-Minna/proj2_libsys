@@ -9,6 +9,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import jk.models.*;
+import jk.registry.LiteratureRegister;
 import jk.system.Client;
 
 import java.lang.reflect.Type;
@@ -26,6 +27,11 @@ public class Main {
         // dynamic local ArrayList for Book and Magazie
         ArrayList<Book> allBooks = new ArrayList<>();
         ArrayList<Magazine> allMagazines = new ArrayList<>();
+
+        LiteratureRegister litreg = new LiteratureRegister();
+
+        litreg.add(null);
+
 
     /*     String testALL = Klient.getAll("magazines");
         String testONE = Klient.getOne("books", 3);
