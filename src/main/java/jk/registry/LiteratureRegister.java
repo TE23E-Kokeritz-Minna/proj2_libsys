@@ -3,42 +3,44 @@ package jk.registry;
 import java.util.ArrayList;
 
 import jk.models.Literature;
+import jk.models.Magazine;
+import jk.models.Book;
 
-public class LiteratureRegister extends Register<Literature>{
+public class LiteratureRegister extends Register<Literature> {
 
-    public static ArrayList<Literature> register;
+    public ArrayList<Literature> register;
 
-    static{
-        register = new ArrayList<>();
+    public LiteratureRegister() {
+        this.register = new ArrayList<>();
     }
+
     @Override
     public void add(Literature item) {
-        IO.println("HIIIIIIIIII");
-
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        register.add(item);
     }
 
     @Override
     public void remove(Literature item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        register.remove(item);
     }
 
     @Override
     public void writeAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeAll'");
+        for (Literature literature : register) {
+            if (literature instanceof Book) {
+                Book book = (Book) literature;
+                IO.println("> " + book.getTitle() + " by: " + book.getAuthor() + " ID: " + book.getId());
+            } else if (literature instanceof Magazine) {
+                Magazine magazine = (Magazine) literature;
+                IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":" + magazine.getIssueNumber() + ") ID: " + magazine.getId());
+            }
+        }
     }
 
     @Override
     public Literature search(String criteria) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        IO.println("TBC (returns first entry)");
+        return register.getFirst();    
     }
-
-   
-
-    
 
 }

@@ -5,35 +5,33 @@ import java.util.ArrayList;
 import jk.models.SuspendedUser;
 
 public class SuspendedUserRegister extends Register<SuspendedUser>{
-    public static ArrayList<SuspendedUser> register;
+    public ArrayList<SuspendedUser> register;
 
-    static{
+    public SuspendedUserRegister(){
         register = new ArrayList<>();
     }
 
     @Override
     public void add(SuspendedUser item) {
-        // TODO Auto-generated method stub
-        
+        register.add(item);
     }
 
     @Override
     public void remove(SuspendedUser item) {
-        // TODO Auto-generated method stub
+        register.remove(item);
         
     }
 
     @Override
     public SuspendedUser search(String criteria) {
-        // TODO Auto-generated method stub
-        return null;
+        IO.println("TBC (returns first item)");
+        return register.getFirst();
     }
 
     @Override
     public void writeAll() {
-        // TODO Auto-generated method stub
-        
+        for (SuspendedUser suspendedUser : register) {
+            IO.println("> ID: " +  suspendedUser.getId() + " userID: " + suspendedUser.getCustomer_id());   
+        }    
     }
-    
-    //TODO
 }

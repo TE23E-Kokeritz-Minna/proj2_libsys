@@ -6,36 +6,33 @@ import jk.models.User;
 
 public class UserRegister extends Register<User>{
 
-    public static ArrayList<User> register;
+    public ArrayList<User> register;
 
-    static{
+    public UserRegister(){
         register = new ArrayList<>();
     }
 
     @Override
     public void add(User item) {
-        // TODO Auto-generated method stub
-        
+        register.add(item);        
     }
 
     @Override
     public void remove(User item) {
-        // TODO Auto-generated method stub
-        
+        register.remove(item);        
     }
 
     @Override
     public User search(String criteria) {
-        // TODO Auto-generated method stub
-        return null;
+        IO.println("TBC (returns first item)");
+        return register.getFirst();
     }
 
     @Override
     public void writeAll() {
-        // TODO Auto-generated method stub
+        for (User user : register) {
+            IO.println("> name: " + user.getName() + " ID: " + user.getId());
+        }
         
     }
-
-    
-    //TODO
 }

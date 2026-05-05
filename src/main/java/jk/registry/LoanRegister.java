@@ -4,36 +4,32 @@ import java.util.ArrayList;
 import jk.models.Loan;
 
 public class LoanRegister extends Register<Loan>{
-    public static ArrayList<Register> register;
+    public ArrayList<Loan> register;
 
-    static {
+    public LoanRegister(){
         register = new ArrayList<>();
     }
 
     @Override
     public void add(Loan item) {
-        // TODO Auto-generated method stub
-        
+        register.add(item);
     }
 
     @Override
     public void remove(Loan item) {
-        // TODO Auto-generated method stub
-        
+       register.remove(item);
     }
 
     @Override
     public Loan search(String criteria) {
-        // TODO Auto-generated method stub
-        return null;
+        IO.println("TBC (returns first item)");
+        return register.getFirst();
     }
 
     @Override
     public void writeAll() {
-        // TODO Auto-generated method stub
-        
+        for (Loan loan : register) {
+            IO.println("> UserID: " + loan.getUserId() + " LitID: " + loan.getLiteratureId() + " ID: " + loan.getId());
+        }
     }
-
-    
-    //TODO
 }
