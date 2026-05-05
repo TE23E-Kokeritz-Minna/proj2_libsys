@@ -62,24 +62,7 @@ public class LibrarySystem {
                     ----------------------------""");
 
             // User choice
-            while (true) {
-                try {
-                    alt = Integer.parseInt(IO.readln("Chose an Alternative (1-6): ").trim());
-                    // if invalid opption
-                    if (alt < 1 || alt > 6)
-                        throw new IllegalArgumentException();
-                    break;
-                } catch (NumberFormatException e) {
-                    // ERROR message for parse
-                    IO.println("ERROR: not an integer");
-                } catch (IllegalArgumentException e) {
-                    // ERROR message for invalid choice
-                    IO.println("ERROR: not valid option");
-                } catch (Exception e) {
-                    // other ERRORs that can ocur
-                    IO.println("ERROR: " + e.getMessage());
-                }
-            }
+            alt = userInputInt("Chose an Alternative (1-6): ", 1, 6);
             // Switch .case for every alternativ
             switch (alt) {
                 case 1:
@@ -113,5 +96,40 @@ public class LibrarySystem {
                     break;
             }
         }
+    }
+
+    private static String userInputString(String message, String parameter) {
+        String ans = "";
+        while (true) {
+            try {
+                ans = IO.readln(message).trim();
+                if (ans == null || ans.isBlank())
+                    throw new IllegalArgumentException(parameter + " can't be empty");
+                else
+                    break;
+            } catch (Exception e) {
+                IO.println("ERROR: " + e.getMessage());
+            }
+        }
+        return ans;
+    }
+
+    private static int userInputInt(String message, int minimum, int maximum) {
+        int ans = -1;
+        while (true) {
+            try {
+                ans = Integer.parseInt(IO.readln(message).trim());
+                if (ans < minimum || ans > maximum)
+                    throw new IllegalArgumentException(
+                            "invalid option, must be between " + minimum + " and " + maximum);
+                else
+                    break;
+            } catch (NumberFormatException e) {
+                IO.println("ERROR: not an integer");
+            } catch (Exception e) {
+                IO.println("ERROR: " + e.getMessage());
+            }
+        }
+        return ans;
     }
 }
