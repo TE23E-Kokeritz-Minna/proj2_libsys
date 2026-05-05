@@ -17,6 +17,13 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
     }
 
     @Override
+    public void add(ArrayList<? extends SuspendedUser> list) {
+       for (SuspendedUser suspendedUser : list) {
+        this.add(suspendedUser);
+       } 
+    }
+
+    @Override
     public void remove(SuspendedUser item) {
         register.remove(item);
         

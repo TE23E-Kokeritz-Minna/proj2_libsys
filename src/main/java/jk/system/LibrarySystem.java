@@ -1,5 +1,26 @@
 package jk.system;
 
+/* 
+- Hämta alla böcker/tidningar/användare/avstängda och även en enskild
+bok/tidning/användare på server
+
+- Skapa ny bok/tidning/användare/avstängd och lägga upp på server
+
+- Hitta kund med hjälp av email-adress
+
+- Hitta bok/tidning med hjälp av titel
+
+- Ta bort böcker/tidningar/kund/avstängd på server med hjälp av title och ta bort
+på server.
+
+- Ta bort kund med hjälp av email och avstängd med id på server.
+
+- Skriva ut sorterat böcker, tidningar, kunder sorterade på (title) för böcker &amp;
+tidningar och (name) för kunder. Du behöver implementera gränssnittet
+Comparable för detta.
+
+- Avgöra vilka kunder som får låna och inte låna. */
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -7,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import jk.models.Book;
+import jk.models.Literature;
 import jk.models.Magazine;
 import jk.registry.LiteratureRegister;
 import jk.registry.LoanRegister;
@@ -23,29 +45,9 @@ public class LibrarySystem {
     private static UserRegister userReg = new UserRegister();
 
     public static void menu() {
-        // Variable
-        String baseURL = "http://10.151.168.5:3123/";
-        Gson gson = new Gson();
 
         boolean menuOn = true;
-
-        // dynamic local ArrayList for Book and Magazie
-        ArrayList<Book> allBooks = new ArrayList<>();
-        ArrayList<Magazine> allMagazines = new ArrayList<>();
-
-        LiteratureRegister litreg = new LiteratureRegister();
-
-        litreg.add(null);
-
-        /*
-         * String testALL = Klient.getAll("magazines");
-         * String testONE = Klient.getOne("books", 3);
-         * 
-         * IO.println(testALL);
-         * IO.readln();
-         * IO.println(testONE);
-         * IO.readln();
-         */
+        Gson gson = new Gson();
 
         // Menu start
         while (menuOn) {
@@ -53,44 +55,112 @@ public class LibrarySystem {
             int alt = -1;
             IO.println("""
                     ----------------------------
-                        1. Get all books
-                        2. Get all Magazines
-                        3. Write out Literature
-                        4. Add Book
-                        5. Add magazine
-                        6. Close Program
+                        1. Get all (by datatype)
+                        2. Get one (by ID)
+                        3. Add item (by datatype)
+                        4. Remove item (by title)
+                        5. Search (by email or title)
+                        6. Write out sorted (by datatype)
+                        7. Loan capabilities
+                        8. Close Program
                     ----------------------------""");
 
             // User choice
-            alt = userInputInt("Chose an Alternative (1-6): ", 1, 6);
+            alt = userInputInt("Chose an Alternative (1-8): ", 1, 8);
             // Switch .case for every alternativ
             switch (alt) {
                 case 1:
-                    IO.println("GET ALL BOOKS");
+                    IO.println("""
+                            ---------- GET ALL ---------
+                                1. Literature
+                                2.  Book
+                                3.  Magazine
+                                4. SuspendedUsers
+                                5. Users
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-5): ", 1, 5);
+                    switch (alt) {
+                        case 1:
+                            IO.println("GET LIT");
+                            /*
+                             * String bodyBook = Client.getAll("books");
+                             * String bodyMags = Client.getAll("magazines");
+                             * Type litArray = new TypeToken<ArrayList<Book>>() {}.getType();
+                             * litReg = gson.fromJson(null, null)
+                             */
+                            break;
+                        case 2:
+                            IO.println("GET BOOK");
+                            Type bookListType = new TypeToken<ArrayList<Book>>() {
+                            }.getType();
+                            String bodyBook = Client.getAll("books");
+                            ArrayList<Book> listBook = gson.fromJson(bodyBook, bookListType);
+                            litReg.add(listBook);
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            IO.println("GET SUSPENDEDUSER");
+                            break;
+                        case 5:
+                            IO.println("GET USERS");
+                            break;
+                    }
 
                     break;
 
                 case 2:
-                    IO.println("GET ALL MAGAZINES");
-
+                    IO.println("GET ONE");
+                    IO.println("""
+                            ---------- GET ONE ---------
+                                1. Book
+                                2. Magazine
+                                3. SuspendedUsers
+                                4. Users
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
+                    switch (alt) {
+                        case 1:
+                            IO.println("GET BOOK");
+                            break;
+                        case 2:
+                            IO.println("GET MAGAZINE");
+                            break;
+                        case 3:
+                            IO.println("GET SUSPENDEDUSER");
+                            break;
+                        case 4:
+                            IO.println("GET USERS");
+                            break;
+                    }
                     break;
 
                 case 3:
-                    IO.println("WRITE OUT LIT");
+                    IO.println("ADD ITEM");
 
                     break;
 
                 case 4:
-                    IO.println("ADD BOOK");
+                    IO.println("REMOVE ITEM");
 
                     break;
 
                 case 5:
-                    IO.println("ADD MAGAZINE");
+                    IO.println("SEARCH");
 
                     break;
 
                 case 6:
+                    IO.println("WRTIE OUT SORTED");
+                    litReg.writeAll();
+                    break;
+
+                case 7:
+                    IO.println("LOAN CAPABILITES");
+
+                    break;
+
+                case 8:
                     IO.println("CLOSE PROGRAM");
                     menuOn = false;
                     break;

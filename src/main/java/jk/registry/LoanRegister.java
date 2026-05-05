@@ -16,6 +16,13 @@ public class LoanRegister extends Register<Loan>{
     }
 
     @Override
+    public void add(ArrayList<? extends Loan> list) {
+        for (Loan loan : list) {
+            this.add(loan);  
+        }
+    }
+
+    @Override
     public void remove(Loan item) {
        register.remove(item);
     }

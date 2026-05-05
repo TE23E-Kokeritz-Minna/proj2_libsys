@@ -7,11 +7,12 @@ import kong.unirest.UnirestException;
 public class Client {
 
     // base url FINAL
-            // REAL 
-    //private static final String baseURL = "http://10.151.168.5:3123/";
+    // use relevant URL, same except location 
+            // REAL SERVER  
+    private static final String baseURL = "http://10.151.168.5:3123/";
 
-            //TEST
-    private static final String baseURL = "http://localhost:3000/";
+            //HOME SERVER 
+    //private static final String baseURL = "http://localhost:3000/";
 
 
     //getall

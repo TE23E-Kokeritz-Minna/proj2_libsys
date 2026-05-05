@@ -9,14 +9,28 @@ import jk.models.Book;
 public class LiteratureRegister extends Register<Literature> {
 
     public ArrayList<Literature> register;
+    public ArrayList<Book> registerBook;
+    public ArrayList<Magazine> registerMagazine;
 
     public LiteratureRegister() {
-        this.register = new ArrayList<>();
+        register = new ArrayList<>();
+        registerBook = new ArrayList<>();
+        registerMagazine = new ArrayList<>();
     }
 
     @Override
     public void add(Literature item) {
         register.add(item);
+        if(item instanceof Book) registerBook.add((Book)item);
+        if(item instanceof Magazine) registerMagazine.add((Magazine)item);
+    }
+
+    @Override
+    public void add(ArrayList<? extends Literature> list) {
+        for (Literature literature : list) {
+            this.add(literature);
+        } 
+        
     }
 
     @Override

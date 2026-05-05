@@ -1,8 +1,11 @@
 package jk.registry;
 
+import java.util.ArrayList;
+
 public abstract class Register<T>{
 
     public abstract void add(T item);
+    public abstract void add(ArrayList<? extends T> list);
 
     public abstract void remove(T item);
 

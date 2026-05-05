@@ -17,6 +17,14 @@ public class UserRegister extends Register<User>{
         register.add(item);        
     }
 
+    
+    @Override
+    public void add(ArrayList<? extends User> list) {
+        for (User user : list) {
+            this.add(user);
+        }
+    }
+
     @Override
     public void remove(User item) {
         register.remove(item);        
