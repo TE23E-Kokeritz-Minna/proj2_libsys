@@ -36,7 +36,7 @@ public class Loan {
     }
 
 
-    // TODO There might be errors regarding duplicate ids in literature; 
+    // FIXME There might be errors regarding duplicate ids in literature; 
     public String getLiteratureId() {
         return literature.getId();
     }

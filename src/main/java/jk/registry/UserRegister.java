@@ -30,6 +30,7 @@ public class UserRegister extends Register<User>{
         register.remove(item);        
     }
 
+    //TODO
     @Override
     public User search(String criteria) {
         IO.println("TBC (returns first item)");

@@ -8,6 +8,8 @@ import jk.models.Book;
 
 public class LiteratureRegister extends Register<Literature> {
 
+    // NOTE NO REAL REASON WHY REGISTER EXIST
+    //FIXME
     public ArrayList<Literature> register;
     public ArrayList<Book> registerBook;
     public ArrayList<Magazine> registerMagazine;
@@ -21,16 +23,18 @@ public class LiteratureRegister extends Register<Literature> {
     @Override
     public void add(Literature item) {
         register.add(item);
-        if(item instanceof Book) registerBook.add((Book)item);
-        if(item instanceof Magazine) registerMagazine.add((Magazine)item);
+        if (item instanceof Book)
+            registerBook.add((Book) item);
+        if (item instanceof Magazine)
+            registerMagazine.add((Magazine) item);
     }
 
     @Override
     public void add(ArrayList<? extends Literature> list) {
         for (Literature literature : list) {
             this.add(literature);
-        } 
-        
+        }
+
     }
 
     @Override
@@ -46,15 +50,25 @@ public class LiteratureRegister extends Register<Literature> {
                 IO.println("> " + book.getTitle() + " by: " + book.getAuthor() + " ID: " + book.getId());
             } else if (literature instanceof Magazine) {
                 Magazine magazine = (Magazine) literature;
-                IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":" + magazine.getIssueNumber() + ") ID: " + magazine.getId());
+                IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":"
+                        + magazine.getIssueNumber() + ") ID: " + magazine.getId());
             }
         }
     }
 
+    //TODO
     @Override
     public Literature search(String criteria) {
         IO.println("TBC (returns first entry)");
-        return register.getFirst();    
+        return register.getFirst();
+    }
+
+    public ArrayList<Book> getRegisterBook() {
+        return registerBook;
+    }
+
+    public ArrayList<Magazine> getRegisterMagazine() {
+        return registerMagazine;
     }
 
 }

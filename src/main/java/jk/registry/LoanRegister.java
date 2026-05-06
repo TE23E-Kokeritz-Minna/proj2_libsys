@@ -27,6 +27,7 @@ public class LoanRegister extends Register<Loan>{
        register.remove(item);
     }
 
+    //TODO
     @Override
     public Loan search(String criteria) {
         IO.println("TBC (returns first item)");

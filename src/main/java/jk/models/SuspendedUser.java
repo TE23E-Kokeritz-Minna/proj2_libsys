@@ -22,4 +22,9 @@ public class SuspendedUser {
         this.customer_id = customer_id;
     }
 
+    @Override
+    public String toString() {
+        return "SuspendedUser [id=" + id + ", customer_id=" + customer_id + "]";
+    }
+
 }

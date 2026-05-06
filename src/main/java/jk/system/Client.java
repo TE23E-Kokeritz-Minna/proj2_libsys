@@ -6,13 +6,15 @@ import kong.unirest.UnirestException;
 
 public class Client {
 
-    // base url FINAL
-    // use relevant URL, same except location
-    // REAL SERVER
+    // NOTE switch server based on location
+    // REAL / SCHOOL 
     private static final String baseURL = "http://10.151.168.5:3123/";
 
-    // HOME SERVER
+    // TEMP / HOME
     // private static final String baseURL = "http://localhost:3000/";
+
+    // REVIEW is the ERROR codes right maybe something else should be returnd 
+    // check the criticims on catch
 
     // getall
     public static String getAll(String URL) {

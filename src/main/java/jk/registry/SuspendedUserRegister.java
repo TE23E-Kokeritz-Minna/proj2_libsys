@@ -31,6 +31,7 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
 
     @Override
     public SuspendedUser search(String criteria) {
+        //TODO
         IO.println("TBC (returns first item)");
         return register.getFirst();
     }

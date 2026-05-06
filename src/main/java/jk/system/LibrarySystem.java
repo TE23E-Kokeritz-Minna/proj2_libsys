@@ -25,6 +25,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import jk.models.Book;
@@ -38,9 +39,11 @@ import jk.registry.UserRegister;
 
 public class LibrarySystem {
 
-    // ??? WHY STATIC and PRIVATE MAKE GOOD BAD OR SECRET THIRD THING
-
-    // ? why have a Literature list and not book and Magazine.
+    //FIXME get server data upon start? 
+    // ? can help in dublicate ID risk   
+    // REVIEW how to solve id problems and what not
+    
+    // REVIEW why have a Literature list and not book and Magazine.
     private static LiteratureRegister litReg = new LiteratureRegister();
     private static LoanRegister loanReg = new LoanRegister();
     private static SuspendedUserRegister susReg = new SuspendedUserRegister();
@@ -49,7 +52,7 @@ public class LibrarySystem {
     public static void menu() {
 
         boolean menuOn = true;
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Menu start
         while (menuOn) {
@@ -70,18 +73,21 @@ public class LibrarySystem {
             // User choice
             alt = userInputInt("Chose an Alternative (1-8): ", 1, 8);
             // Switch .case for every alternativ
+
+            //NOTE move to different methods mayhaps  
+
             switch (alt) {
                 case 1:
                     IO.println("""
                             ---------- GET ALL ---------
                                 1. Literature
-                                2.  Book
-                                3.  Magazine
+                                2.  Books
+                                3.  Magazines
                                 4. SuspendedUsers
                                 5. Users
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-5): ", 1, 5);
-                    //TODO COULD BE METHODS PLS FIX FUTURE ME
+                    // NOTE COULD BE METHODS PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
@@ -143,15 +149,15 @@ public class LibrarySystem {
                             ---------- GET ONE ---------
                                 1. Book
                                 2. Magazine
-                                3. SuspendedUsers
-                                4. Users
+                                3. SuspendedUser
+                                4. User
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
                     // TODO COULD BE METHODS, PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
                             IO.println("GET ONE BOOK");
-                            // TODO would prefer to get a maximum id
+                            // FIXME would prefer to get a maximum id
                             // ? wouldn't work though would it, cause technically id can start on 101 (like
                             // Users);
                             int id = userInputInt("state id: ", 0);
@@ -188,7 +194,7 @@ public class LibrarySystem {
                                     || bodySusUse.equals("ERROR: server"))
                                 IO.println("Something went wrong, couldn't find the requested suspended");
                             else {
-                                SuspendedUser retrivedSusUse = gson.fromJson(bodySusUse,SuspendedUser.class);
+                                SuspendedUser retrivedSusUse = gson.fromJson(bodySusUse, SuspendedUser.class);
                                 IO.println("Retrived suspended:\n" + retrivedSusUse.toString());
                                 IO.println("Added the retrived suspended to local list");
                                 susReg.add(retrivedSusUse);
@@ -213,7 +219,53 @@ public class LibrarySystem {
 
                 case 3:
                     IO.println("ADD ITEM");
+                    IO.println("""
+                            ----------- ADD ------------
+                                1. Book
+                                2. Magazine
+                                3. SuspendedUser
+                                4. User
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
+                    switch (alt) {
+                        case 1:
+                            IO.println("ADD BOOK");
+                            String title = "";
+                            String author = "";
+                            String genre = "";
+                            int pages = -1;
 
+                            title = userInputString("State the BookTitle: ", "title");
+                            author = userInputString("State the author: ", "author");
+                            // ? need to implement something specific for genre or except as is
+                            genre = userInputString("State the genre: ", "genre");
+                            pages = userInputInt("State nr of pages: ", 1);
+                            //TODO fix the ID risq for duplicates 
+                                // the easiest way of doing it is imediatly upon creation get every info 
+                            String id = String.valueOf(litReg.getRegisterBook().size()+ 1);
+                            Book newBook = new Book(id, title, author, genre, pages, true);
+                            IO.println(newBook + " has been created");
+                            IO.readln();
+                            litReg.add(newBook);
+                            String jsonBody = gson.toJson(newBook);
+                            IO.println(jsonBody);
+                            IO.readln();
+                            //Client.post(book, id)
+                            break;
+                        case 2:
+                            IO.println("ADD MAGAZINE");
+                            break;
+                        case 3:
+                            IO.println("ADD SUSPENDEDUSER");
+                            break;
+                        case 4:
+                            IO.println("ADD USER");
+                            break;
+                        case 5:
+
+                            break;
+
+                    }
                     break;
 
                 case 4:
@@ -262,22 +314,24 @@ public class LibrarySystem {
      * susUseListType);susReg.add(listSusUse);
      */
 
-    //TODO FIX THIS SAME PROBLEM AS ABOVE
-/* 
-    private static void getOneId(String URL, String parameter) {
-        // TODO would prefer to get a maximum id
-        // ? wouldn't work though would it, cause technically id can start on 101 (like
-        // Users);
-        int id = userInputInt("state id: ", 0);
-        String bodyBook = Client.getOne(URL, id);
-        if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
-                || bodyBook.equals("ERROR: server"))
-            IO.println("Something went wrong, couldn't find the requested " + parameter);
-        else {
-
-        }
-
-    } */
+    // TODO FIX THIS SAME PROBLEM AS ABOVE
+    /*
+     * private static void getOneId(String URL, String parameter) {
+     * // TODO would prefer to get a maximum id
+     * // ? wouldn't work though would it, cause technically id can start on 101
+     * (like
+     * // Users);
+     * int id = userInputInt("state id: ", 0);
+     * String bodyBook = Client.getOne(URL, id);
+     * if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+     * || bodyBook.equals("ERROR: server"))
+     * IO.println("Something went wrong, couldn't find the requested " + parameter);
+     * else {
+     * 
+     * }
+     * 
+     * }
+     */
 
     private static String userInputString(String message, String parameter) {
         String ans = "";

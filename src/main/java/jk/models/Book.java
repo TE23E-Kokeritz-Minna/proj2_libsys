@@ -1,5 +1,4 @@
 package jk.models;
-
 /* 
 author: Minna Kökeritz 
 Book class child to Literature 
@@ -15,6 +14,9 @@ public class Book extends Literature {
 
     // constructor
     public Book(String id, String title, String author, String genre, int pages, boolean isAvailable) {
+
+        // TODO CAPITALIZE GENRE 
+            // Maybe even the author and title;
         this.author = author;
         this.genre = genre;
         this.pages = pages;
