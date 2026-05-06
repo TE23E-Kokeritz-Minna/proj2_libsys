@@ -1,6 +1,7 @@
 package jk.registry;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import jk.models.Literature;
 import jk.models.Magazine;
@@ -10,14 +11,14 @@ public class LiteratureRegister extends Register<Literature> {
 
     // NOTE NO REAL REASON WHY REGISTER EXIST
     //FIXME
-    public ArrayList<Literature> register;
-    public ArrayList<Book> registerBook;
-    public ArrayList<Magazine> registerMagazine;
+    public HashSet<Literature> register;
+    public HashSet<Book> registerBook;
+    public HashSet<Magazine> registerMagazine;
 
     public LiteratureRegister() {
-        register = new ArrayList<>();
-        registerBook = new ArrayList<>();
-        registerMagazine = new ArrayList<>();
+        register = new HashSet<>();
+        registerBook = new HashSet<>();
+        registerMagazine = new HashSet<>();
     }
 
     @Override
@@ -30,7 +31,7 @@ public class LiteratureRegister extends Register<Literature> {
     }
 
     @Override
-    public void add(ArrayList<? extends Literature> list) {
+    public void add(HashSet<? extends Literature> list) {
         for (Literature literature : list) {
             this.add(literature);
         }
@@ -60,14 +61,14 @@ public class LiteratureRegister extends Register<Literature> {
     @Override
     public Literature search(String criteria) {
         IO.println("TBC (returns first entry)");
-        return register.getFirst();
+        return register.stream().findFirst().get();
     }
 
-    public ArrayList<Book> getRegisterBook() {
+    public HashSet<Book> getRegisterBook() {
         return registerBook;
     }
 
-    public ArrayList<Magazine> getRegisterMagazine() {
+    public HashSet<Magazine> getRegisterMagazine() {
         return registerMagazine;
     }
 

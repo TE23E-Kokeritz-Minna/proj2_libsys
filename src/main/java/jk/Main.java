@@ -6,7 +6,7 @@ Contains the programm, klient and meny (all will be move later)
 
 import jk.system.LibrarySystem;
 
-//FIXME id will be a problem nearly everywhere
+// FIXME id will be a problem nearly everywhere
 // REVIEW Ideas to fix that
 // Get all data - save to repective list (make set to avoid duplicates)
 // Method that returns next valid ID

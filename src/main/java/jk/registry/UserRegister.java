@@ -1,15 +1,15 @@
 package jk.registry;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import jk.models.User;
 
 public class UserRegister extends Register<User>{
 
-    public ArrayList<User> register;
+    public HashSet<User> register;
 
     public UserRegister(){
-        register = new ArrayList<>();
+        register = new HashSet<>();
     }
 
     @Override
@@ -19,7 +19,7 @@ public class UserRegister extends Register<User>{
 
     
     @Override
-    public void add(ArrayList<? extends User> list) {
+    public void add(HashSet<? extends User> list) {
         for (User user : list) {
             this.add(user);
         }
@@ -34,7 +34,7 @@ public class UserRegister extends Register<User>{
     @Override
     public User search(String criteria) {
         IO.println("TBC (returns first item)");
-        return register.getFirst();
+        return  register.stream().findFirst().get();
     }
 
     @Override

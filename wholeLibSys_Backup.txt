@@ -1,9 +1,28 @@
 package jk.system;
 
+/* 
+- Hämta alla böcker/tidningar/användare/avstängda och även en enskild
+bok/tidning/användare på server
+
+- Skapa ny bok/tidning/användare/avstängd och lägga upp på server
+
+- Hitta kund med hjälp av email-adress
+
+- Hitta bok/tidning med hjälp av titel
+
+- Ta bort böcker/tidningar/kund/avstängd på server med hjälp av title och ta bort
+på server.
+
+- Ta bort kund med hjälp av email och avstängd med id på server.
+
+- Skriva ut sorterat böcker, tidningar, kunder sorterade på (title) för böcker &amp;
+tidningar och (name) för kunder. Du behöver implementera gränssnittet
+Comparable för detta.
+
+- Avgöra vilka kunder som får låna och inte låna. */
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
-
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +37,7 @@ import jk.registry.LoanRegister;
 import jk.registry.SuspendedUserRegister;
 import jk.registry.UserRegister;
 
-public  class LibrarySystem {
+public class LibrarySystem {
 
     // FIXME get server data upon start?
     // ? can help in dublicate ID risk
@@ -29,13 +48,6 @@ public  class LibrarySystem {
     private static LoanRegister loanReg = new LoanRegister();
     private static SuspendedUserRegister susReg = new SuspendedUserRegister();
     private static UserRegister userReg = new UserRegister();
-
-    static{
-
-
-
-    }
-
 
     public static void menu() {
 
@@ -81,12 +93,12 @@ public  class LibrarySystem {
                             IO.println("GET LIT");
                             String bodyBook = Client.getAll("books");
                             String bodyMags = Client.getAll("magazines");
-                            Type bookListType = new TypeToken<HashSet<Book>>() {
+                            Type bookListType = new TypeToken<ArrayList<Book>>() {
                             }.getType();
-                            Type magsListType = new TypeToken<HashSet<Magazine>>() {
+                            Type magsListType = new TypeToken<ArrayList<Magazine>>() {
                             }.getType();
-                            HashSet<Book> listBook = gson.fromJson(bodyBook, bookListType);
-                            HashSet<Magazine> listMags = gson.fromJson(bodyMags, magsListType);
+                            ArrayList<Book> listBook = gson.fromJson(bodyBook, bookListType);
+                            ArrayList<Magazine> listMags = gson.fromJson(bodyMags, magsListType);
 
                             litReg.add(listMags);
                             litReg.add(listBook);
@@ -94,7 +106,7 @@ public  class LibrarySystem {
                             break;
                         case 2:
                             IO.println("GET BOOK");
-                            bookListType = new TypeToken<HashSet<Book>>() {
+                            bookListType = new TypeToken<ArrayList<Book>>() {
                             }.getType();
                             bodyBook = Client.getAll("books");
                             listBook = gson.fromJson(bodyBook, bookListType);
@@ -103,7 +115,7 @@ public  class LibrarySystem {
                             break;
                         case 3:
                             IO.println("GET MAGAZINE");
-                            magsListType = new TypeToken<HashSet<Magazine>>() {
+                            magsListType = new TypeToken<ArrayList<Magazine>>() {
                             }.getType();
                             bodyMags = Client.getAll("magazines");
                             listMags = gson.fromJson(bodyMags, magsListType);
@@ -112,19 +124,19 @@ public  class LibrarySystem {
                             break;
                         case 4:
                             IO.println("GET SUSPENDEDUSER");
-                            Type susUseListType = new TypeToken<HashSet<SuspendedUser>>() {
+                            Type susUseListType = new TypeToken<ArrayList<SuspendedUser>>() {
                             }.getType();
                             String bodySusUse = Client.getAll("suspended");
-                            HashSet<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
+                            ArrayList<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
                             susReg.add(listSusUse);
 
                             break;
                         case 5:
                             IO.println("GET USERS");
-                            Type userListType = new TypeToken<HashSet<User>>() {
+                            Type userListType = new TypeToken<ArrayList<User>>() {
                             }.getType();
                             String bodyUser = Client.getAll("users");
-                            HashSet<User> listUser = gson.fromJson(bodyUser, userListType);
+                            ArrayList<User> listUser = gson.fromJson(bodyUser, userListType);
                             userReg.add(listUser);
                             break;
                     }
