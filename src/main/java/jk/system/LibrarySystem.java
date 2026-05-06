@@ -270,6 +270,10 @@ public  class LibrarySystem {
                 case 6:
                     IO.println("WRTIE OUT SORTED");
                     litReg.writeAll();
+                    susReg.writeAll();
+                    userReg.writeAll();
+                    
+                    
                     break;
 
                 case 7:

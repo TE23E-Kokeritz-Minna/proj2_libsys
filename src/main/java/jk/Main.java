@@ -15,6 +15,7 @@ import jk.system.LibrarySystem;
 // ?how to do that: 
     // Start by switching the register to HashSet 
     // implement HashCode in the Models (ID.toint)
+        //TODO this ain't working not HashSet or something allowed duplicates
     // static block in libSys to get all and all that
     // before continue with the add method (Risky don't want duplicate ID)
         // make the validID method
