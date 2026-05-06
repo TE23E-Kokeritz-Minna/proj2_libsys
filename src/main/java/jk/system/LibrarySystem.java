@@ -81,6 +81,7 @@ public class LibrarySystem {
                                 5. Users
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-5): ", 1, 5);
+                    //TODO COULD BE METHODS PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
@@ -110,7 +111,7 @@ public class LibrarySystem {
                             IO.println("GET MAGAZINE");
                             magsListType = new TypeToken<ArrayList<Magazine>>() {
                             }.getType();
-                            bodyMags = Client.getAll("books");
+                            bodyMags = Client.getAll("magazines");
                             listMags = gson.fromJson(bodyMags, magsListType);
                             litReg.add(listMags);
 
@@ -146,18 +147,66 @@ public class LibrarySystem {
                                 4. Users
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
+                    // TODO COULD BE METHODS, PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
-                            IO.println("GET BOOK");
+                            IO.println("GET ONE BOOK");
+                            // TODO would prefer to get a maximum id
+                            // ? wouldn't work though would it, cause technically id can start on 101 (like
+                            // Users);
+                            int id = userInputInt("state id: ", 0);
+                            String bodyBook = Client.getOne("books", id);
+                            if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+                                    || bodyBook.equals("ERROR: server"))
+                                IO.println("Something went wrong, couldn't find the requested book");
+                            else {
+                                Book retrivedBook = gson.fromJson(bodyBook, Book.class);
+                                IO.println("Retrived book:\n" + retrivedBook.toString());
+                                IO.println("Added the retrived book to local list");
+                                litReg.add(retrivedBook);
+                            }
                             break;
                         case 2:
-                            IO.println("GET MAGAZINE");
+                            IO.println("GET ONE MAGAZINE");
+                            id = userInputInt("state id: ", 0);
+                            String bodyMags = Client.getOne("magazines", id);
+                            if (bodyMags.equals("ERROR: status") || bodyMags.equals("ERROR: ID")
+                                    || bodyMags.equals("ERROR: server"))
+                                IO.println("Something went wrong, couldn't find the requested magazine");
+                            else {
+                                Magazine retrivedMag = gson.fromJson(bodyMags, Magazine.class);
+                                IO.println("Retrived megazine:\n" + retrivedMag.toString());
+                                IO.println("Added the retrived magazine to local list");
+                                litReg.add(retrivedMag);
+                            }
                             break;
                         case 3:
-                            IO.println("GET SUSPENDEDUSER");
+                            IO.println("GET ONE SUSPENDEDUSER");
+                            id = userInputInt("state id: ", 0);
+                            String bodySusUse = Client.getOne("suspended", id);
+                            if (bodySusUse.equals("ERROR: status") || bodySusUse.equals("ERROR: ID")
+                                    || bodySusUse.equals("ERROR: server"))
+                                IO.println("Something went wrong, couldn't find the requested suspended");
+                            else {
+                                SuspendedUser retrivedSusUse = gson.fromJson(bodySusUse,SuspendedUser.class);
+                                IO.println("Retrived suspended:\n" + retrivedSusUse.toString());
+                                IO.println("Added the retrived suspended to local list");
+                                susReg.add(retrivedSusUse);
+                            }
                             break;
                         case 4:
-                            IO.println("GET USERS");
+                            IO.println("GET ONE USERS");
+                            id = userInputInt("state id: ", 0);
+                            String bodyUser = Client.getOne("users", id);
+                            if (bodyUser.equals("ERROR: status") || bodyUser.equals("ERROR: ID")
+                                    || bodyUser.equals("ERROR: server"))
+                                IO.println("Something went wrong, couldn't find the requested user");
+                            else {
+                                User retrivedUser = gson.fromJson(bodyUser, User.class);
+                                IO.println("Retrived user:\n" + retrivedUser.toString());
+                                IO.println("Added the retrived user to local list");
+                                userReg.add(retrivedUser);
+                            }
                             break;
                     }
                     break;
@@ -195,6 +244,41 @@ public class LibrarySystem {
         }
     }
 
+    // TODO FIX THIS SHEIT FIGURE IT OUT
+
+    /*
+     * private static void getAllDatatype(Class<?> c, String URL) {
+     * Type type = new TypeToken<ArrayList<?>>(){}.getType();
+     * String body = Client.getAll(URL);
+     * 
+     * 
+     * }
+     */
+
+    /*
+     * Type susUseListType=new TypeToken<ArrayList<SuspendedUser>>(){}.getType();
+     * String bodySusUse = Client.getAll("suspended");
+     * ArrayList<SuspendedUser> listSusUse = gson.fromJson(bodySusUse,
+     * susUseListType);susReg.add(listSusUse);
+     */
+
+    //TODO FIX THIS SAME PROBLEM AS ABOVE
+/* 
+    private static void getOneId(String URL, String parameter) {
+        // TODO would prefer to get a maximum id
+        // ? wouldn't work though would it, cause technically id can start on 101 (like
+        // Users);
+        int id = userInputInt("state id: ", 0);
+        String bodyBook = Client.getOne(URL, id);
+        if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+                || bodyBook.equals("ERROR: server"))
+            IO.println("Something went wrong, couldn't find the requested " + parameter);
+        else {
+
+        }
+
+    } */
+
     private static String userInputString(String message, String parameter) {
         String ans = "";
         while (true) {
@@ -230,5 +314,23 @@ public class LibrarySystem {
         return ans;
     }
 
-    
+    private static int userInputInt(String message, int minimum) {
+        int ans = -1;
+        while (true) {
+            try {
+                ans = Integer.parseInt(IO.readln(message).trim());
+                if (ans < minimum)
+                    throw new IllegalArgumentException(
+                            "invalid option, can't be smaller than " + minimum);
+                else
+                    break;
+            } catch (NumberFormatException e) {
+                IO.println("ERROR: not an integer");
+            } catch (Exception e) {
+                IO.println("ERROR: " + e.getMessage());
+            }
+        }
+        return ans;
+    }
+
 }

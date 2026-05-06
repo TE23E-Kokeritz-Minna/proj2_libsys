@@ -7,90 +7,95 @@ import kong.unirest.UnirestException;
 public class Client {
 
     // base url FINAL
-    // use relevant URL, same except location 
-            // REAL SERVER  
+    // use relevant URL, same except location
+    // REAL SERVER
     private static final String baseURL = "http://10.151.168.5:3123/";
 
-            //HOME SERVER 
-    //private static final String baseURL = "http://localhost:3000/";
+    // HOME SERVER
+    // private static final String baseURL = "http://localhost:3000/";
 
-
-    //getall
+    // getall
     public static String getAll(String URL) {
         HttpResponse<String> response;
-        // Get the data 
+        // Get the data
         try {
             response = Unirest.get(baseURL + URL).asString();
         } catch (UnirestException e) {
             IO.println("ERROR (server): " + e.getLocalizedMessage());
             return "ERROR: server";
         }
-        // Status 
+        // Status
         int status = response.getStatus();
-        
+
         // ? Does this work ?
-        //Sends back Error message if not working
-            // need some sort of error handeling when called   
+        // Sends back Error message if not working
+        // need some sort of error handeling when called
         if (status != 200) {
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }
 
-        // return json data 
+        // return json data
         return response.getBody();
     }
 
-    //getone 
+    // getone
     public static String getOne(String URL, int ID) {
         HttpResponse<String> response;
-        // Get the data 
+        // Get the data
         try {
-            response = Unirest.get(baseURL + URL + "/" +ID).asString();
+            response = Unirest.get(baseURL + URL + "/" + ID).asString();
         } catch (UnirestException e) {
             IO.println("ERROR (server): " + e.getLocalizedMessage());
             return "ERROR: server";
         }
-        // Status 
+        // Status
         int status = response.getStatus();
-        
+
         // ? Does this work ?
-        //Sends back Error message if not working
-            // need some sort of error handeling when called   
+        // Sends back Error message if not working
+        // need some sort of error handeling when called
         if (status != 200) {
-            IO.println("ERROR: " + status);
-            return "ERROR: status";
+            if (status == 404) {
+                IO.println("ERROR: invalid ID");
+                return "ERROR: ID";
+            } else {
+                IO.println("ERROR: " + status);
+                return "ERROR: status";
+            }
         }
 
-        // return json data 
+        // return json data
         return response.getBody();
     }
-    //post 
-    
-    public static String post(String URL, String jsonBody){
-        
+    // post
+
+    public static String post(String URL, String jsonBody) {
+
         HttpResponse<String> response;
 
         try {
             response = Unirest.post(baseURL + URL).header("Content-Type", "application/json").body(jsonBody).asString();
         } catch (UnirestException e) {
-           IO.println("ERROR (server): " + e.getLocalizedMessage());
-           return "ERROR: Server";
+            IO.println("ERROR (server): " + e.getLocalizedMessage());
+            return "ERROR: Server";
         }
         int status = response.getStatus();
 
-        if(status != 200 && status!= 201){
+        if (status != 200 && status != 201) {
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }
-        
-        return response.getBody(); 
+
+        return response.getBody();
     }
 
-    //put 
-    public static String put(String URL, int ID, String jsonBody){
-        HttpResponse<String> response; 
+    // put
+    public static String put(String URL, int ID, String jsonBody) {
+        HttpResponse<String> response;
         try {
-            response = Unirest.put(baseURL + URL + "/" + ID).header("Content-Type", "application/json").body(jsonBody).asString();
+            response = Unirest.put(baseURL + URL + "/" + ID).header("Content-Type", "application/json").body(jsonBody)
+                    .asString();
         } catch (UnirestException e) {
             IO.println("ERROR (server): " + e.getLocalizedMessage());
             return "ERROR: server";
@@ -98,17 +103,17 @@ public class Client {
 
         int status = response.getStatus();
 
-        if(status != 200 && status != 204){
+        if (status != 200 && status != 204) {
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }
 
         return response.getBody();
     }
-    
-    //delete
-    public static String put(String URL, int ID){
-        int status; 
+
+    // delete
+    public static String put(String URL, int ID) {
+        int status;
 
         try {
             status = Unirest.delete(baseURL + URL + "/" + ID).asEmpty().getStatus();
@@ -117,7 +122,7 @@ public class Client {
             return "ERROR: server";
         }
 
-        if(status != 200 && status != 204){
+        if (status != 200 && status != 204) {
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }
