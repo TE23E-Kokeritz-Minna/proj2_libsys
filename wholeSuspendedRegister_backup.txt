@@ -1,5 +1,6 @@
 package jk.registry;
 
+
 import java.util.HashSet;
 
 import jk.models.SuspendedUser;
@@ -43,3 +44,63 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
         }    
     }
 }
+
+
+
+
+//STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC 
+
+
+
+
+
+
+
+
+
+
+
+
+package jk.registry;
+
+import java.util.HashSet;
+
+import jk.models.SuspendedUser;
+
+public class SuspendedUserRegister {
+    public static HashSet<SuspendedUser> register;
+
+   static{
+    register = new HashSet<>();
+
+   }
+    static public void add(SuspendedUser item) {
+        register.add(item);
+    }
+
+    static public void add(HashSet<? extends SuspendedUser> list) {
+        for (SuspendedUser suspendedUser : list) {
+            register.add(suspendedUser);
+        }
+    }
+
+    static public void remove(SuspendedUser item) {
+        register.remove(item);
+
+    }
+
+    static public SuspendedUser search(String criteria) {
+        // TODO
+        IO.println("TBC (returns first item)");
+        return register.stream().findFirst().get();
+    }
+
+    static public void writeAll() {
+        for (SuspendedUser suspendedUser : register) {
+            IO.println("> ID: " + suspendedUser.getId() + " userID: " + suspendedUser.getCustomer_id());
+        }
+    }
+}
+
+
+

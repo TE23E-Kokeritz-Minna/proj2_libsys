@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -18,24 +17,25 @@ import jk.registry.LoanRegister;
 import jk.registry.SuspendedUserRegister;
 import jk.registry.UserRegister;
 
-public  class LibrarySystem {
+public class LibrarySystem {
 
     // FIXME get server data upon start?
     // ? can help in dublicate ID risk
     // REVIEW how to solve id problems and what not
 
     // REVIEW why have a Literature list and not book and Magazine.
-    private static LiteratureRegister litReg = new LiteratureRegister();
-    private static LoanRegister loanReg = new LoanRegister();
-    private static SuspendedUserRegister susReg = new SuspendedUserRegister();
-    private static UserRegister userReg = new UserRegister();
 
-    static{
+    private static LiteratureRegister litReg;
+    private static LoanRegister loanReg;
+    private static SuspendedUserRegister susReg;
+    private static UserRegister userReg;
 
-
-
+    static {
+        litReg = new LiteratureRegister();
+        loanReg = new LoanRegister();
+        susReg = new SuspendedUserRegister();
+        userReg = new UserRegister();
     }
-
 
     public static void menu() {
 
@@ -272,8 +272,7 @@ public  class LibrarySystem {
                     litReg.writeAll();
                     susReg.writeAll();
                     userReg.writeAll();
-                    
-                    
+
                     break;
 
                 case 7:

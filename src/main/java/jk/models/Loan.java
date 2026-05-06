@@ -55,6 +55,33 @@ public class Loan {
         return result;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Loan other = (Loan) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        if (literature == null) {
+            if (other.literature != null)
+                return false;
+        } else if (!literature.equals(other.literature))
+            return false;
+        return true;
+    }
+
     
 
     

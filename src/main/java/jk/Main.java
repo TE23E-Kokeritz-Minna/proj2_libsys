@@ -4,6 +4,8 @@ Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
 
+import jk.models.SuspendedUser;
+import jk.registry.SuspendedUserRegister;
 import jk.system.LibrarySystem;
 
 // FIXME id will be a problem nearly everywhere
@@ -23,6 +25,19 @@ import jk.system.LibrarySystem;
 
 public class Main {
     public static void main() {
+
+        //NOTE  THIS WORKS SO DOES STATIC WHYYYYYY ?
+    /*     SuspendedUserRegister susReg =new SuspendedUserRegister(); 
+
+        SuspendedUser test1 = new SuspendedUser("1", "20");
+        SuspendedUser test2 = new SuspendedUser("2", "3");
+
+        
+        susReg.add(test1);
+        susReg.add(test1);
+        susReg.add(test2);
+
+        susReg.writeAll(); */
 
         LibrarySystem.menu();
     }

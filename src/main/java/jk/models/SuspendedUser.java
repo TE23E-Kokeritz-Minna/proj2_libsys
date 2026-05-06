@@ -34,5 +34,29 @@ public class SuspendedUser {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-        
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SuspendedUser other = (SuspendedUser) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (customer_id == null) {
+            if (other.customer_id != null)
+                return false;
+        } else if (!customer_id.equals(other.customer_id))
+            return false;
+        return true;
+    }
+
+    
+
 }
