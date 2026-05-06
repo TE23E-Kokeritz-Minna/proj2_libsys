@@ -241,6 +241,7 @@ public class LibrarySystem {
                             genre = userInputString("State the genre: ", "genre");
                             pages = userInputInt("State nr of pages: ", 1);
                             //TODO fix the ID risq for duplicates 
+                            //FIXME THIS WILL NOT END WELL
                                 // the easiest way of doing it is imediatly upon creation get every info 
                             String id = String.valueOf(litReg.getRegisterBook().size()+ 1);
                             Book newBook = new Book(id, title, author, genre, pages, true);
@@ -296,7 +297,8 @@ public class LibrarySystem {
         }
     }
 
-    // TODO FIX THIS SHEIT FIGURE IT OUT
+    // FIXME THIS SHEIT FIGURE IT OUT
+    //METHODS FOR CASE 1 and 2 in menu 
 
     /*
      * private static void getAllDatatype(Class<?> c, String URL) {
@@ -327,9 +329,7 @@ public class LibrarySystem {
      * || bodyBook.equals("ERROR: server"))
      * IO.println("Something went wrong, couldn't find the requested " + parameter);
      * else {
-     * 
      * }
-     * 
      * }
      */
 
