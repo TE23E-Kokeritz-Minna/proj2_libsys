@@ -28,8 +28,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import jk.models.Book;
-import jk.models.Literature;
 import jk.models.Magazine;
+import jk.models.SuspendedUser;
+import jk.models.User;
 import jk.registry.LiteratureRegister;
 import jk.registry.LoanRegister;
 import jk.registry.SuspendedUserRegister;
@@ -39,6 +40,7 @@ public class LibrarySystem {
 
     // ??? WHY STATIC and PRIVATE MAKE GOOD BAD OR SECRET THIRD THING
 
+    // ? why have a Literature list and not book and Magazine.
     private static LiteratureRegister litReg = new LiteratureRegister();
     private static LoanRegister loanReg = new LoanRegister();
     private static SuspendedUserRegister susReg = new SuspendedUserRegister();
@@ -82,28 +84,53 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
-                            /*
-                             * String bodyBook = Client.getAll("books");
-                             * String bodyMags = Client.getAll("magazines");
-                             * Type litArray = new TypeToken<ArrayList<Book>>() {}.getType();
-                             * litReg = gson.fromJson(null, null)
-                             */
+                            String bodyBook = Client.getAll("books");
+                            String bodyMags = Client.getAll("magazines");
+                            Type bookListType = new TypeToken<ArrayList<Book>>() {
+                            }.getType();
+                            Type magsListType = new TypeToken<ArrayList<Magazine>>() {
+                            }.getType();
+                            ArrayList<Book> listBook = gson.fromJson(bodyBook, bookListType);
+                            ArrayList<Magazine> listMags = gson.fromJson(bodyMags, magsListType);
+
+                            litReg.add(listMags);
+                            litReg.add(listBook);
+
                             break;
                         case 2:
                             IO.println("GET BOOK");
-                            Type bookListType = new TypeToken<ArrayList<Book>>() {
+                            bookListType = new TypeToken<ArrayList<Book>>() {
                             }.getType();
-                            String bodyBook = Client.getAll("books");
-                            ArrayList<Book> listBook = gson.fromJson(bodyBook, bookListType);
+                            bodyBook = Client.getAll("books");
+                            listBook = gson.fromJson(bodyBook, bookListType);
                             litReg.add(listBook);
+
                             break;
                         case 3:
+                            IO.println("GET MAGAZINE");
+                            magsListType = new TypeToken<ArrayList<Magazine>>() {
+                            }.getType();
+                            bodyMags = Client.getAll("books");
+                            listMags = gson.fromJson(bodyMags, magsListType);
+                            litReg.add(listMags);
+
                             break;
                         case 4:
                             IO.println("GET SUSPENDEDUSER");
+                            Type susUseListType = new TypeToken<ArrayList<SuspendedUser>>() {
+                            }.getType();
+                            String bodySusUse = Client.getAll("suspended");
+                            ArrayList<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
+                            susReg.add(listSusUse);
+
                             break;
                         case 5:
                             IO.println("GET USERS");
+                            Type userListType = new TypeToken<ArrayList<User>>() {
+                            }.getType();
+                            String bodyUser = Client.getAll("users");
+                            ArrayList<User> listUser = gson.fromJson(bodyUser, userListType);
+                            userReg.add(listUser);
                             break;
                     }
 
@@ -202,4 +229,6 @@ public class LibrarySystem {
         }
         return ans;
     }
+
+    
 }
