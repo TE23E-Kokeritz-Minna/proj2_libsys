@@ -10,9 +10,9 @@ public class LiteratureRegister extends Register<Literature> {
 
     // NOTE NO REAL REASON WHY REGISTER EXIST
     //FIXME
-    public HashSet<Literature> register;
-    public HashSet<Book> registerBook;
-    public HashSet<Magazine> registerMagazine;
+    private HashSet<Literature> register;
+    private HashSet<Book> registerBook;
+    private HashSet<Magazine> registerMagazine;
 
     public LiteratureRegister() {
         register = new HashSet<>();

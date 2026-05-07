@@ -4,6 +4,9 @@ Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
 
+import java.util.HashSet;
+
+import jk.models.Book;
 import jk.system.LibrarySystem;
 
 // FIXME id will be a problem nearly everywhere
@@ -31,6 +34,24 @@ public class Main {
         // Precausion: could cause problems in future, if does fix equals in models, 
         // info: the test codes is stored in "cleaningHouseTEMP.txt"
 
-        LibrarySystem.menu();
+        
+
+
+    //SECTION - TEST Get new ID each time
+
+        HashSet<Book> test = new HashSet<>();
+
+        Book b1 = new Book("1", "Hello", "Joe", "Crime", 294, true);
+        Book b2 = new Book("5", "Billy", "Jane", "Adventure", 21, true);
+        Book b3 = new Book("3", "Claus", "Santa", "Thriller", 1328, true);
+
+
+        test.add(b1);
+        test.add(b2);
+        test.add(b3);
+
+       IO.println( Book.validID(test));
+       
+       //  LibrarySystem.menu();
     }
 }

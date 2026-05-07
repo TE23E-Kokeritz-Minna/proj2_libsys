@@ -5,7 +5,7 @@ import java.util.HashSet;
 import jk.models.Loan;
 
 public class LoanRegister extends Register<Loan>{
-    public HashSet<Loan> register;
+    private HashSet<Loan> register;
 
     public LoanRegister(){
         register = new HashSet<>();

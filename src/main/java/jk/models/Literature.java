@@ -5,9 +5,14 @@ Literature class parent to Magazine and Book
     contains constructor and getters and setter for title, id and isAvailable
 */
 
-public class Literature {
+import java.util.HashSet;
 
-    //Variables
+import jk.registry.LiteratureRegister;
+import jk.system.LibrarySystem;
+
+public abstract class Literature {
+
+    // Variables
     protected String id;
     protected String title;
     protected boolean isAvailable;
@@ -19,7 +24,20 @@ public class Literature {
         this.isAvailable = isAvailable;
     }
 
-    //GETTERS and SETTERS 
+    
+    public Literature() {
+    }
+
+    
+
+    public Literature(String id) {
+        this.id = id;
+    }
+
+
+    public abstract String validID();
+
+    // GETTERS and SETTERS
     public String getId() {
         return id;
     }
@@ -40,10 +58,10 @@ public class Literature {
         this.isAvailable = isAvailable;
     }
 
-    //TO STRING 
+    // TO STRING
     @Override
     public String toString() {
-        return "ID: " + id + " Title: " +title + " Available? " + isAvailable;  
+        return "ID: " + id + " Title: " + title + " Available? " + isAvailable;
     }
 
     @Override
@@ -54,7 +72,34 @@ public class Literature {
         return result;
     }
 
- 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Literature other = (Literature) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+
+
+    
+   /*  @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -77,7 +122,6 @@ public class Literature {
         if (isAvailable != other.isAvailable)
             return false;
         return true;
-    }
+    } */
 
-    
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import jk.models.SuspendedUser;
 
 public class SuspendedUserRegister extends Register<SuspendedUser>{
-    public HashSet<SuspendedUser> register;
+    private HashSet<SuspendedUser> register;
 
     public SuspendedUserRegister(){
         register = new HashSet<>();

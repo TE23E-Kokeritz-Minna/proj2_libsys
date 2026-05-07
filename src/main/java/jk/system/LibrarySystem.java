@@ -372,6 +372,9 @@ public class LibrarySystem {
      * }
      */
 
+
+    
+
     private static String userInputString(String message, String parameter) {
         String ans = "";
         while (true) {
@@ -424,6 +427,22 @@ public class LibrarySystem {
             }
         }
         return ans;
+    }
+
+    public static LiteratureRegister getLitReg() {
+        return litReg;
+    }
+
+    public static LoanRegister getLoanReg() {
+        return loanReg;
+    }
+
+    public static SuspendedUserRegister getSusReg() {
+        return susReg;
+    }
+
+    public static UserRegister getUserReg() {
+        return userReg;
     }
 
 }

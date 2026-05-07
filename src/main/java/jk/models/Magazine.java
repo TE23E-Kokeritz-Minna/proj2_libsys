@@ -21,6 +21,16 @@ public class Magazine extends Literature {
         super(id, title, isAvailable);
     } 
 
+
+    
+    @Override
+    public String validID() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+
     //GETTERS and SETTERS 
     public int getIssueNumber() {
         return issueNumber;

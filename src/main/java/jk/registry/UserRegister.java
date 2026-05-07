@@ -6,7 +6,7 @@ import jk.models.User;
 
 public class UserRegister extends Register<User>{
 
-    public HashSet<User> register;
+    private HashSet<User> register;
 
     public UserRegister(){
         register = new HashSet<>();
