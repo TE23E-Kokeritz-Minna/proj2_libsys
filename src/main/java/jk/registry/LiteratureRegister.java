@@ -56,6 +56,15 @@ public class LiteratureRegister extends Register<Literature> {
         }
     }
 
+    
+/* 
+    public Boolean contains(String id, Class<? extends Literature> c) {
+        if (c == Book.class)
+            return registerBook.contains(new Book(id));
+        else if(c == Magazine.class) return registerMagazine.contains(new Magazine(id));        
+        throw new IllegalArgumentException("Unknown Literature type: "  + c.getName());
+    }
+ */
     //TODO
     @Override
     public Literature search(String criteria) {

@@ -1,15 +1,36 @@
 package jk.models;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import jk.system.LibrarySystem;
+
 public class User {
 
     private String id;
-    private String name; 
+    private String name;
     private String email;
 
     public User(String id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
+    }
+
+    private static String validID() {
+        HashSet<SuspendedUser> susList = LibrarySystem.getSusReg().getRegister();
+        Set<String> hashId = susList.stream().map(o -> o.getId()).collect(Collectors.toSet());
+
+        for (int i = 1; i < hashId.size() + 1; i++) {
+            if (!hashId.contains((String.valueOf(i))))
+                return String.valueOf(i);
+        }
+        throw new IllegalStateException("No more valid ID available");
+    }
+
+
+    public User() {
     }
 
     public String getId() {
@@ -19,7 +40,7 @@ public class User {
     public String getName() {
         return name;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -62,6 +83,4 @@ public class User {
         return true;
     }
 
-    
-    
 }

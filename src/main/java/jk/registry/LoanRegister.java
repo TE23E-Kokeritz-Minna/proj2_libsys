@@ -27,7 +27,9 @@ public class LoanRegister extends Register<Loan>{
     public void remove(Loan item) {
        register.remove(item);
     }
+ 
 
+    
     //TODO
     @Override
     public Loan search(String criteria) {
@@ -40,5 +42,9 @@ public class LoanRegister extends Register<Loan>{
         for (Loan loan : register) {
             IO.println("> UserID: " + loan.getUserId() + " LitID: " + loan.getLiteratureId() + " ID: " + loan.getId());
         }
+    }
+
+    public HashSet<Loan> getRegister() {
+        return register;
     }
 }

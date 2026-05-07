@@ -5,10 +5,10 @@ Book class child to Literature
     contains constructor and getters and setter for author, genre and pages
 */
 
-import jk.registry.LiteratureRegister;
 import jk.system.LibrarySystem;
 import java.util.HashSet;
-
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Book extends Literature {
 
@@ -31,20 +31,19 @@ public class Book extends Literature {
     }
 
     public Book() {
-    }    
-    
-    public Book(String id) {
-        super(id);
     }
-    
-    // REVIEW is this better as a child class somehow 
+
+    // REVIEW is this better as a child class somehow
     protected static String validID() {
         HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
-        
-        for (int i = 1; i < bookList.size() + 5; i++) {
-            if(!bookList.contains(new Book(String.valueOf(i)))) return String.valueOf(i);
-        } 
-        return "-1";        
+
+        Set<String> hashId = bookList.stream().map(o -> o.getId()).collect(Collectors.toSet());
+
+        for (int i = 1; i < hashId.size() + 1; i++) {
+            if (!hashId.contains((String.valueOf(i))))
+                return String.valueOf(i);
+        }
+        throw new IllegalStateException("No more valid ID available");
     }
 
     // GEETTERS and SETTERS

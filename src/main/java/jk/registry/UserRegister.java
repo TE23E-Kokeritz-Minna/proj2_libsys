@@ -44,4 +44,8 @@ public class UserRegister extends Register<User>{
         }
         
     }
+
+    public HashSet<User> getRegister() {
+        return register;
+    }
 }

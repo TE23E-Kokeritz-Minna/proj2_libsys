@@ -6,6 +6,8 @@ Magazine class child to Literature
 */
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
@@ -25,9 +27,6 @@ public class Magazine extends Literature {
         super(id, title, isAvailable);
     }
 
-    public Magazine(String id) {
-        super(id);
-    }
 
     public Magazine() {
     }
@@ -35,12 +34,13 @@ public class Magazine extends Literature {
     // REVIEW is this better as a child class somehow 
     protected static String validID() {
         HashSet<Magazine> magsList = LibrarySystem.getLitReg().getRegisterMagazine();
-
-        for (int i = 1; i < magsList.size() + 5; i++) {
-            if (!magsList.contains(new Magazine(String.valueOf(i))))
+        Set<String> hashId = magsList.stream().map(o -> o.getId()).collect(Collectors.toSet());
+        
+        for (int i = 1; i < hashId.size() + 1; i++) {
+            if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
-        }
-        return "-1";
+        } 
+        throw new IllegalStateException("No more valid ID available");
     }
 
     // GETTERS and SETTERS

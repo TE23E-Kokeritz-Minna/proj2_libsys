@@ -236,7 +236,7 @@ public class LibrarySystem {
                             // FIXME THIS WILL NOT END WELL
                             // the easiest way of doing it is imediatly upon creation get every info
                             String id = String.valueOf(litReg.getRegisterBook().size() + 1);
-                            Book newBook = new Book(id, title, author, genre, pages, true);
+                            Book newBook = new Book(title, author, genre, pages, true);
 
                             /*
                              * IO.println(newBook + " has been created");

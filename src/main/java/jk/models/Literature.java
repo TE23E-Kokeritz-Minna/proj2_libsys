@@ -22,9 +22,6 @@ public abstract class Literature {
     public Literature() {
     }
 
-    public Literature(String id) {
-        this.id = id;
-    }
 
     // GETTERS and SETTERS
     public String getId() {
@@ -60,6 +57,8 @@ public abstract class Literature {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

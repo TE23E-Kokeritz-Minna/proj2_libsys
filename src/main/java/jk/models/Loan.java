@@ -1,6 +1,8 @@
 package jk.models;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
@@ -9,10 +11,25 @@ public class Loan {
     private User user;
     private Literature literature;
 
-    public Loan(String id, User user, Literature literature) {
-        this.id = id;
+    public Loan(User user, Literature literature) {
+        this.id = validID();
         this.user = user;
         this.literature = literature;
+    }
+
+
+    public Loan() {
+    }
+
+    private static String validID() {
+        HashSet<Loan> loanList = LibrarySystem.getLoanReg().getRegister();
+        Set<String> hashId = loanList.stream().map(o -> o.getId()).collect(Collectors.toSet());
+
+        for (int i = 1; i < hashId.size() + 1; i++) {
+            if (!hashId.contains((String.valueOf(i))))
+                return String.valueOf(i);
+        }
+        throw new IllegalStateException("No more valid ID available");
     }
 
     public String getId() {

@@ -12,4 +12,5 @@ public abstract class Register<T>{
 
     public abstract T search (String criteria);
 
+
 }

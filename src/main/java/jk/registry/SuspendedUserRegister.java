@@ -42,4 +42,8 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
             IO.println("> ID: " +  suspendedUser.getId() + " userID: " + suspendedUser.getCustomer_id());   
         }    
     }
+
+    public HashSet<SuspendedUser> getRegister() {
+        return register;
+    }
 }

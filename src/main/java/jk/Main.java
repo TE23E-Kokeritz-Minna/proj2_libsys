@@ -4,10 +4,7 @@ Author: Minna Kökeritz
 Contains the programm, klient and meny (all will be move later)
 */
 
-import java.util.HashSet;
 
-import jk.models.Book;
-import jk.system.LibrarySystem;
 
 // FIXME id will be a problem nearly everywhere
 // REVIEW Ideas to fix that
