@@ -3,10 +3,6 @@ package jk.registry;
 import java.util.HashSet;
 
 public abstract class Register<T>{
-
-    //FIXME Still duplicates allowed WHYYYYYYYYY??????
-
-    //TODO properly better to have sets and not arraylist actually, should fix that maybe
     public abstract void add(T item);
     public abstract void add(HashSet<? extends T> list);
 

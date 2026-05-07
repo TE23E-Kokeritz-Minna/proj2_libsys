@@ -54,7 +54,4 @@ public class Book extends Literature {
     public String toString() {
         return super.toString() + " author: " + author + " genre: " + genre + " pages: "+ pages;
     }
-
-    
-
 }

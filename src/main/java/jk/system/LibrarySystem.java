@@ -1,7 +1,6 @@
 package jk.system;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.google.gson.Gson;
@@ -207,6 +206,11 @@ public class LibrarySystem {
 
                 case 3:
                     IO.println("ADD ITEM");
+                    // TODO Dangeurous things, be careful not to double the id in some way
+                    // THINK THINK THINK
+                    // TBC LATER
+                    // IDEA in main file Comments
+
                     IO.println("""
                             ----------- ADD ------------
                                 1. Book
@@ -233,13 +237,16 @@ public class LibrarySystem {
                             // the easiest way of doing it is imediatly upon creation get every info
                             String id = String.valueOf(litReg.getRegisterBook().size() + 1);
                             Book newBook = new Book(id, title, author, genre, pages, true);
-                            IO.println(newBook + " has been created");
-                            IO.readln();
-                            litReg.add(newBook);
-                            String jsonBody = gson.toJson(newBook);
-                            IO.println(jsonBody);
-                            IO.readln();
-                            // Client.post(book, id)
+
+                            /*
+                             * IO.println(newBook + " has been created");
+                             * IO.readln();
+                             * litReg.add(newBook);
+                             * String jsonBody = gson.toJson(newBook);
+                             * IO.println(jsonBody);
+                             * IO.readln();
+                             * // Client.post(book, id)
+                             */
                             break;
                         case 2:
                             IO.println("ADD MAGAZINE");
@@ -251,7 +258,6 @@ public class LibrarySystem {
                             IO.println("ADD USER");
                             break;
                         case 5:
-
                             break;
 
                     }
@@ -259,7 +265,41 @@ public class LibrarySystem {
 
                 case 4:
                     IO.println("REMOVE ITEM");
+                    IO.println("""
+                            ---------- REMOVE ----------
+                                1. Book
+                                2. Magazine
+                                3. SuspendedUser
+                                4. User
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
 
+                    // TODO before writing, cause everything works the same except the Class,
+                    // therfore figure out the method for this and above
+                    switch (alt) {
+                        case 1:
+                            IO.println("REMOVE BOOK");
+                            // HOW TO DO THIS
+                            // ASk for the ID;
+                            // show the Relevent Book, ask for confirmation
+                            // Try removing it
+                            // give Feedback based on the Error Message thatCLIENT sends back
+                            // if it doesnt exist good for you
+                            // after removing it from server remove it from the local list
+                            break;
+                        case 2:
+                            IO.println("REMOVE MAGAZINE");
+                            break;
+                        case 3:
+                            IO.println("REMOVE SUSPENDEDUSER");
+                            break;
+                        case 4:
+                            IO.println("REMOVE USER");
+                            break;
+                        case 5:
+                            break;
+
+                    }
                     break;
 
                 case 5:
@@ -269,6 +309,7 @@ public class LibrarySystem {
 
                 case 6:
                     IO.println("WRTIE OUT SORTED");
+
                     litReg.writeAll();
                     susReg.writeAll();
                     userReg.writeAll();
@@ -295,8 +336,6 @@ public class LibrarySystem {
      * private static void getAllDatatype(Class<?> c, String URL) {
      * Type type = new TypeToken<ArrayList<?>>(){}.getType();
      * String body = Client.getAll(URL);
-     * 
-     * 
      * }
      */
 
@@ -312,6 +351,15 @@ public class LibrarySystem {
      * private static void getOneId(String URL, String parameter) {
      * // TODO would prefer to get a maximum id
      * // ? wouldn't work though would it, cause technically id can start on 101
+     * // ! ideas in Main, method that have a for loop until the register don't
+     * //! contain the ID
+     * // ! WHERE should that method be stored, in models and create it
+     * // ! automatically upon creation, can't go wrong
+     * // ! negatives ? they don't have naturall acess to the register, unless I
+     * make them public/get which will work actually
+     * //NOTE: conclusion: have the automatical new id method in the models and
+     * implement a get here for every register
+     * 
      * (like
      * // Users);
      * int id = userInputInt("state id: ", 0);

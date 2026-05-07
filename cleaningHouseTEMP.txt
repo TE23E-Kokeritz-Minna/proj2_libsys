@@ -1,3 +1,4 @@
+//SECTION - OG Menu
 
 LibrarySystem MENY CASES 
 case 1 
@@ -183,3 +184,21 @@ case 5
                     IO.println(newMag + " is added to the local list ");
                     break;
 case 6
+
+
+//SECTION - TEST CODE HASHSET
+
+ //NOTE  THIS WORKS SO DOES STATIC WHYYYYYY ?
+         SuspendedUserRegister susReg =new SuspendedUserRegister(); 
+
+        SuspendedUser test1 = new SuspendedUser("1", "20");
+        SuspendedUser test2 = new SuspendedUser("2", "3");
+        SuspendedUser test3 = new SuspendedUser("2", "23");
+
+        
+        susReg.add(test1);
+        susReg.add(test1);
+        susReg.add(test2);
+        susReg.add(test3);
+
+        susReg.writeAll(); 
