@@ -1,5 +1,9 @@
 package jk.models;
 
+import java.util.HashSet;
+
+import jk.system.LibrarySystem;
+
 public class Loan {
     private String id;
     private User user;
@@ -35,12 +39,10 @@ public class Loan {
         return user.getId();
     }
 
-
-    // FIXME There might be errors regarding duplicate ids in literature; 
+    // FIXME There might be errors regarding duplicate ids in literature;
     public String getLiteratureId() {
         return literature.getId();
     }
-
 
     @Override
     public String toString() {
@@ -69,22 +71,7 @@ public class Loan {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (user == null) {
-            if (other.user != null)
-                return false;
-        } else if (!user.equals(other.user))
-            return false;
-        if (literature == null) {
-            if (other.literature != null)
-                return false;
-        } else if (!literature.equals(other.literature))
-            return false;
         return true;
     }
 
-    
-
-    
 }
-
-

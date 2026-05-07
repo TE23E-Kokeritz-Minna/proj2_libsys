@@ -18,54 +18,34 @@ public class Book extends Literature {
     private int pages;
 
     // constructor
-    public Book(String id, String title, String author, String genre, int pages, boolean isAvailable) {
+    public Book(String title, String author, String genre, int pages, boolean isAvailable) {
 
         // TODO CAPITALIZE GENRE
         // Maybe even the author and title;
         this.author = author;
         this.genre = genre;
         this.pages = pages;
+        String id = validID();
 
         super(id, title, isAvailable);
     }
 
     public Book() {
-    }
-    
-    
-    
+    }    
     
     public Book(String id) {
         super(id);
     }
     
-    
-    
-    
-    // @Override
-    public static String validID(HashSet<Book> test) {
-        //HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
+    // REVIEW is this better as a child class somehow 
+    protected static String validID() {
+        HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
         
-        //HashSet<Book> test = new HashSet<>();
-        // I have the list
-        // for loop with the size + margin
-         for (int i = 1; i < test.size() + 5; i++) {
-            if(!test.contains(new Book(String.valueOf(i)))) return String.valueOf(i);
+        for (int i = 1; i < bookList.size() + 5; i++) {
+            if(!bookList.contains(new Book(String.valueOf(i)))) return String.valueOf(i);
         } 
-        // TODO Auto-generated method stub
-        return "-1";
+        return "-1";        
     }
-
-
-    
-
-    @Override
-    public String validID() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
 
     // GEETTERS and SETTERS
     public String getAuthor() {

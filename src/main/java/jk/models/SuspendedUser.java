@@ -49,13 +49,10 @@ public class SuspendedUser {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (customer_id == null) {
-            if (other.customer_id != null)
-                return false;
-        } else if (!customer_id.equals(other.customer_id))
-            return false;
         return true;
     }
+
+    
 
     
 

@@ -5,11 +5,6 @@ Literature class parent to Magazine and Book
     contains constructor and getters and setter for title, id and isAvailable
 */
 
-import java.util.HashSet;
-
-import jk.registry.LiteratureRegister;
-import jk.system.LibrarySystem;
-
 public abstract class Literature {
 
     // Variables
@@ -24,18 +19,12 @@ public abstract class Literature {
         this.isAvailable = isAvailable;
     }
 
-    
     public Literature() {
     }
-
-    
 
     public Literature(String id) {
         this.id = id;
     }
-
-
-    public abstract String validID();
 
     // GETTERS and SETTERS
     public String getId() {
@@ -88,40 +77,5 @@ public abstract class Literature {
             return false;
         return true;
     }
-
-
-
-    
-   /*  @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Literature other = (Literature) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (title == null) {
-            if (other.title != null)
-                return false;
-        } else if (!title.equals(other.title))
-            return false;
-        if (isAvailable != other.isAvailable)
-            return false;
-        return true;
-    } */
 
 }
