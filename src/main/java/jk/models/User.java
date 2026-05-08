@@ -12,8 +12,8 @@ public class User {
     private String name;
     private String email;
 
-    public User(String id, String name, String email) {
-        this.id = id;
+    public User( String name, String email) {
+        this.id = validID();
         this.name = name;
         this.email = email;
     }

@@ -218,3 +218,64 @@ case 6
         test.add(b3);
 
        IO.println( Book.validID(test));
+
+
+//SECTION - notes about the validID method
+       // FIXME id will be a problem nearly everywhere
+// REVIEW Ideas to fix that
+// Get all data - save to repective list (make set to avoid duplicates)
+// Method that returns next valid ID
+// for loop test current i if equal to ID (start at 1), if not return that else continue?
+// That might ectually be the plan,
+// ?how to do that: 
+    // Start by switching the register to HashSet 
+    // implement HashCode in the Models (ID.toint)
+    // static block in libSys to get all and all that
+    // before continue with the add method (Risky don't want duplicate ID)
+    // make the validID method
+    // use that 
+
+//SECTION - first try case 1 and 2 methods, redoing it 
+
+    // FIXME THIS SHEIT FIGURE IT OUT
+    // METHODS FOR CASE 1 and 2 in menu
+
+    /*
+     * private static void getAllDatatype(Class<?> c, String URL) {
+     * Type type = new TypeToken<ArrayList<?>>(){}.getType();
+     * String body = Client.getAll(URL);
+     * }
+     */
+
+    /*
+     * Type susUseListType=new TypeToken<ArrayList<SuspendedUser>>(){}.getType();
+     * String bodySusUse = Client.getAll("suspended");
+     * ArrayList<SuspendedUser> listSusUse = gson.fromJson(bodySusUse,
+     * susUseListType);susReg.add(listSusUse);
+     */
+
+    // TODO FIX THIS SAME PROBLEM AS ABOVE
+    /*
+     * private static void getOneId(String URL, String parameter) {
+     * // TODO would prefer to get a maximum id
+     * // ? wouldn't work though would it, cause technically id can start on 101
+     * // ! ideas in Main, method that have a for loop until the register don't
+     * //! contain the ID
+     * // ! WHERE should that method be stored, in models and create it
+     * // ! automatically upon creation, can't go wrong
+     * // ! negatives ? they don't have naturall acess to the register, unless I
+     * make them public/get which will work actually
+     * //NOTE: conclusion: have the automatical new id method in the models and
+     * implement a get here for every register
+     * 
+     * (like
+     * // Users);
+     * int id = userInputInt("state id: ", 0);
+     * String bodyBook = Client.getOne(URL, id);
+     * if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+     * || bodyBook.equals("ERROR: server"))
+     * IO.println("Something went wrong, couldn't find the requested " + parameter);
+     * else {
+     * }
+     * }
+     */

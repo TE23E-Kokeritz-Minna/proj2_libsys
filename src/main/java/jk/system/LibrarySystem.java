@@ -19,10 +19,6 @@ import jk.registry.UserRegister;
 public class LibrarySystem {
 
     // FIXME get server data upon start?
-    // ? can help in dublicate ID risk
-    // REVIEW how to solve id problems and what not
-
-    // REVIEW why have a Literature list and not book and Magazine.
 
     private static LiteratureRegister litReg;
     private static LoanRegister loanReg;
@@ -144,9 +140,6 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("GET ONE BOOK");
-                            // FIXME would prefer to get a maximum id
-                            // ? wouldn't work though would it, cause technically id can start on 101 (like
-                            // Users);
                             int id = userInputInt("state id: ", 0);
                             String bodyBook = Client.getOne("books", id);
                             if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
@@ -209,7 +202,7 @@ public class LibrarySystem {
                     // TODO Dangeurous things, be careful not to double the id in some way
                     // THINK THINK THINK
                     // TBC LATER
-                    // IDEA in main file Comments
+                    // Solved maybe still be careful, dubbelcheck dubbelcheck dubbelcheck
 
                     IO.println("""
                             ----------- ADD ------------
@@ -235,18 +228,7 @@ public class LibrarySystem {
                             // TODO fix the ID risq for duplicates
                             // FIXME THIS WILL NOT END WELL
                             // the easiest way of doing it is imediatly upon creation get every info
-                            String id = String.valueOf(litReg.getRegisterBook().size() + 1);
-                            Book newBook = new Book(title, author, genre, pages, true);
-
-                            /*
-                             * IO.println(newBook + " has been created");
-                             * IO.readln();
-                             * litReg.add(newBook);
-                             * String jsonBody = gson.toJson(newBook);
-                             * IO.println(jsonBody);
-                             * IO.readln();
-                             * // Client.post(book, id)
-                             */
+                    
                             break;
                         case 2:
                             IO.println("ADD MAGAZINE");
@@ -329,48 +311,6 @@ public class LibrarySystem {
         }
     }
 
-    // FIXME THIS SHEIT FIGURE IT OUT
-    // METHODS FOR CASE 1 and 2 in menu
-
-    /*
-     * private static void getAllDatatype(Class<?> c, String URL) {
-     * Type type = new TypeToken<ArrayList<?>>(){}.getType();
-     * String body = Client.getAll(URL);
-     * }
-     */
-
-    /*
-     * Type susUseListType=new TypeToken<ArrayList<SuspendedUser>>(){}.getType();
-     * String bodySusUse = Client.getAll("suspended");
-     * ArrayList<SuspendedUser> listSusUse = gson.fromJson(bodySusUse,
-     * susUseListType);susReg.add(listSusUse);
-     */
-
-    // TODO FIX THIS SAME PROBLEM AS ABOVE
-    /*
-     * private static void getOneId(String URL, String parameter) {
-     * // TODO would prefer to get a maximum id
-     * // ? wouldn't work though would it, cause technically id can start on 101
-     * // ! ideas in Main, method that have a for loop until the register don't
-     * //! contain the ID
-     * // ! WHERE should that method be stored, in models and create it
-     * // ! automatically upon creation, can't go wrong
-     * // ! negatives ? they don't have naturall acess to the register, unless I
-     * make them public/get which will work actually
-     * //NOTE: conclusion: have the automatical new id method in the models and
-     * implement a get here for every register
-     * 
-     * (like
-     * // Users);
-     * int id = userInputInt("state id: ", 0);
-     * String bodyBook = Client.getOne(URL, id);
-     * if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
-     * || bodyBook.equals("ERROR: server"))
-     * IO.println("Something went wrong, couldn't find the requested " + parameter);
-     * else {
-     * }
-     * }
-     */
 
 
     
