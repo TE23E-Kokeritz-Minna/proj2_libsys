@@ -13,6 +13,7 @@ import jk.models.SuspendedUser;
 import jk.models.User;
 import jk.registry.LiteratureRegister;
 import jk.registry.LoanRegister;
+import jk.registry.Register;
 import jk.registry.SuspendedUserRegister;
 import jk.registry.UserRegister;
 
@@ -24,6 +25,7 @@ public class LibrarySystem {
     private static LoanRegister loanReg;
     private static SuspendedUserRegister susReg;
     private static UserRegister userReg;
+    private final static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     static {
         litReg = new LiteratureRegister();
@@ -35,7 +37,6 @@ public class LibrarySystem {
     public static void menu() {
 
         boolean menuOn = true;
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Menu start
         while (menuOn) {
@@ -74,53 +75,33 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
-                            String bodyBook = Client.getAll("books");
-                            String bodyMags = Client.getAll("magazines");
-                            Type bookListType = new TypeToken<HashSet<Book>>() {
-                            }.getType();
-                            Type magsListType = new TypeToken<HashSet<Magazine>>() {
-                            }.getType();
-                            HashSet<Book> listBook = gson.fromJson(bodyBook, bookListType);
-                            HashSet<Magazine> listMags = gson.fromJson(bodyMags, magsListType);
 
-                            litReg.add(listMags);
-                            litReg.add(listBook);
+                            litReg.add(getAllDataType(Magazine.class, "magazines"));
+                            litReg.add(getAllDataType(Book.class, "books"));
 
                             break;
                         case 2:
                             IO.println("GET BOOK");
-                            bookListType = new TypeToken<HashSet<Book>>() {
-                            }.getType();
-                            bodyBook = Client.getAll("books");
-                            listBook = gson.fromJson(bodyBook, bookListType);
-                            litReg.add(listBook);
+
+                            litReg.add(getAllDataType(Book.class, "books"));
 
                             break;
                         case 3:
                             IO.println("GET MAGAZINE");
-                            magsListType = new TypeToken<HashSet<Magazine>>() {
-                            }.getType();
-                            bodyMags = Client.getAll("magazines");
-                            listMags = gson.fromJson(bodyMags, magsListType);
-                            litReg.add(listMags);
+
+                            litReg.add(getAllDataType(Magazine.class, "magazines"));
 
                             break;
                         case 4:
                             IO.println("GET SUSPENDEDUSER");
-                            Type susUseListType = new TypeToken<HashSet<SuspendedUser>>() {
-                            }.getType();
-                            String bodySusUse = Client.getAll("suspended");
-                            HashSet<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
-                            susReg.add(listSusUse);
+
+                            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
 
                             break;
                         case 5:
                             IO.println("GET USERS");
-                            Type userListType = new TypeToken<HashSet<User>>() {
-                            }.getType();
-                            String bodyUser = Client.getAll("users");
-                            HashSet<User> listUser = gson.fromJson(bodyUser, userListType);
-                            userReg.add(listUser);
+
+                            userReg.add(getAllDataType(User.class, "users"));
                             break;
                     }
 
@@ -228,7 +209,7 @@ public class LibrarySystem {
                             // TODO fix the ID risq for duplicates
                             // FIXME THIS WILL NOT END WELL
                             // the easiest way of doing it is imediatly upon creation get every info
-                    
+
                             break;
                         case 2:
                             IO.println("ADD MAGAZINE");
@@ -311,9 +292,30 @@ public class LibrarySystem {
         }
     }
 
+    private static <T> HashSet<T> getAllDataType(Class<T> clazz, String URL) {
+        Type type = TypeToken.getParameterized(HashSet.class, clazz).getType();
+        String body = Client.getAll(URL);
+        if (body.equals("ERROR: server") || body.equals("ERROR: status"))
+            throw new IllegalAccessError("Something went wrong with get");
+        HashSet<T> list = gson.fromJson(body, type);
+        return list;
+    }
+    /*
+     * IO.println("GET ONE BOOK");
+     * int id = userInputInt("state id: ", 0);
+     * String bodyBook = Client.getOne("books", id);
+     * if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+     * || bodyBook.equals("ERROR: server"))
+     * IO.println("Something went wrong, couldn't find the requested book");
+     * else {
+     * Book retrivedBook = gson.fromJson(bodyBook, Book.class);
+     * IO.println("Retrived book:\n" + retrivedBook.toString());
+     * IO.println("Added the retrived book to local list");
+     * litReg.add(retrivedBook);
+     * }
+     */
 
 
-    
 
     private static String userInputString(String message, String parameter) {
         String ans = "";

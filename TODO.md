@@ -26,6 +26,7 @@
 
 ### Generall checks 
 - [ ] is Client Error codes correctly structured
+    - Maybe Client throws exception and try catch in menu, would that work? 
 - [X] why have a literature list and not Book and Magazine 
     - removed literature 
 - [ ] duplicate ids in Literature (different Types), problem? mayhaps

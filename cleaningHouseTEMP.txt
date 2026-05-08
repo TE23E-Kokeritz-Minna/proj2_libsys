@@ -279,3 +279,49 @@ case 6
      * }
      * }
      */
+
+
+//SECTION - Old Switch cases for GET ALL in menu 
+    IO.println("GET USERS");
+            Type userListType = new TypeToken<HashSet<User>>() {
+            }.getType();
+            String bodyUser = Client.getAll("users");
+            HashSet<User> listUser = gson.fromJson(bodyUser, userListType);
+            userReg.add(listUser);
+
+
+    IO.println("GET LIT");
+            String bodyBook = Client.getAll("books");
+            String bodyMags = Client.getAll("magazines");
+
+            Type bookListType = new TypeToken<HashSet<Book>>() {
+            }.getType();
+            Type magsListType = new TypeToken<HashSet<Magazine>>() {
+            }.getType();
+
+            HashSet<Book> listBook = gson.fromJson(bodyBook, bookListType);
+            HashSet<Magazine> listMags = gson.fromJson(bodyMags, magsListType);
+
+            litReg.add(listMags);
+            litReg.add(listBook);
+
+    IO.println("GET BOOK");
+            bookListType = new TypeToken<HashSet<Book>>() {
+            }.getType();
+            bodyBook = Client.getAll("books");
+            listBook = gson.fromJson(bodyBook, bookListType);
+            litReg.add(listBook);
+
+    IO.println("GET MAGAZINE");
+            magsListType = new TypeToken<HashSet<Magazine>>() {
+            }.getType();
+            bodyMags = Client.getAll("magazines");
+            listMags = gson.fromJson(bodyMags, magsListType);
+            litReg.add(listMags);
+
+    IO.println("GET SUSPENDEDUSER");
+            Type susUseListType = new TypeToken<HashSet<SuspendedUser>>() {
+            }.getType();
+            String bodySusUse = Client.getAll("suspended");
+            HashSet<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
+            susReg.add(listSusUse);
