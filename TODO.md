@@ -1,11 +1,11 @@
-### __ID related problems__
+### **ID related problems**
 - Need unique id for every category 
 - In constructor genereate new ID 
     - **method**
-    - For loop until the list nolonger includes the id starting at 1
+    - For loop until the list nolonger includes, the id starting at 1
     - get method for the registers 
 
-### __Basic LibrarySystem updates__
+### **Basic LibrarySystem updates**
 - Get method for Registers 
 - Static block getAll data of every type
 
