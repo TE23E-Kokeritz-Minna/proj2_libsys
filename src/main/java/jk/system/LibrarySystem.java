@@ -117,63 +117,26 @@ public class LibrarySystem {
                                 4. User
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
-                    // TODO COULD BE METHODS, PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
                             IO.println("GET ONE BOOK");
-                            int id = userInputInt("state id: ", 0);
-                            String bodyBook = Client.getOne("books", id);
-                            if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
-                                    || bodyBook.equals("ERROR: server"))
-                                IO.println("Something went wrong, couldn't find the requested book");
-                            else {
-                                Book retrivedBook = gson.fromJson(bodyBook, Book.class);
-                                IO.println("Retrived book:\n" + retrivedBook.toString());
-                                IO.println("Added the retrived book to local list");
-                                litReg.add(retrivedBook);
-                            }
+                            litReg.add(getOneID(Book.class, "books"));
+
                             break;
                         case 2:
                             IO.println("GET ONE MAGAZINE");
-                            id = userInputInt("state id: ", 0);
-                            String bodyMags = Client.getOne("magazines", id);
-                            if (bodyMags.equals("ERROR: status") || bodyMags.equals("ERROR: ID")
-                                    || bodyMags.equals("ERROR: server"))
-                                IO.println("Something went wrong, couldn't find the requested magazine");
-                            else {
-                                Magazine retrivedMag = gson.fromJson(bodyMags, Magazine.class);
-                                IO.println("Retrived megazine:\n" + retrivedMag.toString());
-                                IO.println("Added the retrived magazine to local list");
-                                litReg.add(retrivedMag);
-                            }
+                            litReg.add(getOneID(Magazine.class, "magazines"));
+
                             break;
                         case 3:
                             IO.println("GET ONE SUSPENDEDUSER");
-                            id = userInputInt("state id: ", 0);
-                            String bodySusUse = Client.getOne("suspended", id);
-                            if (bodySusUse.equals("ERROR: status") || bodySusUse.equals("ERROR: ID")
-                                    || bodySusUse.equals("ERROR: server"))
-                                IO.println("Something went wrong, couldn't find the requested suspended");
-                            else {
-                                SuspendedUser retrivedSusUse = gson.fromJson(bodySusUse, SuspendedUser.class);
-                                IO.println("Retrived suspended:\n" + retrivedSusUse.toString());
-                                IO.println("Added the retrived suspended to local list");
-                                susReg.add(retrivedSusUse);
-                            }
+                            susReg.add(getOneID(SuspendedUser.class, "suspended"));
+
                             break;
                         case 4:
                             IO.println("GET ONE USERS");
-                            id = userInputInt("state id: ", 0);
-                            String bodyUser = Client.getOne("users", id);
-                            if (bodyUser.equals("ERROR: status") || bodyUser.equals("ERROR: ID")
-                                    || bodyUser.equals("ERROR: server"))
-                                IO.println("Something went wrong, couldn't find the requested user");
-                            else {
-                                User retrivedUser = gson.fromJson(bodyUser, User.class);
-                                IO.println("Retrived user:\n" + retrivedUser.toString());
-                                IO.println("Added the retrived user to local list");
-                                userReg.add(retrivedUser);
-                            }
+                            userReg.add(getOneID(User.class, "users"));
+
                             break;
                     }
                     break;
@@ -300,6 +263,7 @@ public class LibrarySystem {
         HashSet<T> list = gson.fromJson(body, type);
         return list;
     }
+
     /*
      * IO.println("GET ONE BOOK");
      * int id = userInputInt("state id: ", 0);
@@ -314,8 +278,30 @@ public class LibrarySystem {
      * litReg.add(retrivedBook);
      * }
      */
+    private static <T> T getOneID(Class<T> clazz, String URL) {
+        int id = userInputInt("state id: ", 0);
 
+        String body = Client.getOne(URL, id);
 
+        if (body.equals("ERROR: status") || body.equals("ERROR: ID")
+                || body.equals("ERROR: server")) {
+            IO.println("Something went wrong, couldn't find the requested book");
+            throw new IllegalAccessError("Something went wrong, could'nt fins the requested item");
+        } else {
+            T retrived = gson.fromJson(body, clazz);
+            IO.println("Retrieved item:\n" + (T) retrived.toString());
+            return retrived;
+        }
+
+        /*
+         * Type type = TypeToken.getParameterized(HashSet.class, clazz).getType();
+         * String body = Client.getAll(URL);
+         * if (body.equals("ERROR: server") || body.equals("ERROR: status"))
+         * throw new IllegalAccessError("Something went wrong with get");
+         * HashSet<T> list = gson.fromJson(body, type);
+         * return list;
+         */
+    }
 
     private static String userInputString(String message, String parameter) {
         String ans = "";

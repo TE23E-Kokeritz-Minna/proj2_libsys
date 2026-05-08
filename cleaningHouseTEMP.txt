@@ -325,3 +325,52 @@ case 6
             String bodySusUse = Client.getAll("suspended");
             HashSet<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
             susReg.add(listSusUse);
+
+// SECTION - Old switch cases for GET ONE in menu
+
+            int id = userInputInt("state id: ", 0);
+            String bodyBook = Client.getOne("books", id);
+            if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
+                    || bodyBook.equals("ERROR: server"))
+                IO.println("Something went wrong, couldn't find the requested book");
+            else {
+                Book retrivedBook = gson.fromJson(bodyBook, Book.class);
+                IO.println("Retrived book:\n" + retrivedBook.toString());
+                IO.println("Added the retrived book to local list");
+                litReg.add(retrivedBook); 
+            }*/
+
+            id = userInputInt("state id: ", 0);
+            String bodyMags = Client.getOne("magazines", id);
+            if (bodyMags.equals("ERROR: status") || bodyMags.equals("ERROR: ID")
+                    || bodyMags.equals("ERROR: server"))
+                IO.println("Something went wrong, couldn't find the requested magazine");
+            else {
+                Magazine retrivedMag = gson.fromJson(bodyMags, Magazine.class);
+                IO.println("Retrived megazine:\n" + retrivedMag.toString());
+                IO.println("Added the retrived magazine to local list");
+                litReg.add(retrivedMag);
+            }
+            id = userInputInt("state id: ", 0);
+            String bodySusUse = Client.getOne("suspended", id);
+            if (bodySusUse.equals("ERROR: status") || bodySusUse.equals("ERROR: ID")
+                    || bodySusUse.equals("ERROR: server"))
+                IO.println("Something went wrong, couldn't find the requested suspended");
+            else {
+                SuspendedUser retrivedSusUse = gson.fromJson(bodySusUse, SuspendedUser.class);
+                IO.println("Retrived suspended:\n" + retrivedSusUse.toString());
+                IO.println("Added the retrived suspended to local list");
+                susReg.add(retrivedSusUse);
+            }
+            id = userInputInt("state id: ", 0);
+            String bodyUser = Client.getOne("users", id);
+            if (bodyUser.equals("ERROR: status") || bodyUser.equals("ERROR: ID")
+                    || bodyUser.equals("ERROR: server"))
+                IO.println("Something went wrong, couldn't find the requested user");
+            else {
+                User retrivedUser = gson.fromJson(bodyUser, User.class);
+                IO.println("Retrived user:\n" + retrivedUser.toString());
+                IO.println("Added the retrived user to local list");
+                userReg.add(retrivedUser);
+            }
+

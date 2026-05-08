@@ -8,10 +8,10 @@ public class Client {
 
     // NOTE switch server based on location
     // REAL / SCHOOL 
-    private static final String baseURL = "http://10.151.168.5:3123/";
+    //private static final String baseURL = "http://10.151.168.5:3123/";
 
     // TEMP / HOME
-    // private static final String baseURL = "http://localhost:3000/";
+     private static final String baseURL = "http://localhost:3000/";
 
     // REVIEW is the ERROR codes right maybe something else should be returnd 
     // check the criticims on catch
