@@ -264,20 +264,6 @@ public class LibrarySystem {
         return list;
     }
 
-    /*
-     * IO.println("GET ONE BOOK");
-     * int id = userInputInt("state id: ", 0);
-     * String bodyBook = Client.getOne("books", id);
-     * if (bodyBook.equals("ERROR: status") || bodyBook.equals("ERROR: ID")
-     * || bodyBook.equals("ERROR: server"))
-     * IO.println("Something went wrong, couldn't find the requested book");
-     * else {
-     * Book retrivedBook = gson.fromJson(bodyBook, Book.class);
-     * IO.println("Retrived book:\n" + retrivedBook.toString());
-     * IO.println("Added the retrived book to local list");
-     * litReg.add(retrivedBook);
-     * }
-     */
     private static <T> T getOneID(Class<T> clazz, String URL) {
         int id = userInputInt("state id: ", 0);
 
@@ -292,15 +278,29 @@ public class LibrarySystem {
             IO.println("Retrieved item:\n" + (T) retrived.toString());
             return retrived;
         }
+    }
 
-        /*
-         * Type type = TypeToken.getParameterized(HashSet.class, clazz).getType();
-         * String body = Client.getAll(URL);
-         * if (body.equals("ERROR: server") || body.equals("ERROR: status"))
-         * throw new IllegalAccessError("Something went wrong with get");
-         * HashSet<T> list = gson.fromJson(body, type);
-         * return list;
-         */
+
+// HOW TO DO THIS
+    // ASk for the ID;
+    // show the Relevent Book, ask for confirmation
+    // Try removing it
+    // give Feedback based on the Error Message thatCLIENT sends back
+    // if it doesnt exist good for you
+    // after removing it from server remove it from the local list
+
+//TODO - the "search" feature will be weird with Books and Magazines
+    private static <T> void removeID(Class<T> clazz, String URL){
+        int id = userInputInt("state id: ", 0);
+        switch (URL) {
+            case "books":
+                
+                break;
+        
+            default:
+                break;
+        }
+
     }
 
     private static String userInputString(String message, String parameter) {

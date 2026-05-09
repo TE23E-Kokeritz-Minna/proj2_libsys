@@ -55,7 +55,6 @@ public class LiteratureRegister extends Register<Literature> {
         }
     }
 
-    
 /* 
     public Boolean contains(String id, Class<? extends Literature> c) {
         if (c == Book.class)
