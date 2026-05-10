@@ -67,8 +67,11 @@ public class LiteratureRegister extends Register<Literature> {
     //TODO
     @Override
     public ArrayList<Literature> search(String criteria) {
-        IO.println("TBC (returns first magazine)");
-        return new ArrayList<>(registerBook);
+        ArrayList<Literature> searchList = new ArrayList<>();
+        registerBook.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b-> searchList.add(b));
+        registerMagazine.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b-> searchList.add(b));
+
+        return searchList;
     }
 
     public HashSet<Book> getRegisterBook() {

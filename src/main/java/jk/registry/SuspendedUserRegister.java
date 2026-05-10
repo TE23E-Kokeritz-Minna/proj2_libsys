@@ -2,13 +2,15 @@ package jk.registry;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import jk.models.SuspendedUser;
 
-public class SuspendedUserRegister extends Register<SuspendedUser>{
+public class SuspendedUserRegister extends Register<SuspendedUser> {
     private HashSet<SuspendedUser> register;
 
-    public SuspendedUserRegister(){
+    public SuspendedUserRegister() {
         register = new HashSet<>();
     }
 
@@ -19,29 +21,30 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
 
     @Override
     public void add(HashSet<? extends SuspendedUser> list) {
-       for (SuspendedUser suspendedUser : list) {
-        this.add(suspendedUser);
-       } 
+        for (SuspendedUser suspendedUser : list) {
+            this.add(suspendedUser);
+        }
     }
 
     @Override
     public void remove(SuspendedUser item) {
         register.remove(item);
-        
+
     }
 
     @Override
     public ArrayList<SuspendedUser> search(String criteria) {
-        //TODO
-        IO.println("TBC (returns first item)");
-        return new ArrayList<>(register);
+        ArrayList<SuspendedUser> searchList = new ArrayList<>(
+                register.stream().filter(s -> s.getUserId().equals(criteria)).collect(Collectors.toList()));
+
+        return searchList;
     }
 
     @Override
     public void writeAll() {
         for (SuspendedUser suspendedUser : register) {
-            IO.println("> ID: " +  suspendedUser.getId() + " userID: " + suspendedUser.getUserId());   
-        }    
+            IO.println("> ID: " + suspendedUser.getId() + " userID: " + suspendedUser.getUserId());
+        }
     }
 
     public HashSet<SuspendedUser> getRegister() {
