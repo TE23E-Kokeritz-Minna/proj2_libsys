@@ -1,5 +1,6 @@
 package jk.registry;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import jk.models.User;
@@ -32,9 +33,9 @@ public class UserRegister extends Register<User>{
 
     //TODO
     @Override
-    public User search(String criteria) {
+    public ArrayList<User> search(String criteria) {
         IO.println("TBC (returns first item)");
-        return  register.stream().findFirst().get();
+        return  new ArrayList<>(register);
     }
 
     @Override

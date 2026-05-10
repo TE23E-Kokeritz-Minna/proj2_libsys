@@ -12,7 +12,7 @@ public class Loan {
     private Literature literature;
 
     public Loan(User user, Literature literature) {
-        this.id = validID();
+        this.id = "";
         this.user = user;
         this.literature = literature;
     }
@@ -25,7 +25,7 @@ public class Loan {
         HashSet<Loan> loanList = LibrarySystem.getLoanReg().getRegister();
         Set<String> hashId = loanList.stream().map(o -> o.getId()).collect(Collectors.toSet());
 
-        for (int i = 1; i < hashId.size() + 1; i++) {
+        for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
         }

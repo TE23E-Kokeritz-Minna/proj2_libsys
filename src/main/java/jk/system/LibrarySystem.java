@@ -13,7 +13,6 @@ import jk.models.SuspendedUser;
 import jk.models.User;
 import jk.registry.LiteratureRegister;
 import jk.registry.LoanRegister;
-import jk.registry.Register;
 import jk.registry.SuspendedUserRegister;
 import jk.registry.UserRegister;
 
@@ -159,6 +158,7 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("ADD BOOK");
+
                             String title = "";
                             String author = "";
                             String genre = "";
@@ -166,12 +166,21 @@ public class LibrarySystem {
 
                             title = userInputString("State the BookTitle: ", "title");
                             author = userInputString("State the author: ", "author");
-                            // ? need to implement something specific for genre or except as is
+                            // REVIEW - need to implement something specific for genre or except as is?
                             genre = userInputString("State the genre: ", "genre");
                             pages = userInputInt("State nr of pages: ", 1);
-                            // TODO fix the ID risq for duplicates
-                            // FIXME THIS WILL NOT END WELL
-                            // the easiest way of doing it is imediatly upon creation get every info
+
+                            Book newBook = new Book(title, author, genre, pages);
+                            IO.println("New Book:\n" + newBook.toString());
+                            String ans = IO.readln("Correct (y/n): ");
+                            if (!ans.equalsIgnoreCase("y"))
+                                break;
+                            else {
+                                String jsonBody = gson.toJson(newBook);
+                                String response = Client.post("books", jsonBody);
+                                newBook = gson.fromJson(response, Book.class);
+                                litReg.add(newBook);
+                            }
 
                             break;
                         case 2:
@@ -280,8 +289,7 @@ public class LibrarySystem {
         }
     }
 
-
-// HOW TO DO THIS
+    // HOW TO DO THIS
     // ASk for the ID;
     // show the Relevent Book, ask for confirmation
     // Try removing it
@@ -289,14 +297,14 @@ public class LibrarySystem {
     // if it doesnt exist good for you
     // after removing it from server remove it from the local list
 
-//TODO - the "search" feature will be weird with Books and Magazines
-    private static <T> void removeID(Class<T> clazz, String URL){
+    // TODO - the "search" feature will be weird with Books and Magazines
+    private static <T> void removeID(Class<T> clazz, String URL) {
         int id = userInputInt("state id: ", 0);
         switch (URL) {
             case "books":
-                
+
                 break;
-        
+
             default:
                 break;
         }

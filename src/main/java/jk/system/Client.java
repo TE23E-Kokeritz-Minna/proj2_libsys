@@ -75,7 +75,7 @@ public class Client {
     public static String post(String URL, String jsonBody) {
 
         HttpResponse<String> response;
-
+        IO.println("Posting: " + jsonBody);
         try {
             response = Unirest.post(baseURL + URL).header("Content-Type", "application/json").body(jsonBody).asString();
         } catch (UnirestException e) {

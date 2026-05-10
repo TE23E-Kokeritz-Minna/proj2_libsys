@@ -13,7 +13,7 @@ public class User {
     private String email;
 
     public User( String name, String email) {
-        this.id = validID();
+        this.id = "";
         this.name = name;
         this.email = email;
     }
@@ -22,7 +22,7 @@ public class User {
         HashSet<SuspendedUser> susList = LibrarySystem.getSusReg().getRegister();
         Set<String> hashId = susList.stream().map(o -> o.getId()).collect(Collectors.toSet());
 
-        for (int i = 1; i < hashId.size() + 1; i++) {
+        for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
         }

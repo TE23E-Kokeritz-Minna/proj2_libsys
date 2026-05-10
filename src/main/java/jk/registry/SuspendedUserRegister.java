@@ -1,5 +1,6 @@
 package jk.registry;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import jk.models.SuspendedUser;
@@ -30,10 +31,10 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
     }
 
     @Override
-    public SuspendedUser search(String criteria) {
+    public ArrayList<SuspendedUser> search(String criteria) {
         //TODO
         IO.println("TBC (returns first item)");
-        return  register.stream().findFirst().get();
+        return  new ArrayList<>(register);
     }
 
     @Override

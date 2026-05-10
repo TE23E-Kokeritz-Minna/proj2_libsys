@@ -12,7 +12,7 @@ public class SuspendedUser {
     private String customer_id;
 
     public SuspendedUser(String customer_id) {
-        this.id = validID();
+        this.id = "";
         this.customer_id = customer_id;
     }
 
@@ -24,7 +24,7 @@ public class SuspendedUser {
         HashSet<SuspendedUser> susList = LibrarySystem.getSusReg().getRegister();
         Set<String> hashId = susList.stream().map(o -> o.getId()).collect(Collectors.toSet());
 
-        for (int i = 1; i < hashId.size() + 1; i++) {
+        for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
         }

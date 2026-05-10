@@ -18,16 +18,16 @@ public class Book extends Literature {
     private int pages;
 
     // constructor
-    public Book(String title, String author, String genre, int pages, boolean isAvailable) {
+    public Book(String title, String author, String genre, int pages) {
 
         // TODO CAPITALIZE GENRE
         // Maybe even the author and title;
         this.author = author;
         this.genre = genre;
         this.pages = pages;
-        String id = validID();
-
-        super(id, title, isAvailable);
+        String id = "";
+        
+        super(id, title, true);
     }
 
     public Book() {
@@ -36,10 +36,9 @@ public class Book extends Literature {
     // REVIEW is this better as a child class somehow
     protected static String validID() {
         HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
-
         Set<String> hashId = bookList.stream().map(o -> o.getId()).collect(Collectors.toSet());
 
-        for (int i = 1; i < hashId.size() + 1; i++) {
+        for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
         }

@@ -1,5 +1,6 @@
 package jk.registry;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import jk.models.Literature;
@@ -65,9 +66,9 @@ public class LiteratureRegister extends Register<Literature> {
  */
     //TODO
     @Override
-    public Literature search(String criteria) {
+    public ArrayList<Literature> search(String criteria) {
         IO.println("TBC (returns first magazine)");
-        return registerMagazine.stream().findFirst().get();
+        return new ArrayList<>(registerBook);
     }
 
     public HashSet<Book> getRegisterBook() {

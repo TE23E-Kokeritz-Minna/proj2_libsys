@@ -1,5 +1,6 @@
 package jk.registry;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import jk.models.Loan;
@@ -32,9 +33,9 @@ public class LoanRegister extends Register<Loan>{
     
     //TODO
     @Override
-    public Loan search(String criteria) {
+    public ArrayList<Loan> search(String criteria) {
         IO.println("TBC (returns first item)");
-        return  register.stream().findFirst().get();
+        return  new ArrayList<>(register);
     }
 
     @Override

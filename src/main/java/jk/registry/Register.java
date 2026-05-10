@@ -1,5 +1,6 @@
 package jk.registry;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public abstract class Register<T>{
@@ -10,7 +11,7 @@ public abstract class Register<T>{
 
     public abstract void writeAll();
 
-    public abstract T search (String criteria);
+    public abstract ArrayList<T> search (String criteria);
 
 
 }

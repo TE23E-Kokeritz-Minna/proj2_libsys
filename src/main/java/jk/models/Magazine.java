@@ -19,12 +19,12 @@ public class Magazine extends Literature {
     private int publishedYear;
 
     // Contrsuctors
-    public Magazine(String title, int issueNumber, String category, int publishedYear, boolean isAvailable) {
+    public Magazine(String title, int issueNumber, String category, int publishedYear) {
         this.issueNumber = issueNumber;
         this.category = category;
         this.publishedYear = publishedYear;
-        String id = validID();
-        super(id, title, isAvailable);
+        String id = "";
+        super(id, title, true );
     }
 
 
@@ -36,7 +36,7 @@ public class Magazine extends Literature {
         HashSet<Magazine> magsList = LibrarySystem.getLitReg().getRegisterMagazine();
         Set<String> hashId = magsList.stream().map(o -> o.getId()).collect(Collectors.toSet());
         
-        for (int i = 1; i < hashId.size() + 1; i++) {
+        for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
         } 
