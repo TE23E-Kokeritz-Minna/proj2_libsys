@@ -174,7 +174,7 @@ public class LibrarySystem {
                             pages = userInputInt("State nr of pages: ", 1);
 
                             Book newBook = new Book(title, author, genre, pages);
-                            createNewItem(newBook, litReg);
+                            createNewItem(newBook, "books",litReg);
 
                             break;
 
@@ -193,7 +193,7 @@ public class LibrarySystem {
                             publishedYear = userInputInt("State the publishing year: ", 1663, currentYear);
 
                             Magazine newMag = new Magazine(title, issueNumber, category, publishedYear);
-                            createNewItem(newMag, litReg);
+                            createNewItem(newMag, "magazines",litReg);
                             break;
 
                         case 3:
@@ -205,7 +205,7 @@ public class LibrarySystem {
                             userId = userInputString("State the UserID to suspend: ", "userID");
                             reason = userInputString("State the reason: "," reason");
                             SuspendedUser newSusUser = new SuspendedUser(userId, reason);
-                            createNewItem(newSusUser, susReg);
+                            createNewItem(newSusUser, "suspended",susReg);
                             break;
                         case 4:
                             IO.println("ADD USER");
@@ -215,7 +215,7 @@ public class LibrarySystem {
                             name = userInputString("State the name: "," name");
                             email = userInputString("State the email: ", "email");
                             User newUser = new User(name, email);
-                            createNewItem(newUser, userReg);
+                            createNewItem(newUser, "users",userReg);
                             break;
                         case 5:
                             break;
@@ -314,14 +314,14 @@ public class LibrarySystem {
         }
     }
 
-    private static <T> void createNewItem(Object obj, Register reg) {
+    private static <T> void createNewItem(Object obj, String URL,  Register reg) {
         IO.println("New " + obj.getClass().getSimpleName() + " :\n" + obj.toString());
         String ans = IO.readln("Correct (y/n): ");
         if (!ans.equalsIgnoreCase("y"))
             return;
         else {
             String jsonBody = gson.toJson(obj);
-            String response = Client.post("books", jsonBody);
+            String response = Client.post(URL, jsonBody);
             obj = gson.fromJson(response, obj.getClass());
             reg.add(obj);
         }
