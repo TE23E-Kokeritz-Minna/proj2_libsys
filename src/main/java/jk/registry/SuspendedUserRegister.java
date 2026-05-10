@@ -29,7 +29,6 @@ public class SuspendedUserRegister extends Register<SuspendedUser> {
     @Override
     public void remove(SuspendedUser item) {
         register.remove(item);
-
     }
 
     @Override

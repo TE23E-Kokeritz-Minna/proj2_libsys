@@ -246,6 +246,7 @@ public class LibrarySystem {
                             break;
                         case 3:
                             IO.println("REMOVE SUSPENDEDUSER");
+                            removeUserId("suspended");
                             break;
                         case 4:
                             IO.println("REMOVE USER");
@@ -322,6 +323,9 @@ public class LibrarySystem {
         }
     }
 
+
+    //NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE
+
     // TODO - the "search" feature will be weird with Books and Magazines
     // TODO give better feedback 
     private static <T> void removeTitle(Class<T> clazz, String URL) {
@@ -353,7 +357,6 @@ public class LibrarySystem {
             litReg.remove(removedObj);
         }
         // TODO delete from list to and dubbelcheck that it works
-
     }
 
     private static <T> void removeEmail(String URL){
@@ -383,6 +386,36 @@ public class LibrarySystem {
         String response = Client.delete(URL, id);
         if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
             userReg.remove(removedUser);
+        }
+
+    } 
+    private static <T> void removeUserId(String URL){
+        String userId = userInputString("State the userId: ", "userId");
+        SuspendedUser removedSuspendedUser; 
+        String ans = ""; 
+        ArrayList<SuspendedUser> allMatching = susReg.search(userId);
+
+        for (SuspendedUser suspendedUser : allMatching) {
+            IO.println("> " + suspendedUser.toString());
+        }
+        if (allMatching.size() < 2 && !allMatching.isEmpty()) {
+            ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
+            if (ans.equalsIgnoreCase("y"))
+                removedSuspendedUser = allMatching.getFirst();
+            else
+                return;
+        } else if (allMatching.isEmpty())
+            return;
+        else {
+            ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
+            removedSuspendedUser = allMatching.get(Integer.parseInt(ans) + 1);
+        }
+
+        String id = removedSuspendedUser.getId();
+
+        String response = Client.delete(URL, id);
+        if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
+            susReg.remove(removedSuspendedUser);
         }
 
     } 
