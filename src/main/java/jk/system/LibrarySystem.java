@@ -235,8 +235,6 @@ public class LibrarySystem {
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-4): ", 1, 4);
 
-                    // TODO before writing, cause everything works the same except the Class,
-                    // therfore figure out the method for this and above
                     switch (alt) {
                         case 1:
                             IO.println("REMOVE BOOK");
@@ -251,6 +249,7 @@ public class LibrarySystem {
                             break;
                         case 4:
                             IO.println("REMOVE USER");
+                            removeEmail("users");
                             break;
                         case 5:
                             break;
@@ -356,6 +355,40 @@ public class LibrarySystem {
         // TODO delete from list to and dubbelcheck that it works
 
     }
+
+    private static <T> void removeEmail(String URL){
+        String email = userInputString("State the Email: ", "email");
+        User removedUser; 
+        String ans = ""; 
+        ArrayList<User> allMatching = userReg.search(email);
+
+        for (User user : allMatching) {
+            IO.println("> " + user.toString());
+        }
+        if (allMatching.size() < 2 && !allMatching.isEmpty()) {
+            ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
+            if (ans.equalsIgnoreCase("y"))
+                removedUser = allMatching.getFirst();
+            else
+                return;
+        } else if (allMatching.isEmpty())
+            return;
+        else {
+            ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
+            removedUser = allMatching.get(Integer.parseInt(ans) + 1);
+        }
+
+        String id = removedUser.getId();
+
+        String response = Client.delete(URL, id);
+        if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
+            userReg.remove(removedUser);
+        }
+
+    } 
+
+
+
 
     private static String userInputString(String message, String parameter) {
         String ans = "";
