@@ -2,6 +2,7 @@ package jk.system;
 
 import java.lang.reflect.Type;
 import java.rmi.registry.Registry;
+import java.time.Year;
 import java.util.HashSet;
 
 import com.google.gson.Gson;
@@ -161,10 +162,10 @@ public class LibrarySystem {
                         case 1:
                             IO.println("ADD BOOK");
 
-                            String title = "";
-                            String author = "";
-                            String genre = "";
-                            int pages = -1;
+                            String title;
+                            String author;
+                            String genre;
+                            int pages;
 
                             title = userInputString("State the BookTitle: ", "title");
                             author = userInputString("State the author: ", "author");
@@ -175,11 +176,26 @@ public class LibrarySystem {
                             Book newBook = new Book(title, author, genre, pages);
                             createNewItem(newBook, litReg);
 
-
                             break;
+                            
                         case 2:
                             IO.println("ADD MAGAZINE");
+                            
+                            title = "";
+                            int issueNumber = -1; 
+                            String category = ""; 
+                            int publishedYear = -1;
+
+                            title = userInputString("State the MagTitle: ", title);
+                            issueNumber = userInputInt("State the issue Nr: ",1);
+                            category = userInputString("State the category: ","category");
+                            int currentYear = Year.now().getValue();
+                            publishedYear = userInputInt("State the publishing year: ", 1663, currentYear);
+
+                            Magazine newMag = new Magazine(title, issueNumber, category, publishedYear);
+                            createNewItem(newMag, litReg);
                             break;
+
                         case 3:
                             IO.println("ADD SUSPENDEDUSER");
                             break;
