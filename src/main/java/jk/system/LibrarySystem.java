@@ -209,6 +209,13 @@ public class LibrarySystem {
                             break;
                         case 4:
                             IO.println("ADD USER");
+                            String name; 
+                            String email; 
+
+                            name = userInputString("State the name: "," name");
+                            email = userInputString("State the email: ", "email");
+                            User newUser = new User(name, email);
+                            createNewItem(newUser, userReg);
                             break;
                         case 5:
                             break;
