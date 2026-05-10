@@ -374,3 +374,14 @@ case 6
                 userReg.add(retrivedUser);
             }
 
+//SECTION - raw code creatNewItem();
+    IO.println("New Book:\n" + newBook.toString());
+    String ans = IO.readln("Correct (y/n): ");
+    if (!ans.equalsIgnoreCase("y"))
+        break;
+    else {
+        String jsonBody = gson.toJson(newBook);
+        String response = Client.post("books", jsonBody);
+        newBook = gson.fromJson(response, Book.class);
+        litReg.add(newBook);
+    } 

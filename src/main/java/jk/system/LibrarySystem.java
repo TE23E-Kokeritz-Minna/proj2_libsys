@@ -1,6 +1,7 @@
 package jk.system;
 
 import java.lang.reflect.Type;
+import java.rmi.registry.Registry;
 import java.util.HashSet;
 
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import jk.models.SuspendedUser;
 import jk.models.User;
 import jk.registry.LiteratureRegister;
 import jk.registry.LoanRegister;
+import jk.registry.Register;
 import jk.registry.SuspendedUserRegister;
 import jk.registry.UserRegister;
 
@@ -171,16 +173,8 @@ public class LibrarySystem {
                             pages = userInputInt("State nr of pages: ", 1);
 
                             Book newBook = new Book(title, author, genre, pages);
-                            IO.println("New Book:\n" + newBook.toString());
-                            String ans = IO.readln("Correct (y/n): ");
-                            if (!ans.equalsIgnoreCase("y"))
-                                break;
-                            else {
-                                String jsonBody = gson.toJson(newBook);
-                                String response = Client.post("books", jsonBody);
-                                newBook = gson.fromJson(response, Book.class);
-                                litReg.add(newBook);
-                            }
+                            createNewItem(newBook, litReg);
+
 
                             break;
                         case 2:
@@ -289,8 +283,21 @@ public class LibrarySystem {
         }
     }
 
+    private static <T> void createNewItem(Object obj, Register reg) {
+        IO.println("New " + obj.getClass().getSimpleName() + " :\n" + obj.toString());
+        String ans = IO.readln("Correct (y/n): ");
+        if (!ans.equalsIgnoreCase("y"))
+            return;
+        else {
+            String jsonBody = gson.toJson(obj);
+            String response = Client.post("books", jsonBody);
+            obj = gson.fromJson(response, obj.getClass());
+            reg.add(obj);
+        }
+    }
+
     // HOW TO DO THIS
-    // ASk for the ID;
+    // ASk for the title;
     // show the Relevent Book, ask for confirmation
     // Try removing it
     // give Feedback based on the Error Message thatCLIENT sends back
