@@ -40,7 +40,8 @@ public class LiteratureRegister extends Register<Literature> {
 
     @Override
     public void remove(Literature item) {
-       // register.remove(item);
+        if (item instanceof Book) registerBook.remove(item);
+        else if (item instanceof Magazine) registerMagazine.remove(item);
     }
 
     @Override
@@ -56,14 +57,6 @@ public class LiteratureRegister extends Register<Literature> {
         }
     }
 
-/* 
-    public Boolean contains(String id, Class<? extends Literature> c) {
-        if (c == Book.class)
-            return registerBook.contains(new Book(id));
-        else if(c == Magazine.class) return registerMagazine.contains(new Magazine(id));        
-        throw new IllegalArgumentException("Unknown Literature type: "  + c.getName());
-    }
- */
     //TODO
     @Override
     public ArrayList<Literature> search(String criteria) {

@@ -385,3 +385,24 @@ case 6
         newBook = gson.fromJson(response, Book.class);
         litReg.add(newBook);
     } 
+
+
+//SECTION - unknown litReg code    
+/* 
+    public Boolean contains(String id, Class<? extends Literature> c) {
+        if (c == Book.class)
+            return registerBook.contains(new Book(id));
+        else if(c == Magazine.class) return registerMagazine.contains(new Magazine(id));        
+        throw new IllegalArgumentException("Unknown Literature type: "  + c.getName());
+    }
+ */
+
+//SECTION - "instruction" for Remove item Title
+
+    // HOW TO DO THIS
+    // ASk for the title;
+    // show the Relevent Book, ask for confirmation
+    // Try removing it
+    // give Feedback based on the Error Message thatCLIENT sends back
+    // if it doesnt exist good for you
+    // after removing it from server remove it from the local list

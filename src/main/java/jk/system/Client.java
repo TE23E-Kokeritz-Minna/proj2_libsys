@@ -124,6 +124,7 @@ public class Client {
         }
 
         if (status != 200 && status != 204) {
+            if (status == 404) return "ERROR: not found";
             IO.println("ERROR: " + status);
             return "ERROR: status";
         }

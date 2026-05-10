@@ -240,16 +240,11 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("REMOVE BOOK");
-                            // HOW TO DO THIS
-                            // ASk for the ID;
-                            // show the Relevent Book, ask for confirmation
-                            // Try removing it
-                            // give Feedback based on the Error Message thatCLIENT sends back
-                            // if it doesnt exist good for you
-                            // after removing it from server remove it from the local list
+                            removeTitle(Book.class, "books");
                             break;
                         case 2:
                             IO.println("REMOVE MAGAZINE");
+                            removeTitle(Magazine.class,"magazines");
                             break;
                         case 3:
                             IO.println("REMOVE SUSPENDEDUSER");
@@ -328,38 +323,37 @@ public class LibrarySystem {
         }
     }
 
-    // HOW TO DO THIS
-    // ASk for the title;
-    // show the Relevent Book, ask for confirmation
-    // Try removing it
-    // give Feedback based on the Error Message thatCLIENT sends back
-    // if it doesnt exist good for you
-    // after removing it from server remove it from the local list
-
     // TODO - the "search" feature will be weird with Books and Magazines
+    // TODO give better feedback 
     private static <T> void removeTitle(Class<T> clazz, String URL) {
-        String title = userInputString("State the title", "title");
+        String title = userInputString("State the title: ", "title");
         Literature removedObj;
         String ans = "";
         ArrayList<Literature> allMatching = litReg.search(title);
+        // TODO: if not found maybe get all as precausion
         for (Literature literature : allMatching) {
             IO.println("> " + literature.toString());
         }
-        if (allMatching.size() < 2) {
+        if (allMatching.size() < 2 && !allMatching.isEmpty()) {
             ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
             if (ans.equalsIgnoreCase("y"))
                 removedObj = allMatching.getFirst();
             else
                 return;
-        } else {
+        } else if (allMatching.isEmpty())
+            return;
+        else {
             ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
             removedObj = allMatching.get(Integer.parseInt(ans) + 1);
         }
-        
+
         String id = removedObj.getId();
 
-        Client.delete(URL, id);
-        //TODO delete from list to and dubbelcheck that it works 
+        String response = Client.delete(URL, id);
+        if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
+            litReg.remove(removedObj);
+        }
+        // TODO delete from list to and dubbelcheck that it works
 
     }
 
