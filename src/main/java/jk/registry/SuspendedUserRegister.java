@@ -34,13 +34,13 @@ public class SuspendedUserRegister extends Register<SuspendedUser>{
     public ArrayList<SuspendedUser> search(String criteria) {
         //TODO
         IO.println("TBC (returns first item)");
-        return  new ArrayList<>(register);
+        return new ArrayList<>(register);
     }
 
     @Override
     public void writeAll() {
         for (SuspendedUser suspendedUser : register) {
-            IO.println("> ID: " +  suspendedUser.getId() + " userID: " + suspendedUser.getCustomer_id());   
+            IO.println("> ID: " +  suspendedUser.getId() + " userID: " + suspendedUser.getUserId());   
         }    
     }
 

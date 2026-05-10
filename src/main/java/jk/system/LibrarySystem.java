@@ -177,7 +177,7 @@ public class LibrarySystem {
                             createNewItem(newBook, litReg);
 
                             break;
-                            
+
                         case 2:
                             IO.println("ADD MAGAZINE");
                             
@@ -198,6 +198,7 @@ public class LibrarySystem {
 
                         case 3:
                             IO.println("ADD SUSPENDEDUSER");
+                            
                             break;
                         case 4:
                             IO.println("ADD USER");

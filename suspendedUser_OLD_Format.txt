@@ -9,13 +9,11 @@ import jk.system.LibrarySystem;
 public class SuspendedUser {
 
     private String id;
-    private String userId;
-    private String reason;
+    private String customer_id;
 
-    public SuspendedUser(String userId, String reason) {
+    public SuspendedUser(String customer_id) {
         this.id = "";
-        this.userId = userId;
-        this.reason = reason;
+        this.customer_id = customer_id;
     }
 
     public SuspendedUser() {
@@ -33,13 +31,21 @@ public class SuspendedUser {
         throw new IllegalStateException("No more valid ID available");
     }
 
-    
+    public String getId() {
+        return id;
+    }
 
+    public String getCustomer_id() {
+        return customer_id;
+    }
 
+    public void setCustomer_id(String customer_id) {
+        this.customer_id = customer_id;
+    }
 
     @Override
     public String toString() {
-        return "SuspendedUser [id=" + id + ", userId=" + userId + ", reason=" + reason + "]";
+        return "SuspendedUser [id=" + id + ", customer_id=" + customer_id + "]";
     }
 
     @Override
@@ -62,27 +68,6 @@ public class SuspendedUser {
         } else if (!id.equals(other.id))
             return false;
         return true;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
 }
