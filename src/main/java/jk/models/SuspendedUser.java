@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class SuspendedUser {
+public class SuspendedUser implements Comparable{
 
     private String id;
     private String userId;
@@ -80,6 +80,12 @@ public class SuspendedUser {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        SuspendedUser other = (SuspendedUser) o;
+        return this.getUserId().compareTo(other.getUserId());
     }
 
 }

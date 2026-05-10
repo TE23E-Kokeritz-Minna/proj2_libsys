@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class Magazine extends Literature {
+public class Magazine extends Literature implements Comparable {
 
     // Variables
     private int issueNumber;
@@ -72,5 +72,11 @@ public class Magazine extends Literature {
     @Override
     public String toString() {
         return super.toString() + " IssueNr: " + issueNumber + " Category: " + category + " Year: " + publishedYear;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Magazine other = (Magazine) o;    
+        return this.getTitle().compareTo(other.getTitle());
     }
 }

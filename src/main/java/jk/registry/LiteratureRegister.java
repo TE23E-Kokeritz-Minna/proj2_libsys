@@ -2,6 +2,7 @@ package jk.registry;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import jk.models.Literature;
 import jk.models.Magazine;
@@ -10,20 +11,20 @@ import jk.models.Book;
 public class LiteratureRegister extends Register<Literature> {
 
     // NOTE NO REAL REASON WHY REGISTER EXIST
-    //FIXME
-    //private HashSet<Literature> register;
+    // FIXME
+    // private HashSet<Literature> register;
     private HashSet<Book> registerBook;
     private HashSet<Magazine> registerMagazine;
 
     public LiteratureRegister() {
-       // register = new HashSet<>();
+        // register = new HashSet<>();
         registerBook = new HashSet<>();
         registerMagazine = new HashSet<>();
     }
 
     @Override
     public void add(Literature item) {
-      //  register.add(item);
+        // register.add(item);
         if (item instanceof Book)
             registerBook.add((Book) item);
         if (item instanceof Magazine)
@@ -40,29 +41,52 @@ public class LiteratureRegister extends Register<Literature> {
 
     @Override
     public void remove(Literature item) {
-        if (item instanceof Book) registerBook.remove(item);
-        else if (item instanceof Magazine) registerMagazine.remove(item);
+        if (item instanceof Book)
+            registerBook.remove(item);
+        else if (item instanceof Magazine)
+            registerMagazine.remove(item);
     }
 
     @Override
     public void writeAll() {
-
-        for (Book book : registerBook) {
+        List<Book> sortBook = registerBook.stream().sorted().toList();
+        List<Magazine> sortMags = registerMagazine.stream().sorted().toList();
+        for (Book book : sortBook) {
             IO.println("> " + book.getTitle() + " by: " + book.getAuthor() + " ID: " + book.getId());
         }
-        for (Magazine magazine : registerMagazine) {
+        for (Magazine magazine : sortMags) {
             IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":"
-            + magazine.getIssueNumber() + ") ID: " + magazine.getId());
-            
+                    + magazine.getIssueNumber() + ") ID: " + magazine.getId());
+
         }
     }
 
-    //TODO
+    public void writeAll(Class<? extends Literature> clazz) {
+
+        switch (clazz.getSimpleName()) {
+            case "Book":
+                List<Book> sortBook = registerBook.stream().sorted().toList();
+                for (Book book : sortBook) {
+                    IO.println("> " + book.getTitle() + " by: " + book.getAuthor() + " ID: " + book.getId());
+                }
+                break;
+
+            case "Magazine":
+                List<Magazine> sortMags = registerMagazine.stream().sorted().toList();
+                for (Magazine magazine : sortMags) {
+                    IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":"
+                            + magazine.getIssueNumber() + ") ID: " + magazine.getId());
+                }
+                break;
+        }
+    }
+
+    // TODO
     @Override
     public ArrayList<Literature> search(String criteria) {
         ArrayList<Literature> searchList = new ArrayList<>();
-        registerBook.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b-> searchList.add(b));
-        registerMagazine.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b-> searchList.add(b));
+        registerBook.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b -> searchList.add(b));
+        registerMagazine.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b -> searchList.add(b));
 
         return searchList;
     }

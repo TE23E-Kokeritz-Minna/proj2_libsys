@@ -218,8 +218,6 @@ public class LibrarySystem {
                             User newUser = new User(name, email);
                             createNewItem(newUser, "users", userReg);
                             break;
-                        case 5:
-                            break;
 
                     }
                     break;
@@ -242,7 +240,7 @@ public class LibrarySystem {
                             break;
                         case 2:
                             IO.println("REMOVE MAGAZINE");
-                            removeTitle(Magazine.class,"magazines");
+                            removeTitle(Magazine.class, "magazines");
                             break;
                         case 3:
                             IO.println("REMOVE SUSPENDEDUSER");
@@ -252,9 +250,6 @@ public class LibrarySystem {
                             IO.println("REMOVE USER");
                             removeEmail("users");
                             break;
-                        case 5:
-                            break;
-
                     }
                     break;
 
@@ -265,11 +260,39 @@ public class LibrarySystem {
 
                 case 6:
                     IO.println("WRTIE OUT SORTED");
-
-                    litReg.writeAll();
-                    susReg.writeAll();
-                    userReg.writeAll();
-
+                    IO.println("""
+                            ----------- WRITE ----------
+                                1. All
+                                2. Book
+                                3. Magazine
+                                4. SuspendedUser
+                                5. User
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-5): ", 1, 5);
+                    switch (alt) {
+                        case 1:
+                            IO.println("WRITE ALL");
+                            litReg.writeAll();
+                            susReg.writeAll();
+                            userReg.writeAll();
+                            break;
+                        case 2:
+                            IO.println("WRITE BOOK");
+                            litReg.writeAll(Book.class);
+                            break;
+                        case 3:
+                            IO.println("WRITE MAGAZINE");
+                            litReg.writeAll(Magazine.class);
+                            break;
+                        case 4:
+                            IO.println("WRITE SUSPENDEDUSER");
+                            susReg.writeAll();
+                            break;
+                        case 5:
+                            IO.println("WRITE USER");
+                            userReg.writeAll();
+                            break;
+                    }
                     break;
 
                 case 7:
@@ -323,11 +346,10 @@ public class LibrarySystem {
         }
     }
 
-
-    //NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE
+    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE
 
     // TODO - the "search" feature will be weird with Books and Magazines
-    // TODO give better feedback 
+    // TODO give better feedback
     private static <T> void removeTitle(Class<T> clazz, String URL) {
         String title = userInputString("State the title: ", "title");
         Literature removedObj;
@@ -359,10 +381,10 @@ public class LibrarySystem {
         // TODO delete from list to and dubbelcheck that it works
     }
 
-    private static <T> void removeEmail(String URL){
+    private static <T> void removeEmail(String URL) {
         String email = userInputString("State the Email: ", "email");
-        User removedUser; 
-        String ans = ""; 
+        User removedUser;
+        String ans = "";
         ArrayList<User> allMatching = userReg.search(email);
 
         for (User user : allMatching) {
@@ -388,11 +410,12 @@ public class LibrarySystem {
             userReg.remove(removedUser);
         }
 
-    } 
-    private static <T> void removeUserId(String URL){
+    }
+
+    private static <T> void removeUserId(String URL) {
         String userId = userInputString("State the userId: ", "userId");
-        SuspendedUser removedSuspendedUser; 
-        String ans = ""; 
+        SuspendedUser removedSuspendedUser;
+        String ans = "";
         ArrayList<SuspendedUser> allMatching = susReg.search(userId);
 
         for (SuspendedUser suspendedUser : allMatching) {
@@ -418,10 +441,7 @@ public class LibrarySystem {
             susReg.remove(removedSuspendedUser);
         }
 
-    } 
-
-
-
+    }
 
     private static String userInputString(String message, String parameter) {
         String ans = "";

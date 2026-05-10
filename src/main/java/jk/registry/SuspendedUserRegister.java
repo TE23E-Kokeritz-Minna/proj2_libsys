@@ -2,6 +2,7 @@ package jk.registry;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,8 @@ public class SuspendedUserRegister extends Register<SuspendedUser> {
 
     @Override
     public void writeAll() {
-        for (SuspendedUser suspendedUser : register) {
+        List<SuspendedUser> sortList = register.stream().sorted().toList();
+        for (SuspendedUser suspendedUser : sortList) {
             IO.println("> ID: " + suspendedUser.getId() + " userID: " + suspendedUser.getUserId());
         }
     }

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Book extends Literature {
+public class Book extends Literature implements Comparable{
 
     // variables
     private String author;
@@ -75,4 +75,12 @@ public class Book extends Literature {
     public String toString() {
         return super.toString() + " author: " + author + " genre: " + genre + " pages: " + pages;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        Book other = (Book) o;
+        return this.getTitle().compareTo(other.getTitle());
+    }
+
+    
 }

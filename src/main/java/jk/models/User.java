@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class User {
+public class User implements Comparable{
 
     private String id;
     private String name;
@@ -79,5 +79,13 @@ public class User {
             return false;
         return true;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        User other = (User) o ;
+        return this.getName().compareTo(other.getName());
+    }
+
+    
 
 }
