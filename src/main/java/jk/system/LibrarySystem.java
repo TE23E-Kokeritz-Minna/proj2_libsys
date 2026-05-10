@@ -1,8 +1,8 @@
 package jk.system;
 
 import java.lang.reflect.Type;
-import java.rmi.registry.Registry;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.google.gson.Gson;
@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import jk.models.Book;
+import jk.models.Literature;
 import jk.models.Magazine;
 import jk.models.SuspendedUser;
 import jk.models.User;
@@ -174,48 +175,48 @@ public class LibrarySystem {
                             pages = userInputInt("State nr of pages: ", 1);
 
                             Book newBook = new Book(title, author, genre, pages);
-                            createNewItem(newBook, "books",litReg);
+                            createNewItem(newBook, "books", litReg);
 
                             break;
 
                         case 2:
                             IO.println("ADD MAGAZINE");
-                            
+
                             title = "";
-                            int issueNumber = -1; 
-                            String category = ""; 
+                            int issueNumber = -1;
+                            String category = "";
                             int publishedYear = -1;
 
                             title = userInputString("State the MagTitle: ", title);
-                            issueNumber = userInputInt("State the issue Nr: ",1);
-                            category = userInputString("State the category: ","category");
+                            issueNumber = userInputInt("State the issue Nr: ", 1);
+                            category = userInputString("State the category: ", "category");
                             int currentYear = Year.now().getValue();
                             publishedYear = userInputInt("State the publishing year: ", 1663, currentYear);
 
                             Magazine newMag = new Magazine(title, issueNumber, category, publishedYear);
-                            createNewItem(newMag, "magazines",litReg);
+                            createNewItem(newMag, "magazines", litReg);
                             break;
 
                         case 3:
                             IO.println("ADD SUSPENDEDUSER");
                             String userId;
-                            String reason; 
+                            String reason;
 
-                            //FIXME - yankee to put in user id, could not be refering to anyone.
+                            // FIXME - yankee to put in user id, could not be refering to anyone.
                             userId = userInputString("State the UserID to suspend: ", "userID");
-                            reason = userInputString("State the reason: "," reason");
+                            reason = userInputString("State the reason: ", " reason");
                             SuspendedUser newSusUser = new SuspendedUser(userId, reason);
-                            createNewItem(newSusUser, "suspended",susReg);
+                            createNewItem(newSusUser, "suspended", susReg);
                             break;
                         case 4:
                             IO.println("ADD USER");
-                            String name; 
-                            String email; 
+                            String name;
+                            String email;
 
-                            name = userInputString("State the name: "," name");
+                            name = userInputString("State the name: ", " name");
                             email = userInputString("State the email: ", "email");
                             User newUser = new User(name, email);
-                            createNewItem(newUser, "users",userReg);
+                            createNewItem(newUser, "users", userReg);
                             break;
                         case 5:
                             break;
@@ -314,7 +315,7 @@ public class LibrarySystem {
         }
     }
 
-    private static <T> void createNewItem(Object obj, String URL,  Register reg) {
+    private static <T> void createNewItem(Object obj, String URL, Register reg) {
         IO.println("New " + obj.getClass().getSimpleName() + " :\n" + obj.toString());
         String ans = IO.readln("Correct (y/n): ");
         if (!ans.equalsIgnoreCase("y"))
@@ -336,16 +337,29 @@ public class LibrarySystem {
     // after removing it from server remove it from the local list
 
     // TODO - the "search" feature will be weird with Books and Magazines
-    private static <T> void removeID(Class<T> clazz, String URL) {
-        int id = userInputInt("state id: ", 0);
-        switch (URL) {
-            case "books":
-
-                break;
-
-            default:
-                break;
+    private static <T> void removeTitle(Class<T> clazz, String URL) {
+        String title = userInputString("State the title", "title");
+        Literature removedObj;
+        String ans = "";
+        ArrayList<Literature> allMatching = litReg.search(title);
+        for (Literature literature : allMatching) {
+            IO.println("> " + literature.toString());
         }
+        if (allMatching.size() < 2) {
+            ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
+            if (ans.equalsIgnoreCase("y"))
+                removedObj = allMatching.getFirst();
+            else
+                return;
+        } else {
+            ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
+            removedObj = allMatching.get(Integer.parseInt(ans) + 1);
+        }
+        
+        String id = removedObj.getId();
+
+        Client.delete(URL, id);
+        //TODO delete from list to and dubbelcheck that it works 
 
     }
 
@@ -356,6 +370,24 @@ public class LibrarySystem {
                 ans = IO.readln(message).trim();
                 if (ans == null || ans.isBlank())
                     throw new IllegalArgumentException(parameter + " can't be empty");
+                else
+                    break;
+            } catch (Exception e) {
+                IO.println("ERROR: " + e.getMessage());
+            }
+        }
+        return ans;
+    }
+
+    private static String userInputString(String message, String alt1, String alt2, String parameter) {
+        String ans = "";
+        while (true) {
+            try {
+                ans = IO.readln(message).trim();
+                if (ans == null || ans.isBlank())
+                    throw new IllegalArgumentException(parameter + " can't be empty");
+                if (!ans.equalsIgnoreCase(alt1) && !ans.equalsIgnoreCase(alt2))
+                    throw new IllegalArgumentException("Needs to be either " + alt1 + " or " + alt2);
                 else
                     break;
             } catch (Exception e) {

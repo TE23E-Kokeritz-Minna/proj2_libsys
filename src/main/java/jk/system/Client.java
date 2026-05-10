@@ -113,7 +113,7 @@ public class Client {
     }
 
     // delete
-    public static String put(String URL, int ID) {
+    public static String delete(String URL, String ID) {
         int status;
 
         try {
