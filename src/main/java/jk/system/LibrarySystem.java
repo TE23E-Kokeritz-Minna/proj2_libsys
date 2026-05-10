@@ -198,7 +198,14 @@ public class LibrarySystem {
 
                         case 3:
                             IO.println("ADD SUSPENDEDUSER");
-                            
+                            String userId;
+                            String reason; 
+
+                            //FIXME - yankee to put in user id, could not be refering to anyone.
+                            userId = userInputString("State the UserID to suspend: ", "userID");
+                            reason = userInputString("State the reason: "," reason");
+                            SuspendedUser newSusUser = new SuspendedUser(userId, reason);
+                            createNewItem(newSusUser, susReg);
                             break;
                         case 4:
                             IO.println("ADD USER");

@@ -33,9 +33,6 @@ public class SuspendedUser {
         throw new IllegalStateException("No more valid ID available");
     }
 
-    
-
-
 
     @Override
     public String toString() {
