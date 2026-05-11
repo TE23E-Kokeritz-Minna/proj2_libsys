@@ -184,7 +184,7 @@ case 5
                     IO.println(newMag + " is added to the local list ");
                     break;
 case 6
-
+//!SECTION
 
 //SECTION - TEST CODE HASHSET
          SuspendedUserRegister susReg =new SuspendedUserRegister(); 
@@ -200,7 +200,7 @@ case 6
         susReg.add(test3);
 
         susReg.writeAll(); 
-
+//!SECTION
 
 
 
@@ -234,6 +234,7 @@ case 6
     // before continue with the add method (Risky don't want duplicate ID)
     // make the validID method
     // use that 
+    //!SECTION
 
 //SECTION - first try case 1 and 2 methods, redoing it 
 
@@ -279,7 +280,7 @@ case 6
      * }
      * }
      */
-
+//!SECTION
 
 //SECTION - Old Switch cases for GET ALL in menu 
     IO.println("GET USERS");
@@ -325,6 +326,7 @@ case 6
             String bodySusUse = Client.getAll("suspended");
             HashSet<SuspendedUser> listSusUse = gson.fromJson(bodySusUse, susUseListType);
             susReg.add(listSusUse);
+//!SECTION
 
 // SECTION - Old switch cases for GET ONE in menu
 
@@ -373,6 +375,7 @@ case 6
                 IO.println("Added the retrived user to local list");
                 userReg.add(retrivedUser);
             }
+//!SECTION
 
 //SECTION - raw code creatNewItem();
     IO.println("New Book:\n" + newBook.toString());
@@ -385,7 +388,7 @@ case 6
         newBook = gson.fromJson(response, Book.class);
         litReg.add(newBook);
     } 
-
+//!SECTION
 
 //SECTION - unknown litReg code    
 /* 
@@ -396,6 +399,7 @@ case 6
         throw new IllegalArgumentException("Unknown Literature type: "  + c.getName());
     }
  */
+ //!SECTION
 
 //SECTION - "instruction" for Remove item Title
 
@@ -406,3 +410,4 @@ case 6
     // give Feedback based on the Error Message thatCLIENT sends back
     // if it doesnt exist good for you
     // after removing it from server remove it from the local list
+//!SECTION

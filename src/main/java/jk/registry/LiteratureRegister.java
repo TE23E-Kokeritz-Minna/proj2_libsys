@@ -10,21 +10,16 @@ import jk.models.Book;
 
 public class LiteratureRegister extends Register<Literature> {
 
-    // NOTE NO REAL REASON WHY REGISTER EXIST
-    // FIXME
-    // private HashSet<Literature> register;
     private HashSet<Book> registerBook;
     private HashSet<Magazine> registerMagazine;
 
     public LiteratureRegister() {
-        // register = new HashSet<>();
         registerBook = new HashSet<>();
         registerMagazine = new HashSet<>();
     }
 
     @Override
     public void add(Literature item) {
-        // register.add(item);
         if (item instanceof Book)
             registerBook.add((Book) item);
         if (item instanceof Magazine)
@@ -81,7 +76,6 @@ public class LiteratureRegister extends Register<Literature> {
         }
     }
 
-    // TODO
     @Override
     public ArrayList<Literature> search(String criteria) {
         ArrayList<Literature> searchList = new ArrayList<>();

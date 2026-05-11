@@ -30,8 +30,7 @@ public class LoanRegister extends Register<Loan>{
     }
  
 
-    
-    //TODO
+    //TODO [A]
     @Override
     public ArrayList<Loan> search(String criteria) {
         IO.println("TBC (returns first item)");

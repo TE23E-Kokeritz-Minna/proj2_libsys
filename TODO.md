@@ -10,14 +10,14 @@
 - [ ] Static block getAll data of every type
 
     - #### **Menu**
-        - [ ] Figure out methods for add, remove and so forth
-        - [ ] Move under Menu into seperate methods (cleans up)
-        - [ ] TODO Search 
+        - [X] Figure out methods for add, remove and so forth
+        - [X] Move under Menu into seperate methods (cleans up)
+        - [X] TODO Search 
             - Both item and User
             - ask for title
             - ask for name
             - look through list, see if contians. 
-        - [ ] TODO write out sorted
+        - [X] TODO write out sorted
             - Item, title alphabetic 
             - User, name alphabetic
         - [ ] TODO loan capabilities 

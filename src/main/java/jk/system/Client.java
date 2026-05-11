@@ -15,6 +15,7 @@ public class Client {
 
     // REVIEW is the ERROR codes right maybe something else should be returnd 
     // check the criticims on catch
+    // THROW NEW ERRROR INSTEAD 
 
     // getall
     public static String getAll(String URL) {

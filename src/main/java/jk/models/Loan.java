@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
+//THIS CLASS IS FOR A LEVEL AND HAS NOT BEEN FINALIZED
 
 public class Loan {
     private String id;
@@ -56,7 +57,7 @@ public class Loan {
         return user.getId();
     }
 
-    // FIXME There might be errors regarding duplicate ids in literature;
+    // NOTE There might be errors regarding duplicate ids in literature;
     public String getLiteratureId() {
         return literature.getId();
     }

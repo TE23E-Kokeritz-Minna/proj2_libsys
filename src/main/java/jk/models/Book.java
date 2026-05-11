@@ -33,7 +33,6 @@ public class Book extends Literature implements Comparable{
     public Book() {
     }
 
-    // REVIEW is this better as a child class somehow
     protected static String validID() {
         HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
         Set<String> hashId = bookList.stream().map(o -> o.getId()).collect(Collectors.toSet());

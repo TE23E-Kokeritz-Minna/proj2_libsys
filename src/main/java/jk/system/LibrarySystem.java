@@ -22,8 +22,6 @@ import jk.registry.UserRegister;
 
 public class LibrarySystem {
 
-    // FIXME get server data upon start?
-
     private static LiteratureRegister litReg;
     private static LoanRegister loanReg;
     private static SuspendedUserRegister susReg;
@@ -60,9 +58,6 @@ public class LibrarySystem {
             // User choice
             alt = userInputInt("Chose an Alternative (1-8): ", 1, 8);
             // Switch .case for every alternativ
-
-            // NOTE move to different methods mayhaps
-
             switch (alt) {
                 case 1:
                     IO.println("""
@@ -74,7 +69,6 @@ public class LibrarySystem {
                                 5. Users
                             ----------------------------""");
                     alt = userInputInt("Chose an Alternative (1-5): ", 1, 5);
-                    // NOTE COULD BE METHODS PLS FIX FUTURE ME
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
@@ -146,10 +140,6 @@ public class LibrarySystem {
 
                 case 3:
                     IO.println("ADD ITEM");
-                    // TODO Dangeurous things, be careful not to double the id in some way
-                    // THINK THINK THINK
-                    // TBC LATER
-                    // Solved maybe still be careful, dubbelcheck dubbelcheck dubbelcheck
 
                     IO.println("""
                             ----------- ADD ------------
@@ -170,7 +160,6 @@ public class LibrarySystem {
 
                             title = userInputString("State the BookTitle: ", "title");
                             author = userInputString("State the author: ", "author");
-                            // REVIEW - need to implement something specific for genre or except as is?
                             genre = userInputString("State the genre: ", "genre");
                             pages = userInputInt("State nr of pages: ", 1);
 
@@ -346,7 +335,7 @@ public class LibrarySystem {
         }
     }
 
-    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE
+    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE OR four total, one of the controll correct
 
     // TODO - the "search" feature will be weird with Books and Magazines
     // TODO give better feedback
@@ -355,7 +344,6 @@ public class LibrarySystem {
         Literature removedObj;
         String ans = "";
         ArrayList<Literature> allMatching = litReg.search(title);
-        // TODO: if not found maybe get all as precausion
         for (Literature literature : allMatching) {
             IO.println("> " + literature.toString());
         }
@@ -378,7 +366,6 @@ public class LibrarySystem {
         if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
             litReg.remove(removedObj);
         }
-        // TODO delete from list to and dubbelcheck that it works
     }
 
     private static <T> void removeEmail(String URL) {

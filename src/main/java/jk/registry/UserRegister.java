@@ -33,7 +33,6 @@ public class UserRegister extends Register<User> {
         register.remove(item);
     }
 
-    // TODO
     @Override
     public ArrayList<User> search(String criteria) {
         ArrayList<User> searchList = new ArrayList<>(
