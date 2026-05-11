@@ -300,6 +300,7 @@ public class LibrarySystem {
                             break;
                         case 5:
                             IO.println("WRITE USER");
+                            
                             userReg.writeAll();
                             break;
                     }
@@ -307,7 +308,8 @@ public class LibrarySystem {
 
                 case 7:
                     IO.println("LOAN CAPABILITES");
-
+                    Boolean canBorrow = canBorrow();
+                    IO.println("Can borrow? "  +canBorrow);
                     break;
 
                 case 8:
@@ -356,8 +358,36 @@ public class LibrarySystem {
         }
     }
 
-    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE OR four total,
-    // one of the controll correct
+    //Capable in borrowing 
+
+    // ask for email 
+    // search with email
+    // getID on first one
+    // getAll supended
+    // if contains that userID return 
+
+    private static Boolean canBorrow(){
+        ArrayList<User> all = searchEmail();
+        User searchedUser;
+        if(all.isEmpty()){
+            IO.println("no user with that Email");
+            return false;
+        }
+        else if (all.size() > 1) {
+            IO.println("More than one user with that email: ");
+            //TODO fix
+            return false; 
+        }
+        else{
+            searchedUser = all.getFirst();
+            String userID = searchedUser.getId();
+            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
+            
+            return susReg.getRegister().stream().filter(u -> u.getUserId().equals(userID)).toList().isEmpty();
+        }
+    }
+
+
     private static ArrayList<Literature> searchTitle() {
         String title = userInputString("State the title: ", "title");
         ArrayList<Literature> allMatching = litReg.search(title);
@@ -371,7 +401,7 @@ public class LibrarySystem {
     }
 
 
-    
+
     // TODO give better feedback
     private static <T> void removeTitle(Class<T> clazz, String URL) {
         Literature removedObj;

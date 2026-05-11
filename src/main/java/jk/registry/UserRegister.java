@@ -3,9 +3,7 @@ package jk.registry;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import jk.models.SuspendedUser;
 import jk.models.User;
 
 public class UserRegister extends Register<User> {
