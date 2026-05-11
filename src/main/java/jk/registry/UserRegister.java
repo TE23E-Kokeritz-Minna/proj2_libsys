@@ -35,9 +35,8 @@ public class UserRegister extends Register<User> {
 
     @Override
     public ArrayList<User> search(String criteria) {
-        ArrayList<User> searchList = new ArrayList<>(
-                register.stream().filter(s -> s.getEmail().equals(criteria)).collect(Collectors.toList()));
-
+        ArrayList<User> searchList = new ArrayList<>();
+        register.stream().filter(s -> s.getEmail().equalsIgnoreCase(criteria)).forEach(s -> searchList.add(s));
         return searchList;
     }
 
@@ -45,9 +44,8 @@ public class UserRegister extends Register<User> {
     public void writeAll() {
         List<User> sortList = register.stream().sorted().toList();
         for (User user : sortList) {
-            IO.println("> name: " + user.getName() + " ID: " + user.getId());
+            IO.println("> name: " + user.getName()+ " email: " + user.getEmail() + " ID: " + user.getId());
         }
-
     }
 
     public HashSet<User> getRegister() {

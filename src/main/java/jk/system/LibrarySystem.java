@@ -207,7 +207,6 @@ public class LibrarySystem {
                             User newUser = new User(name, email);
                             createNewItem(newUser, "users", userReg);
                             break;
-
                     }
                     break;
 
@@ -244,7 +243,29 @@ public class LibrarySystem {
 
                 case 5:
                     IO.println("SEARCH");
+                    IO.println("""
+                            ---------- SEARCH ----------
+                                1. Title (Books and Magazines)
+                                2. Email (Users)
+                            ----------------------------""");
+                    alt = userInputInt("Chose an Alternative (1-2): ", 1, 2);
+                    switch (alt) {
+                        case 1:
+                            IO.println("SEARCH TITLE");
+                            ArrayList<Literature> matchingTitle = searchTitle();
+                            for (Literature literature : matchingTitle) {
+                                IO.println("> " + literature);
+                            }
+                            break;
 
+                        case 2:
+                            IO.println("SEARCH EMAIL");
+                            ArrayList<User> matchingEmail = searchEmail();
+                            for (User user : matchingEmail) {
+                                IO.println("> " + user);
+                            }
+                            break;
+                    }
                     break;
 
                 case 6:
@@ -335,15 +356,28 @@ public class LibrarySystem {
         }
     }
 
-    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE OR four total, one of the controll correct
+    // NOTE - CAN PROBABLY BE A BIG REMOVE INSTEAD of THREE SEPERATE OR four total,
+    // one of the controll correct
+    private static ArrayList<Literature> searchTitle() {
+        String title = userInputString("State the title: ", "title");
+        ArrayList<Literature> allMatching = litReg.search(title);
+        return allMatching;
+    }
 
-    // TODO - the "search" feature will be weird with Books and Magazines
+    private static ArrayList<User> searchEmail(){
+        String email = userInputString("State the Email: ", "email");
+        ArrayList<User> allMatching = userReg.search(email);
+        return allMatching;
+    }
+
+
+    
     // TODO give better feedback
     private static <T> void removeTitle(Class<T> clazz, String URL) {
-        String title = userInputString("State the title: ", "title");
         Literature removedObj;
         String ans = "";
-        ArrayList<Literature> allMatching = litReg.search(title);
+        ArrayList<Literature> allMatching = searchTitle();
+
         for (Literature literature : allMatching) {
             IO.println("> " + literature.toString());
         }
@@ -369,10 +403,9 @@ public class LibrarySystem {
     }
 
     private static <T> void removeEmail(String URL) {
-        String email = userInputString("State the Email: ", "email");
         User removedUser;
         String ans = "";
-        ArrayList<User> allMatching = userReg.search(email);
+        ArrayList<User> allMatching = searchEmail();
 
         for (User user : allMatching) {
             IO.println("> " + user.toString());

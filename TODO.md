@@ -7,7 +7,7 @@
 
 ### **Basic LibrarySystem updates**
 - [X] Get method for Registers 
-- [ ] Static block getAll data of every type
+- [X] Static block getAll data of every type
 
     - #### **Menu**
         - [X] Figure out methods for add, remove and so forth
