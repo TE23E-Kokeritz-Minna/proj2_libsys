@@ -1,8 +1,9 @@
 package jk.models;
 /* 
 author: Minna Kökeritz 
-Book class child to Literature 
-    contains constructor and getters and setter for author, genre and pages
+Book class child to Literature and implements Comparable 
+    a Book includes author, genre and pages and inherits title, id and isAvailable from it's parent 
+     
 */
 
 import jk.system.LibrarySystem;
@@ -10,9 +11,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Book extends Literature implements Comparable{
+public class Book extends Literature implements Comparable {
 
-    // variables
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
     private String author;
     private String genre;
     private int pages;
@@ -26,7 +29,7 @@ public class Book extends Literature implements Comparable{
         this.genre = genre;
         this.pages = pages;
         String id = "";
-        
+
         super(id, title, true);
     }
 
@@ -81,5 +84,4 @@ public class Book extends Literature implements Comparable{
         return this.getTitle().compareTo(other.getTitle());
     }
 
-    
 }

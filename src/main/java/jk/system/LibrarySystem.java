@@ -332,7 +332,7 @@ public class LibrarySystem {
     private static <T> T getOneID(Class<T> clazz, String URL) {
         int id = userInputInt("state id: ", 0);
 
-        String body = Client.getOne(URL, id);
+        String body = Client.getOne(URL, String.valueOf(id));
 
         if (body.equals("ERROR: status") || body.equals("ERROR: ID")
                 || body.equals("ERROR: server")) {

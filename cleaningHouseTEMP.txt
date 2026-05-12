@@ -411,3 +411,16 @@ case 6
     // if it doesnt exist good for you
     // after removing it from server remove it from the local list
 //!SECTION
+
+//SECTION - C part Cleaning up
+
+        // NOTE - Recognise as different object
+        // same id different customer_id
+        // different id same customer_id
+        // different id different customer_id
+        // Conclusion: as long as something is different than its a different objects in
+        // the eyes of equal
+        // Precausion: could cause problems in future, if does fix equals in models,
+        // info: the test codes is stored in "cleaningHouseTEMP.txt"
+        // NOTE - think it will only recognise same id as same,
+
