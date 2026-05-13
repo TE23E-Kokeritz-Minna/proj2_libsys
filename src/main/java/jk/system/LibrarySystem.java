@@ -96,33 +96,54 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("GET LIT");
-
-                            litReg.add(getAllDataType(Magazine.class, "magazines"));
-                            litReg.add(getAllDataType(Book.class, "books"));
+                            try {
+                                litReg.add(getAllDataType(Magazine.class, "magazines"));
+                                litReg.add(getAllDataType(Book.class, "books"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 2:
                             IO.println("GET BOOK");
-
-                            litReg.add(getAllDataType(Book.class, "books"));
+                            try {
+                                litReg.add(getAllDataType(Book.class, "books"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 3:
                             IO.println("GET MAGAZINE");
 
-                            litReg.add(getAllDataType(Magazine.class, "magazines"));
+                            try {
+                                litReg.add(getAllDataType(Magazine.class, "magazines"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 4:
                             IO.println("GET SUSPENDEDUSER");
-
-                            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
+                            try {
+                                susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 5:
                             IO.println("GET USERS");
-
-                            userReg.add(getAllDataType(User.class, "users"));
+                            try {
+                                userReg.add(getAllDataType(User.class, "users"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
                             break;
                     }
 
@@ -141,22 +162,43 @@ public class LibrarySystem {
                     switch (alt) {
                         case 1:
                             IO.println("GET ONE BOOK");
-                            litReg.add(getOneID(Book.class, "books"));
+                            try {
+                                litReg.add(getOneID(Book.class, "books"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 2:
                             IO.println("GET ONE MAGAZINE");
-                            litReg.add(getOneID(Magazine.class, "magazines"));
+                            try {
+                                litReg.add(getOneID(Magazine.class, "magazines"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 3:
                             IO.println("GET ONE SUSPENDEDUSER");
-                            susReg.add(getOneID(SuspendedUser.class, "suspended"));
+                            try {
+                                susReg.add(getOneID(SuspendedUser.class, "suspended"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                         case 4:
                             IO.println("GET ONE USERS");
-                            userReg.add(getOneID(User.class, "users"));
+                            
+                            try {
+                                userReg.add(getOneID(User.class, "users"));
+                            } catch (Exception e) {
+                                IO.println("ERROR: " + e.getMessage());
+                                return;
+                            }
 
                             break;
                     }
