@@ -192,7 +192,7 @@ public class LibrarySystem {
                             break;
                         case 4:
                             IO.println("GET ONE USERS");
-                            
+
                             try {
                                 userReg.add(getOneID(User.class, "users"));
                             } catch (Exception e) {
@@ -443,7 +443,6 @@ public class LibrarySystem {
         }
     }
 
-    // TODO give better feedback
     private static <T> void removeTitle(Class<T> clazz, String URL) {
 
         Literature removedObj;
@@ -580,18 +579,19 @@ public class LibrarySystem {
             return false;
         } else if (all.size() > 1) {
             IO.println("More than one user with that email, returns false");
-            // TODO fix
-            return false;
-        } else {
-            searchedUser = all.getFirst();
-            // get the userID
-            String userID = searchedUser.getId();
-            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
-
-            // if no matching between userId on suspended and id and the searcg for ID than
-            // returns true
-            return susReg.getRegister().stream().filter(u -> u.getUserId().equals(userID)).toList().isEmpty();
+            String ans = String.valueOf(userInputInt("Which one? (row): ", 1, all.size()));
+            searchedUser = all.get(Integer.parseInt(ans) + 1);
+            IO.println("aksing about, " + searchedUser);
         }
+        searchedUser = all.getFirst();
+        // get the userID
+        String userID = searchedUser.getId();
+        susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
+
+        // if no matching between userId on suspended and id and the searcg for ID than
+        // returns true
+        return susReg.getRegister().stream().filter(u -> u.getUserId().equals(userID)).toList().isEmpty();
+
     }
 
     // method for userInputString with no criteria on content
