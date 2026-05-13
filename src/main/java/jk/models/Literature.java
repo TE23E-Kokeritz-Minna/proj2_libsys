@@ -1,18 +1,25 @@
 package jk.models;
 /* 
 author: Minna Kökeritz 
-Literature class parent to Magazine and Book 
+Literature class abstract parent to Magazine and Book 
     contains constructor and getters and setter for title, id and isAvailable
+    the class is used by LiteratureRegister
 */
 
 public abstract class Literature {
 
-    // Variables
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
+
     protected String id;
     protected String title;
     protected boolean isAvailable;
 
-    // Constructors
+    // ————————————————————————— //
+    // ------ CONSTRUCTOR ------ //
+    // ————————————————————————— //
+
     public Literature(String id, String title, boolean isAvailable) {
         this.id = id;
         this.title = title;
@@ -22,8 +29,10 @@ public abstract class Literature {
     public Literature() {
     }
 
+    // ————————————————————————— //
+    // --- GETTERS & SETTERS --- //
+    // ————————————————————————— //
 
-    // GETTERS and SETTERS
     public String getId() {
         return id;
     }
@@ -44,7 +53,9 @@ public abstract class Literature {
         this.isAvailable = isAvailable;
     }
 
-    // TO STRING
+    // ————————————————————————— //
+    // -------- OVERRIDE ------- //
+    // ————————————————————————— //
     @Override
     public String toString() {
         return "ID: " + id + " Title: " + title + " Available? " + isAvailable;
@@ -54,8 +65,6 @@ public abstract class Literature {
     public int hashCode() {
         return id.hashCode();
     }
-
-
 
     @Override
     public boolean equals(Object obj) {

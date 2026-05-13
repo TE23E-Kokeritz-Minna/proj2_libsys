@@ -1,4 +1,10 @@
 package jk.registry;
+/*
+author: Minna kökeritz
+is a abstract parent class for all other Register Classes 
+only Contains abstract methods implemented in the child classes
+
+*/
 
 import java.util.ArrayList;
 import java.util.HashSet;

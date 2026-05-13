@@ -23,7 +23,7 @@ public class Client {
     // REAL / SCHOOL 
     private static final String baseURL = "http://10.151.168.5:3123/";
     // TEMP / HOME
-    // private static final String baseURL = "http://localhost:3000/";
+    //private static final String baseURL = "http://localhost:3000/";
 
   
 

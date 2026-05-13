@@ -1,9 +1,16 @@
 package jk.registry;
+/* 
+author: Minna köekritz
+SuspendedUserRegister is the child to the abstract generic Register class.
+is Primarily used by LibrarySystem and uses Suspended class
+it contains hashset  to contain of all Susupended objects 
+public methods for, adding (both list and seperate obj),removing, searching, writeing sorted,  
+*/
+
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import jk.models.SuspendedUser;

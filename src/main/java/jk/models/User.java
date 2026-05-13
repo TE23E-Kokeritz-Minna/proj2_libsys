@@ -1,23 +1,42 @@
 package jk.models;
-
+/* 
+author: Minna Kökeritz 
+User class and implements Comparable (to be able to sort in a list)
+    a User includes id, name and email 
+    the class is used by LibrarySystem and UserRegister
+*/
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class User implements Comparable{
+public class User implements Comparable {
+
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
 
     private String id;
     private String name;
     private String email;
+    // ————————————————————————— //
+    // ------ CONSTRUCTOR ------ //
+    // ————————————————————————— //
 
-    public User( String name, String email) {
+    public User(String name, String email) {
         this.id = "";
         this.name = name;
         this.email = email;
     }
 
+    public User() {
+    }
+
+    // ————————————————————————— //
+    // -------- METHOD --------- //
+    // ————————————————————————— //
+    
     private static String validID() {
         HashSet<SuspendedUser> susList = LibrarySystem.getSusReg().getRegister();
         Set<String> hashId = susList.stream().map(o -> o.getId()).collect(Collectors.toSet());
@@ -29,9 +48,9 @@ public class User implements Comparable{
         throw new IllegalStateException("No more valid ID available");
     }
 
-
-    public User() {
-    }
+    // ————————————————————————— //
+    // --- GETTERS & SETTERS --- //
+    // ————————————————————————— //
 
     public String getId() {
         return id;
@@ -53,6 +72,9 @@ public class User implements Comparable{
         this.email = email;
     }
 
+    // ————————————————————————— //
+    // -------- OVERRIDE ------- //
+    // ————————————————————————— //
     @Override
     public String toString() {
         return "User [id: " + id + " name: " + name + " email: " + email + "]";
@@ -82,10 +104,8 @@ public class User implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        User other = (User) o ;
+        User other = (User) o;
         return this.getName().compareTo(other.getName());
     }
-
-    
 
 }

@@ -1,4 +1,15 @@
 package jk.system;
+/* 
+author: Minna Kökeritz
+The Class LibrarySystem contains, all overreaching logic and is used by Main
+it is used by calling the Menu method, which contains all alternative that can be chosen, such as adding, removing and searching for items and more.
+
+    it contains the methods for getting (via Client) and converting json data from the server, 
+    it contains method for creating a new item, both to add it to the correct register and the server
+    it contains the methods for deleting an object both from server and correct register
+    it also contains som UserInput methods that take in msg and some sort of criteria or what is asked, and will continue til a valid ans are given
+
+*/
 
 import java.lang.reflect.Type;
 import java.time.Year;
@@ -22,11 +33,20 @@ import jk.registry.UserRegister;
 
 public class LibrarySystem {
 
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
+
     private static LiteratureRegister litReg;
     private static LoanRegister loanReg;
     private static SuspendedUserRegister susReg;
     private static UserRegister userReg;
+
     private final static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    // ————————————————————————— //
+    // ------ STATIC BLOCK ----- //
+    // ————————————————————————— //
 
     static {
         litReg = new LiteratureRegister();
@@ -34,6 +54,10 @@ public class LibrarySystem {
         susReg = new SuspendedUserRegister();
         userReg = new UserRegister();
     }
+
+    // ————————————————————————— //
+    // --------- MENU ---------- //
+    // ————————————————————————— //
 
     public static void menu() {
 
@@ -300,7 +324,7 @@ public class LibrarySystem {
                             break;
                         case 5:
                             IO.println("WRITE USER");
-                            
+
                             userReg.writeAll();
                             break;
                     }
@@ -309,7 +333,7 @@ public class LibrarySystem {
                 case 7:
                     IO.println("LOAN CAPABILITES");
                     Boolean canBorrow = canBorrow();
-                    IO.println("Can borrow? "  +canBorrow);
+                    IO.println("Can borrow? " + canBorrow);
                     break;
 
                 case 8:
@@ -320,25 +344,38 @@ public class LibrarySystem {
         }
     }
 
+    // ————————————————————————— //
+    // ------ CLIENT TALK ------ //
+    // ————————————————————————— //
+
     private static <T> HashSet<T> getAllDataType(Class<T> clazz, String URL) {
+
+        // create a TYPE, its a HashSet<> of clazz
         Type type = TypeToken.getParameterized(HashSet.class, clazz).getType();
         String body = Client.getAll(URL);
+
+        // if soemthing went wrong Throw exception
         if (body.equals("ERROR: server") || body.equals("ERROR: status"))
             throw new IllegalAccessError("Something went wrong with get");
+
+        // return the objects
         HashSet<T> list = gson.fromJson(body, type);
         return list;
     }
 
     private static <T> T getOneID(Class<T> clazz, String URL) {
-        int id = userInputInt("state id: ", 0);
 
-        String body = Client.getOne(URL, String.valueOf(id));
+        // ask for id
+        String id = userInputString("state id: ", "id");
+        String body = Client.getOne(URL, id);
 
+        // if Errror code is sent Throw new Exception
         if (body.equals("ERROR: status") || body.equals("ERROR: ID")
                 || body.equals("ERROR: server")) {
             IO.println("Something went wrong, couldn't find the requested book");
             throw new IllegalAccessError("Something went wrong, could'nt fins the requested item");
         } else {
+            // create the object
             T retrived = gson.fromJson(body, clazz);
             IO.println("Retrieved item:\n" + (T) retrived.toString());
             return retrived;
@@ -346,64 +383,27 @@ public class LibrarySystem {
     }
 
     private static <T> void createNewItem(Object obj, String URL, Register reg) {
+
+        // present the object
         IO.println("New " + obj.getClass().getSimpleName() + " :\n" + obj.toString());
         String ans = IO.readln("Correct (y/n): ");
+        // check that it looks good
         if (!ans.equalsIgnoreCase("y"))
             return;
         else {
+            // convert to json
             String jsonBody = gson.toJson(obj);
+
+            // post it on server, add the returnd object to list
             String response = Client.post(URL, jsonBody);
             obj = gson.fromJson(response, obj.getClass());
             reg.add(obj);
         }
     }
 
-    //Capable in borrowing 
-
-    // ask for email 
-    // search with email
-    // getID on first one
-    // getAll supended
-    // if contains that userID return 
-
-    private static Boolean canBorrow(){
-        ArrayList<User> all = searchEmail();
-        User searchedUser;
-        if(all.isEmpty()){
-            IO.println("no user with that Email");
-            return false;
-        }
-        else if (all.size() > 1) {
-            IO.println("More than one user with that email: ");
-            //TODO fix
-            return false; 
-        }
-        else{
-            searchedUser = all.getFirst();
-            String userID = searchedUser.getId();
-            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
-            
-            return susReg.getRegister().stream().filter(u -> u.getUserId().equals(userID)).toList().isEmpty();
-        }
-    }
-
-
-    private static ArrayList<Literature> searchTitle() {
-        String title = userInputString("State the title: ", "title");
-        ArrayList<Literature> allMatching = litReg.search(title);
-        return allMatching;
-    }
-
-    private static ArrayList<User> searchEmail(){
-        String email = userInputString("State the Email: ", "email");
-        ArrayList<User> allMatching = userReg.search(email);
-        return allMatching;
-    }
-
-
-
     // TODO give better feedback
     private static <T> void removeTitle(Class<T> clazz, String URL) {
+
         Literature removedObj;
         String ans = "";
         ArrayList<Literature> allMatching = searchTitle();
@@ -415,17 +415,22 @@ public class LibrarySystem {
             ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
             if (ans.equalsIgnoreCase("y"))
                 removedObj = allMatching.getFirst();
-            else
+            else {
+                IO.println("returning to menu");
                 return;
-        } else if (allMatching.isEmpty())
+            }
+        } else if (allMatching.isEmpty()) {
+            IO.println("no " + clazz.getSimpleName() + " matched search, returning to menu");
             return;
-        else {
+        } else {
             ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
             removedObj = allMatching.get(Integer.parseInt(ans) + 1);
+            IO.println("atempting to remove, " + removedObj);
         }
 
         String id = removedObj.getId();
 
+        // Delete from server and list if not error.
         String response = Client.delete(URL, id);
         if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
             litReg.remove(removedObj);
@@ -433,6 +438,7 @@ public class LibrarySystem {
     }
 
     private static <T> void removeEmail(String URL) {
+
         User removedUser;
         String ans = "";
         ArrayList<User> allMatching = searchEmail();
@@ -444,17 +450,22 @@ public class LibrarySystem {
             ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
             if (ans.equalsIgnoreCase("y"))
                 removedUser = allMatching.getFirst();
-            else
+            else {
+                IO.println("returning to menu");
                 return;
-        } else if (allMatching.isEmpty())
+            }
+        } else if (allMatching.isEmpty()) {
+            IO.println("no User matches that email");
             return;
-        else {
+        } else {
             ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
             removedUser = allMatching.get(Integer.parseInt(ans) + 1);
+            IO.println("Attemting to remove, " + removedUser);
         }
 
         String id = removedUser.getId();
 
+        // delete from server and list if nothing went wrong
         String response = Client.delete(URL, id);
         if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
             userReg.remove(removedUser);
@@ -463,6 +474,7 @@ public class LibrarySystem {
     }
 
     private static <T> void removeUserId(String URL) {
+
         String userId = userInputString("State the userId: ", "userId");
         SuspendedUser removedSuspendedUser;
         String ans = "";
@@ -475,17 +487,22 @@ public class LibrarySystem {
             ans = userInputString("Correct ? (y/n): ", "y", "n", "answer");
             if (ans.equalsIgnoreCase("y"))
                 removedSuspendedUser = allMatching.getFirst();
-            else
+            else {
+                IO.println("returning to menu");
                 return;
-        } else if (allMatching.isEmpty())
+            }
+        } else if (allMatching.isEmpty()) {
+            IO.println("no suspension on user " + userId);
             return;
-        else {
+        } else {
             ans = String.valueOf(userInputInt("Which one? (row): ", 1, allMatching.size()));
             removedSuspendedUser = allMatching.get(Integer.parseInt(ans) + 1);
+            IO.println("Attempting to remove, " + removedSuspendedUser);
         }
 
         String id = removedSuspendedUser.getId();
 
+        // deleting Suspendded from server and from list of succesfull
         String response = Client.delete(URL, id);
         if (!response.equals("ERROR: server") && !response.equals("ERROR: status")) {
             susReg.remove(removedSuspendedUser);
@@ -493,11 +510,57 @@ public class LibrarySystem {
 
     }
 
+    private static ArrayList<Literature> searchTitle() {
+        // ask for Title
+        String title = userInputString("State the title: ", "title");
+
+        // search in the litreg and return the matching
+        ArrayList<Literature> allMatching = litReg.search(title);
+        return allMatching;
+    }
+
+    private static ArrayList<User> searchEmail() {
+        // ask for email
+        String email = userInputString("State the Email: ", "email");
+
+        // search in userReg and retun matching
+        ArrayList<User> allMatching = userReg.search(email);
+        return allMatching;
+    }
+
+    private static Boolean canBorrow() {
+
+        ArrayList<User> all = searchEmail();
+        User searchedUser;
+
+        if (all.isEmpty()) {
+            IO.println("no user with that Email");
+            return false;
+        } else if (all.size() > 1) {
+            IO.println("More than one user with that email, returns false");
+            // TODO fix
+            return false;
+        } else {
+            searchedUser = all.getFirst();
+            // get the userID
+            String userID = searchedUser.getId();
+            susReg.add(getAllDataType(SuspendedUser.class, "suspended"));
+
+            // if no matching between userId on suspended and id and the searcg for ID than
+            // returns true
+            return susReg.getRegister().stream().filter(u -> u.getUserId().equals(userID)).toList().isEmpty();
+        }
+    }
+
+    // method for userInputString with no criteria on content
     private static String userInputString(String message, String parameter) {
+
         String ans = "";
+        // Runns til valid ans
         while (true) {
             try {
                 ans = IO.readln(message).trim();
+
                 if (ans == null || ans.isBlank())
                     throw new IllegalArgumentException(parameter + " can't be empty");
                 else

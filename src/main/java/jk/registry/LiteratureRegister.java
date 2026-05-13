@@ -1,4 +1,11 @@
 package jk.registry;
+/* 
+author: Minna köekritz
+LiteratureRegister is the child to the abstract generic Register class.
+is Primarily used by LibrarySystem and uses Literature class
+it contains a hashset of all Literature objects, seperate for Books and Magazines
+public methods for, adding (both list and seperate obj),removing , searching, writeing sorted,  
+*/
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,7 +38,6 @@ public class LiteratureRegister extends Register<Literature> {
         for (Literature literature : list) {
             this.add(literature);
         }
-
     }
 
     @Override
@@ -52,12 +58,10 @@ public class LiteratureRegister extends Register<Literature> {
         for (Magazine magazine : sortMags) {
             IO.println("> " + magazine.getTitle() + " (" + magazine.getPublishedYear() + ":"
                     + magazine.getIssueNumber() + ") ID: " + magazine.getId());
-
         }
     }
 
     public void writeAll(Class<? extends Literature> clazz) {
-
         switch (clazz.getSimpleName()) {
             case "Book":
                 List<Book> sortBook = registerBook.stream().sorted().toList();
@@ -81,7 +85,6 @@ public class LiteratureRegister extends Register<Literature> {
         ArrayList<Literature> searchList = new ArrayList<>();
         registerBook.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b -> searchList.add(b));
         registerMagazine.stream().filter(b -> b.getTitle().equals(criteria)).forEach(b -> searchList.add(b));
-
         return searchList;
     }
 

@@ -1,4 +1,11 @@
 package jk.registry;
+/* 
+author: Minna köekritz
+UserRegister is the child to the abstract generic Register class.
+is Primarily used by LibrarySystem and uses User class
+it contains a hashset of all User objects
+public methods for, adding (both list and seperate obj),removing , searching, writeing sorted,  
+*/
 
 import java.util.ArrayList;
 import java.util.HashSet;

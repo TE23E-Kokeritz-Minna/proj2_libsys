@@ -17,8 +17,7 @@ public class Loan {
         this.user = user;
         this.literature = literature;
     }
-
-
+    
     public Loan() {
     }
 

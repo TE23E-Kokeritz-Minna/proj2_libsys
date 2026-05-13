@@ -1,16 +1,30 @@
 package jk.models;
 
+/* 
+author: Minna Kökeritz 
+SuspendedUser class and implements Comparable (to be able to sort in a list)
+    a SuspendedUser includes id, userId and reason 
+    the class is used by LibrarySystem and SuspendedRegister
+*/
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class SuspendedUser implements Comparable{
+public class SuspendedUser implements Comparable {
+
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
 
     private String id;
     private String userId;
     private String reason;
+
+    // ————————————————————————— //
+    // ------ CONSTRUCTOR ------ //
+    // ————————————————————————— //
 
     public SuspendedUser(String userId, String reason) {
         this.id = "";
@@ -21,7 +35,10 @@ public class SuspendedUser implements Comparable{
     public SuspendedUser() {
     }
 
-    
+    // ————————————————————————— //
+    // -------- METHOD --------- //
+    // ————————————————————————— //
+
     private static String validID() {
         HashSet<SuspendedUser> susList = LibrarySystem.getSusReg().getRegister();
         Set<String> hashId = susList.stream().map(o -> o.getId()).collect(Collectors.toSet());
@@ -33,7 +50,33 @@ public class SuspendedUser implements Comparable{
         throw new IllegalStateException("No more valid ID available");
     }
 
+    // ————————————————————————— //
+    // --- GETTERS & SETTERS --- //
+    // ————————————————————————— //
 
+    public String getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    // ————————————————————————— //
+    // -------- OVERRIDE ------- //
+    // ————————————————————————— //
     @Override
     public String toString() {
         return "SuspendedUser [id=" + id + ", userId=" + userId + ", reason=" + reason + "]";
@@ -59,27 +102,6 @@ public class SuspendedUser implements Comparable{
         } else if (!id.equals(other.id))
             return false;
         return true;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     @Override

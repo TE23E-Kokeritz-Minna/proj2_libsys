@@ -1,9 +1,9 @@
 package jk.models;
 /* 
 author: Minna Kökeritz 
-Book class child to Literature and implements Comparable 
+Book class child to Literature and implements Comparable (to be able to sort in a list)
     a Book includes author, genre and pages and inherits title, id and isAvailable from it's parent 
-     
+    the class is used by LibrarySystem and LiteratureRegister
 */
 
 import jk.system.LibrarySystem;
@@ -20,7 +20,9 @@ public class Book extends Literature implements Comparable {
     private String genre;
     private int pages;
 
-    // constructor
+    // ————————————————————————— //
+    // ------ CONSTRUCTOR ------ //
+    // ————————————————————————— //
     public Book(String title, String author, String genre, int pages) {
 
         // TODO CAPITALIZE GENRE
@@ -36,6 +38,11 @@ public class Book extends Literature implements Comparable {
     public Book() {
     }
 
+
+    // ————————————————————————— //
+    // -------- METHOD --------- //
+    // ————————————————————————— //
+
     protected static String validID() {
         HashSet<Book> bookList = LibrarySystem.getLitReg().getRegisterBook();
         Set<String> hashId = bookList.stream().map(o -> o.getId()).collect(Collectors.toSet());
@@ -47,7 +54,9 @@ public class Book extends Literature implements Comparable {
         throw new IllegalStateException("No more valid ID available");
     }
 
-    // GEETTERS and SETTERS
+    // ————————————————————————— //
+    // --- GETTERS & SETTERS --- //
+    // ————————————————————————— //
     public String getAuthor() {
         return author;
     }
@@ -72,7 +81,9 @@ public class Book extends Literature implements Comparable {
         this.pages = pages;
     }
 
-    // TO STRING
+    // ————————————————————————— //
+    // -------- OVERRIDE ------- //
+    // ————————————————————————— //
     @Override
     public String toString() {
         return super.toString() + " author: " + author + " genre: " + genre + " pages: " + pages;

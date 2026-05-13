@@ -1,8 +1,9 @@
 package jk.models;
-/*
-author: Minna Kökeritz
-Magazine class child to Literature
-    Contians constructur and getter and setters for issueNumber, category and publishedYear 
+/* 
+author: Minna Kökeritz 
+Book class child to Literature and implements Comparable (to be able to sort in a list)
+    a Book includes issueNumber, category and publishedYear and inherits title, id and isAvailable from it's parent 
+    the class is used by LibrarySystem and LiteratureRegister
 */
 
 import java.util.HashSet;
@@ -13,36 +14,48 @@ import jk.system.LibrarySystem;
 
 public class Magazine extends Literature implements Comparable {
 
-    // Variables
+    // ————————————————————————— //
+    // ------- VARIABLES ------- //
+    // ————————————————————————— //
+    
     private int issueNumber;
     private String category;
     private int publishedYear;
 
-    // Contrsuctors
+    // ————————————————————————— //
+    // ------ CONSTRUCTOR ------ //
+    // ————————————————————————— //
+    
     public Magazine(String title, int issueNumber, String category, int publishedYear) {
         this.issueNumber = issueNumber;
         this.category = category;
         this.publishedYear = publishedYear;
         String id = "";
-        super(id, title, true );
+        super(id, title, true);
     }
-
 
     public Magazine() {
     }
 
+    // ————————————————————————— //
+    // -------- METHOD --------- //
+    // ————————————————————————— //
+
     protected static String validID() {
         HashSet<Magazine> magsList = LibrarySystem.getLitReg().getRegisterMagazine();
         Set<String> hashId = magsList.stream().map(o -> o.getId()).collect(Collectors.toSet());
-        
+
         for (int i = 1; i < hashId.size() + 2; i++) {
             if (!hashId.contains((String.valueOf(i))))
                 return String.valueOf(i);
-        } 
+        }
         throw new IllegalStateException("No more valid ID available");
     }
 
-    // GETTERS and SETTERS
+    // ————————————————————————— //
+    // --- GETTERS & SETTERS --- //
+    // ————————————————————————— //
+
     public int getIssueNumber() {
         return issueNumber;
     }
@@ -67,7 +80,9 @@ public class Magazine extends Literature implements Comparable {
         this.publishedYear = publishedYear;
     }
 
-    // TO STRING
+    // ————————————————————————— //
+    // -------- OVERRIDE ------- //
+    // ————————————————————————— //
     @Override
     public String toString() {
         return super.toString() + " IssueNr: " + issueNumber + " Category: " + category + " Year: " + publishedYear;
@@ -75,7 +90,7 @@ public class Magazine extends Literature implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        Magazine other = (Magazine) o;    
+        Magazine other = (Magazine) o;
         return this.getTitle().compareTo(other.getTitle());
     }
 }
