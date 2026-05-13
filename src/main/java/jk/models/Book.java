@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Book extends Literature implements Comparable {
+public class Book extends Literature implements Comparable<Book>{
 
     // ————————————————————————— //
     // ------- VARIABLES ------- //
@@ -90,8 +90,8 @@ public class Book extends Literature implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Book other = (Book) o;
+    public int compareTo(Book o) {
+        Book other = o;
         return this.getTitle().compareTo(other.getTitle());
     }
 

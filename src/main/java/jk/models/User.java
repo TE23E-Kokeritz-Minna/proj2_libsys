@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class User implements Comparable {
+public class User implements Comparable<User> {
 
     // ————————————————————————— //
     // ------- VARIABLES ------- //
@@ -103,8 +103,8 @@ public class User implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        User other = (User) o;
+    public int compareTo(User o) {
+        User other = o;
         return this.getName().compareTo(other.getName());
     }
 

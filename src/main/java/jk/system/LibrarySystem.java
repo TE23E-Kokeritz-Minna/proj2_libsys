@@ -14,9 +14,7 @@ it is used by calling the Menu method, which contains all alternative that can b
 import java.lang.reflect.Type;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

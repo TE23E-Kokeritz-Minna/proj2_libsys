@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class Magazine extends Literature implements Comparable {
+public class Magazine extends Literature implements Comparable<Magazine> {
 
     // ————————————————————————— //
     // ------- VARIABLES ------- //
@@ -89,8 +89,8 @@ public class Magazine extends Literature implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Magazine other = (Magazine) o;
+    public int compareTo(Magazine o) {
+        Magazine other = o;
         return this.getTitle().compareTo(other.getTitle());
     }
 }

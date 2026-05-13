@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import jk.system.LibrarySystem;
 
-public class SuspendedUser implements Comparable {
+public class SuspendedUser implements Comparable<SuspendedUser> {
 
     // ————————————————————————— //
     // ------- VARIABLES ------- //
@@ -105,7 +105,7 @@ public class SuspendedUser implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(SuspendedUser o) {
         SuspendedUser other = (SuspendedUser) o;
         return this.getUserId().compareTo(other.getUserId());
     }
