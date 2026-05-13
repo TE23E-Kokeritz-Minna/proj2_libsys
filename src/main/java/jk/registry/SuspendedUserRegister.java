@@ -7,8 +7,8 @@ it contains hashset  to contain of all Susupended objects
 public methods for, adding (both list and seperate obj),removing, searching, writeing sorted,  
 */
 
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +17,10 @@ import jk.models.SuspendedUser;
 
 public class SuspendedUserRegister extends Register<SuspendedUser> {
     private HashSet<SuspendedUser> register;
+    private static HashMap<String, SuspendedUser> map;
+    static{
+        map = new HashMap<>();
+    }
 
     public SuspendedUserRegister() {
         register = new HashSet<>();
@@ -25,12 +29,14 @@ public class SuspendedUserRegister extends Register<SuspendedUser> {
     @Override
     public void add(SuspendedUser item) {
         register.add(item);
+        map.put(item.getUserId(), item);
     }
 
     @Override
     public void add(HashSet<? extends SuspendedUser> list) {
         for (SuspendedUser suspendedUser : list) {
-            this.add(suspendedUser);
+            add(suspendedUser);
+            map.put(suspendedUser.getUserId(), suspendedUser);
         }
     }
 
@@ -57,5 +63,9 @@ public class SuspendedUserRegister extends Register<SuspendedUser> {
 
     public HashSet<SuspendedUser> getRegister() {
         return register;
+    }
+
+    public static HashMap<String, SuspendedUser> getMap() {
+        return map;
     }
 }
